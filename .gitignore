@@ -1,0 +1,15 @@
+# dependencies and builds
+node_modules/
+dist/
+.vite/
+
+# local tooling (kept out of the repo)
+.claude/
+.impeccable/
+CLAUDE.md
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
