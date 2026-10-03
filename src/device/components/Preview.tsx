@@ -35,7 +35,7 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
       );
     case 'job':
       return (
-        <div className="pv">
+        <div className="pv pv-job">
           <PreviewText kicker={spec.job.years} title={spec.job.role} sub={spec.job.summary} />
         </div>
       );

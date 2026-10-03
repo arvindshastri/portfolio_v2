@@ -41,12 +41,30 @@ const { Content: AboutContent } = await render(about);
 ))}
 {jobs.map(({ entry, Content }) => (
   <template data-article={`job:${entry.id}`}>
-    <ArticleHero
-      kicker={entry.data.period}
-      title={entry.data.company}
-      lead={`${entry.data.role}.`}
-    />
-    <Content />
+    <ArticleHero kicker={entry.data.period} title={entry.data.company} lead={entry.data.role} />
+    <section class="duties">
+      <Content />
+    </section>
+    {(entry.data.tools.length > 0 || entry.data.skills.length > 0) && (
+      <dl class="tags">
+        {[
+          ['Tools and technologies', entry.data.tools],
+          ['Skills', entry.data.skills],
+        ].map(
+          ([label, items]) =>
+            items.length > 0 && (
+              <div>
+                <dt>{label}</dt>
+                <dd>
+                  {(items as string[]).map((t) => (
+                    <span>{t}</span>
+                  ))}
+                </dd>
+              </div>
+            ),
+        )}
+      </dl>
+    )}
   </template>
 ))}
 <template data-article="page:about">

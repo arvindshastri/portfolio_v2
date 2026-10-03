@@ -30,10 +30,12 @@ const experience = defineCollection({
     company: z.string(),
     role: z.string(),
     period: z.string(),
-    /** Short years for the menu, e.g. "2025 - now". */
+    /** Short dates for the preview, e.g. "Jun 2025 - now". */
     years: z.string(),
     order: z.number(),
     summary: z.string(),
+    tools: z.array(z.string()).default([]),
+    skills: z.array(z.string()).default([]),
   }),
 });
 

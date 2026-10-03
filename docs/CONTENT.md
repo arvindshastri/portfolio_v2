@@ -6,10 +6,10 @@ What lives on the device, how to write it, and how to add more. Strategy is in [
 
 - **Name:** Arvind Shastri. Product designer and software engineer.
 - **Education:** B.Eng. Software Engineering (Co-op), McMaster University, Hamilton, Ontario (graduated 2025).
-- **Trac** (2025 to now): Co-founder, Software Engineer. Real-time shuttle tracking for McMaster; 4,000+ users reached, 2,500+ weekly active users, 6 buses, B2B partnership with Attridge Transportation on 5 routes, built in Flutter and Firebase. Featured as a McMaster Engineering success story.
-- **Ericsson** (2023 to 2024): Software Developer Co-op. React, Redux and TypeScript features for a hardware network design tool; led a MATLAB-to-React migration study with high-fidelity Figma prototypes.
-- **CGI** (2022): Software Developer Co-op. Refactored a Java scheduling backend and cut redundant API calls; 40% faster scheduling.
-- **Arbol** (2021): Front-End Developer Intern. 10+ reusable React and Bootstrap components for a funding platform MVP, with Figma prototyping.
+- **Trac** (June 2025 to now): Co-founder, Software Engineer. Real-time shuttle tracking for McMaster; 4,000+ users reached, 2,500+ weekly active users, 6 buses, B2B partnership with Attridge Transportation on 5 routes, built in Flutter and Firebase. Featured as a McMaster Engineering success story.
+- **Ericsson** (May 2023 to August 2024, Ottawa): Software Developer Co-op. React, Redux and TypeScript features for EIP, an enterprise network design platform (50+ issues across 4 releases); Python/OpenCV CAD processing 10% faster; Nightwatch.js E2E suite 15% faster; led a team of 3 scoping a MATLAB-to-React migration with 6 Figma prototypes, PoC 2 weeks early.
+- **CGI** (May to August 2022, remote): Software Developer Co-op. Java/JSP scheduling app: automated event workflows (40% faster turnaround), multi-attribute filtering (60% faster search), HTML/CSS feedback components, parallelized REST calls (50% faster loads).
+- **Arbol** (May to August 2021, remote): Front-End Developer Intern. 10+ reusable React and Bootstrap card components for a funding platform MVP, 2 Figma mockups from QA feedback, 3 WordPress templates.
 - **Skills:** Dart, TypeScript, Python, JavaScript, Java, MATLAB, SQL; Flutter, Firebase, React, Redux; Figma, Android Studio, Git, Jira, CI/CD; user research, wireframing, prototyping, usability testing.
 
 The previous portfolio (`../Portfolio/portfolio`) has the original case study copy and images for Trac Commuter, Trac Driver, Orderly and StudyFinder.
@@ -80,7 +80,7 @@ The body is Markdown. Headings (`##`) become sections that ◀◀ / ▶▶ jump 
 
 ### A role
 
-Add `src/content/experience/<company>.md` with `company`, `role`, `period`, `years` (short, for the preview), `order` and `summary`. The body is the article.
+Add `src/content/experience/<company>.md` with `company`, `role`, `period`, `years` (short, for the preview), `order`, `summary` (the preview text, up to about 12 lines), and optional `tools` and `skills` lists (shown as tags at the bottom). The body is a Markdown bullet list: the résumé bullets, in order.
 
 ### A photo
 

@@ -224,6 +224,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+/* roles have no image, so their summary can use the whole panel */
+.pv-job .pv-tx span {
+  -webkit-line-clamp: 12;
+}
 .pv-proj img {
   flex: 1;
   min-height: 0;

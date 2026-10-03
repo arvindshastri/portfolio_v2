@@ -233,6 +233,42 @@ body.dark .read .checks b {
   text-decoration: none;
   white-space: nowrap;
 }
+/* roles: résumé bullets (the arrow list above), then tools and skills */
+.read .duties ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 18px;
+}
+.read .duties a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--sel) 60%, transparent);
+  text-underline-offset: 3px;
+}
+.read .tags {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+.read .tags dt {
+  font: 500 10.5px var(--font-mono);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+.read .tags dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.read .tags span {
+  font: 500 12.5px var(--font-ui);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sel) 9%, transparent);
+}
 @container (min-width:560px) {
   .read {
     padding: 0 0 80px;
@@ -409,5 +445,29 @@ body.dark .read .checks b {
   }
   .read ul:not(.checks) li {
     margin-bottom: 10px;
+  }
+}
+
+@container (min-width:560px) {
+  .read .duties ul {
+    gap: 8px;
+    margin-top: 40px;
+  }
+  .read .tags {
+    flex-direction: row;
+    gap: 40px;
+    margin-top: 48px;
+    padding-top: 28px;
+  }
+  .read .tags > div {
+    flex: 1;
+  }
+  .read .tags dt {
+    font-size: 11.5px;
+    margin-bottom: 12px;
+  }
+  .read .tags span {
+    font-size: 14px;
+    padding: 6px 12px;
   }
 }

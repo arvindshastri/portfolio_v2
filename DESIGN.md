@@ -266,6 +266,7 @@ Editorial and calm; the content is the hero.
 - **Gallery:** stacked full-width images with mono captions, 10px radius and a 1px hairline ring.
 - **Cards:** two side by side, 14px radius, 26 by 28px padding; the positive card uses a 10% accent tint, the other a 5% ink tint.
 - **Panels:** final screens on a 8% accent tint, 16px radius.
+- **Role pages:** kicker (dates), company as the title, role as the lead, then the résumé bullets as an arrow list, then a hairline and two tag groups side by side ("Tools and technologies", "Skills"): mono labels over pills on a 9% accent tint. Role previews have no image, so the summary may run up to 12 lines.
 - **Prototypes:** live Figma embeds in a 16:10 frame (920px max, 14px radius, 7% accent tint with an 18% ring), mono caption with an "Open in Figma ↗" link. The iframe loads only when the frame scrolls within 400px of view; until then, in peeks and in the text version, it's a link out.
 
 ### Peek Panel

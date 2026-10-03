@@ -44,6 +44,7 @@ const Full = project ? (await render(project)).Content : null;
     {jobs.map((j) => (
       <li>
         {j.data.company}, {j.data.role} ({j.data.period}). {j.data.summary}
+        {j.data.tools.length > 0 && ` Tools: ${j.data.tools.join(', ')}.`}
       </li>
     ))}
   </ul>
