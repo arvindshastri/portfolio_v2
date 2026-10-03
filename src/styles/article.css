@@ -1,0 +1,404 @@
+/* Long-form reading. Narrow sizes for phones and peeks, the editorial layout once the screen is zoomed past 560px. */
+/* long-form reading: compact on a phone-sized screen, a real article once zoomed */
+/* articles only ever appear zoomed or in a peek, so the narrow (phone) sizes are still real reading sizes */
+.read {
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 14px 20px 96px;
+  scroll-behavior: smooth;
+  --g: 20px;
+}
+.read::-webkit-scrollbar {
+  display: none;
+}
+.read .kick {
+  font: 500 11px var(--font-mono);
+  color: var(--sel);
+}
+body {
+  --kick: var(--sel);
+}
+body.dark {
+  --kick: color-mix(in oklch, var(--sel), var(--scrInk) 45%);
+}
+body.dark .read .kick,
+body.dark .read .checks b {
+  color: var(--kick);
+}
+.read h1 {
+  font: 500 30px/1.06 var(--font-read);
+  letter-spacing: -0.02em;
+  margin: 6px 0 10px;
+  text-wrap: balance;
+}
+.read .lead {
+  font: 400 16.5px/1.5 var(--font-read);
+  opacity: 0.9;
+}
+.read img {
+  margin-block: 10px;
+  border-radius: 8px;
+  width: 100%;
+}
+.read h2 {
+  font: 500 21px/1.2 var(--font-read);
+  margin-block: 34px 8px;
+  text-wrap: balance;
+}
+.read p,
+.read li {
+  font: 400 15.5px/1.62 var(--font-read);
+  opacity: 0.92;
+}
+.read p {
+  margin-bottom: 10px;
+}
+.read ul {
+  list-style: none;
+}
+.read .meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 10px 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+.read .meta dt {
+  font: 500 10.5px var(--font-mono);
+  opacity: 0.6;
+}
+.read .meta dd {
+  font: 500 13.5px var(--font-ui);
+}
+.read .stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-block: 12px;
+}
+.read .stats b {
+  display: block;
+  font: 500 24px var(--font-read);
+}
+.read .stats span {
+  font: 500 10.5px var(--font-mono);
+  opacity: 0.65;
+}
+.read .pull {
+  font: italic 400 18px/1.4 var(--font-read);
+  margin-block: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--sel) 9%, transparent);
+}
+.read .pull cite {
+  display: block;
+  font: 500 10.5px var(--font-mono);
+  font-style: normal;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+.read .checks li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+}
+.read .checks b {
+  font: 500 16px var(--font-read);
+  color: var(--sel);
+  min-width: 44px;
+}
+.read .gallery {
+  display: grid;
+  gap: 8px;
+}
+.read figure {
+  margin-block: 10px;
+}
+.read figure img {
+  margin: 0;
+}
+.read figcaption {
+  font: 500 11px var(--font-mono);
+  opacity: 0.6;
+  margin-top: 4px;
+}
+.read .duo {
+  display: grid;
+  gap: 8px;
+  margin-block: 10px;
+}
+.read .card {
+  padding: 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+}
+.read .card.good {
+  background: color-mix(in srgb, var(--sel) 10%, transparent);
+}
+.read .card h3 {
+  font: 600 14px var(--font-ui);
+  margin-bottom: 6px;
+}
+.read .card p {
+  margin: 0;
+}
+.read .panel {
+  padding: 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--sel) 8%, transparent);
+}
+.read .end {
+  text-align: center;
+  font: 500 11px var(--font-mono);
+  opacity: 0.55;
+  margin-top: 40px;
+}
+.read img {
+  height: auto;
+}
+.read a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 3px;
+}
+.read strong {
+  font-weight: 600;
+}
+/* lists from the old case studies: an arrow in the theme color */
+.read ul:not(.checks) li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 6px;
+}
+.read ul:not(.checks) li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--kick);
+}
+.read ul:not(.checks) {
+  margin-block: 4px 14px;
+}
+/* a quiet aside, like the disclosure at the top of the Trac case studies */
+.read .note {
+  margin-block: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+}
+.read .note p {
+  font-size: 13.5px;
+  margin: 0;
+  opacity: 0.75;
+}
+/* a link out to an interactive Figma prototype */
+.read .proto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  background: color-mix(in srgb, var(--sel) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sel) 22%, transparent);
+}
+.read .proto span {
+  font: 600 14px var(--font-ui);
+}
+.read .proto b {
+  font: 500 11px var(--font-mono);
+  color: var(--kick);
+  white-space: nowrap;
+}
+@container (min-width:560px) {
+  .read {
+    padding: 0 0 140px;
+    --g: clamp(28px, 8cqi, 96px);
+  }
+  .read > * {
+    max-width: min(680px, calc(100% - var(--g) * 2));
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .read .hero {
+    padding-top: clamp(40px, 7cqi, 84px);
+  }
+  .read .kick {
+    font-size: 12.5px;
+  }
+  .read h1 {
+    font: 500 clamp(44px, 7.5cqi, 72px)/1.02 var(--font-read);
+    letter-spacing: -0.03em;
+    margin: 14px auto 18px;
+  }
+  .read .lead {
+    font: 400 clamp(19px, 2.4cqi, 23px)/1.5 var(--font-read);
+  }
+  .read .meta {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 36px;
+    padding: 18px 0;
+  }
+  .read .meta dt {
+    font-size: 11.5px;
+  }
+  .read .meta dd {
+    font-size: 15px;
+    margin-top: 4px;
+  }
+  .read .bleed {
+    max-width: none;
+    margin: 48px 0 0;
+  }
+  .read .bleed img {
+    border-radius: 0;
+    aspect-ratio: 16/8;
+    object-fit: cover;
+  }
+  .read .bleed.portrait img {
+    object-position: 50% 22%;
+  }
+  .read .stats {
+    padding: 30px 0 34px;
+    margin-top: 0;
+    margin-bottom: 0;
+    gap: 24px;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  }
+  .read .stats b {
+    font-size: clamp(36px, 6cqi, 54px);
+    line-height: 1;
+  }
+  .read .stats span {
+    font-size: 12px;
+    display: block;
+    margin-top: 8px;
+  }
+  .read h2 {
+    font: 500 clamp(26px, 3.6cqi, 34px)/1.15 var(--font-read);
+    letter-spacing: -0.02em;
+    margin-top: 64px;
+    margin-bottom: 14px;
+  }
+  .read p,
+  .read li {
+    font-size: 18.5px;
+    line-height: 1.72;
+    text-wrap: pretty;
+  }
+  .read p {
+    margin-bottom: 14px;
+  }
+  .read .pull {
+    max-width: min(820px, calc(100% - var(--g) * 2));
+    font-size: clamp(24px, 3.4cqi, 32px);
+    line-height: 1.38;
+    padding: 40px 48px;
+    border-radius: 16px;
+    margin-top: 56px;
+    margin-bottom: 56px;
+    text-align: center;
+  }
+  .read .pull cite {
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .read .split {
+    max-width: min(920px, calc(100% - var(--g) * 2));
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(28px, 5cqi, 64px);
+    align-items: start;
+    margin-top: 64px;
+  }
+  .read .split h2 {
+    margin-top: 0;
+  }
+  .read .checks li {
+    padding: 14px 0;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+  .read .checks b {
+    font-size: 30px;
+    min-width: 84px;
+  }
+  .read .gallery {
+    max-width: min(1000px, calc(100% - var(--g) * 2));
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 28px;
+  }
+  .read .gallery img {
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 10%, transparent);
+  }
+  .read figcaption {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .read .duo {
+    max-width: min(920px, calc(100% - var(--g) * 2));
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .read .card {
+    padding: 26px 28px;
+    border-radius: 14px;
+  }
+  .read .card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .read .card p {
+    font-size: 16.5px;
+  }
+  .read .panel {
+    max-width: min(1000px, calc(100% - var(--g) * 2));
+    padding: clamp(18px, 3cqi, 36px);
+    border-radius: 16px;
+    margin-top: 40px;
+  }
+  .read .panel img {
+    border-radius: 8px;
+  }
+  .read .end {
+    margin-top: 96px;
+    font-size: 12px;
+  }
+  .read .note p {
+    font-size: 15px;
+  }
+  .read .note {
+    padding: 18px 22px;
+    border-radius: 14px;
+    margin-top: 40px;
+  }
+  .read .proto {
+    padding: 20px 24px;
+    border-radius: 14px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .read .proto span {
+    font-size: 16px;
+  }
+  .read .proto b {
+    font-size: 12px;
+  }
+  .read ul:not(.checks) li {
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,74 @@
+/* Theme tokens and base styles. The values here are the Silver theme; every device color overrides them at runtime (src/data/themes.ts). */
+:root {
+  --font-ui: 'Geist Variable', system-ui, sans-serif;
+  --font-read: 'Literata Variable', Georgia, serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  --page: oklch(0.955 0.004 250);
+  --ink: oklch(0.21 0.01 250);
+  --mute: oklch(0.47 0.012 250);
+  --accent: oklch(0.56 0.18 255);
+  --sel: oklch(0.56 0.18 255);
+  --shell: oklch(0.9 0.006 250);
+  --shell2: oklch(0.76 0.01 250);
+  --wheel: oklch(0.26 0.005 260);
+  --wheel2: oklch(0.19 0.005 260);
+  --wink: oklch(0.86 0.005 260);
+  --btn: oklch(0.88 0.005 250);
+  --btn2: oklch(0.74 0.008 250);
+  --edge: rgba(255, 255, 255, 0.85);
+  --floor: rgba(20, 24, 32, 0.28);
+  --wglow: rgba(255, 255, 255, 0.07);
+  --scrL: oklch(0.985 0.002 250);
+  --inkL: oklch(0.2 0.01 250);
+  --scrD: oklch(0.16 0.005 250);
+  --inkD: oklch(0.94 0.004 250);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --z-device: 10;
+  --z-veil: 20;
+  --z-dial: 30;
+  --z-peek: 40;
+  --z-chrome: 50;
+  --z-dialog: 60;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    background-color 0.9s var(--quart),
+    color 0.6s;
+  --scr: var(--scrL);
+  --scrInk: var(--inkL);
+}
+body.dark {
+  --scr: var(--scrD);
+  --scrInk: var(--inkD);
+}
+img {
+  display: block;
+  max-width: 100%;
+  -webkit-user-drag: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

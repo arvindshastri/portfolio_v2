@@ -1,0 +1,71 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource-variable/literata/opsz.css';
+import '@fontsource-variable/literata/opsz-italic.css';
+import '@/styles/tokens.css';
+import '@/styles/page.css';
+import '@/styles/device.css';
+import '@/styles/screens.css';
+import '@/styles/article.css';
+import { SITE } from '@/data/site';
+import { THEMES } from '@/data/themes';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Absolute URL of the link-preview image. */
+  image?: string;
+  /** Project pages open unlocked, straight into the case study. */
+  locked?: boolean;
+}
+const { title, description = SITE.description, image, locked = true } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const themes = THEMES.map(({ id, screen, secret, finish, tokens }) => ({
+  id,
+  screen,
+  secret,
+  finish,
+  tokens,
+}));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+  </head>
+  <body class={locked ? 'locked' : undefined}>
+    <!-- apply the saved device color before the first paint, so returning visitors don't see a flash of Silver -->
+    <script is:inline define:vars={{ themes }}>
+      try {
+        const read = (k, d) => {
+          const v = localStorage.getItem('pocket-' + k);
+          return v == null ? d : JSON.parse(v);
+        };
+        const unlocked = read('secret', read('clear', false));
+        const t =
+          themes.find((x) => x.id === read('color', 'silver') && (!x.secret || unlocked)) ||
+          themes[0];
+        const b = document.body;
+        b.dataset.finish = t.finish || 'modern';
+        if (t.screen === 'dark') b.classList.add('dark');
+        for (const k in t.tokens) b.style.setProperty('--' + k, t.tokens[k]);
+      } catch (e) {}
+    </script>
+    <div class="room" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

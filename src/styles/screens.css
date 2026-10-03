@@ -1,0 +1,479 @@
+/* What the screen shows: menu lists and previews, Now Playing, cover flow, Brick. */
+/* list screens */
+.list {
+  flex: 0 0 47%;
+  overflow: hidden;
+  padding: 4px 6px;
+  position: relative;
+  transform: translateZ(0);
+}
+.list.full {
+  flex-basis: 100%;
+}
+/* the highlight is one bar that slides between rows */
+.list .hl {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 4px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--sel);
+  transform: translateY(calc(var(--i, 0) * 32px));
+  transition: transform 0.15s var(--quart);
+  will-change: transform;
+}
+.list .it {
+  position: relative;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 7px 0 10px;
+  font-size: 14.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.1s;
+}
+.list .it > span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list .it.on {
+  color: #fff;
+}
+.list .it::after {
+  content: '›';
+  font-size: 16px;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition:
+    opacity 0.15s,
+    transform 0.25s var(--ease);
+}
+.list .it.on::after {
+  opacity: 0.9;
+  transform: none;
+}
+.list .it.leaf::after {
+  content: attr(data-v);
+  font-size: 12.5px;
+  opacity: 0.55;
+  transform: none;
+}
+.list .it.leaf.mark::after {
+  opacity: 0;
+  transform: translateX(-3px);
+}
+.list .it.leaf.mark.on::after {
+  opacity: 0.9;
+  transform: none;
+}
+.list .it.leaf[data-v='↗']::after {
+  font-size: 17px;
+  line-height: 1;
+}
+.list .it.leaf.on::after {
+  opacity: 0.9;
+}
+.list .it.now > span::after {
+  content: ' ♪';
+  font-size: 11px;
+  opacity: 0.7;
+}
+/* long names scroll on the highlighted row, like the real thing */
+.list .it.on.long > span {
+  text-overflow: clip;
+}
+.list .it.on.long em {
+  display: inline-block;
+  animation: mq var(--mqt, 3s) ease-in-out 1.4s 2 alternate;
+}
+.list em {
+  font-style: normal;
+}
+@keyframes mq {
+  0%,
+  10% {
+    transform: none;
+  }
+  75%,
+  100% {
+    transform: translateX(var(--mq, 0));
+  }
+}
+.prev {
+  flex: 1;
+  margin: 4px 6px 6px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: color-mix(in srgb, var(--scrInk) 8%, var(--scr));
+}
+/* designed previews: built from the content and the theme, not just a cropped photo */
+.pv {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px;
+  background: color-mix(in srgb, var(--scrInk) 5%, var(--scr));
+  color: var(--scrInk);
+  overflow: hidden;
+}
+.pv img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.pv-tx {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.pv-tx small {
+  font: 500 9.5px var(--font-mono);
+  color: var(--kick);
+}
+.pv-icon {
+  align-items: center;
+  text-align: center;
+}
+/* the icon sits dead center in the panel; its reflection hangs below it without pushing it up */
+.pv-icon .ic {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  position: relative;
+}
+.pv-icon .spot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 76%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--sel) 13%, transparent),
+    transparent 68%
+  );
+}
+.pv-icon .icw {
+  position: relative;
+  width: min(62%, 104px);
+}
+.pv-icon.solo .icw {
+  width: min(66%, 118px);
+}
+.pv-icon svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  fill: none;
+  stroke: var(--sel);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pv-icon .rf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  height: 30%;
+  overflow: hidden;
+  transform: scaleY(-1);
+  opacity: 0.16;
+  -webkit-mask-image: linear-gradient(transparent 20%, #000);
+  mask-image: linear-gradient(transparent 20%, #000);
+}
+.pv-icon .rf svg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.pv-icon .pv-tx {
+  margin-top: 0;
+  align-items: center;
+  width: 100%;
+}
+.pv-icon .pv-tx span {
+  overflow-wrap: anywhere;
+}
+.pv-tx b {
+  font: 600 15px/1.15 var(--font-ui);
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.pv-tx span {
+  font: 400 11px/1.38 var(--font-ui);
+  opacity: 0.68;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pv-proj img {
+  flex: 1;
+  min-height: 0;
+  object-position: 74% 50%;
+  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.45);
+}
+.pv-album .art {
+  width: 78%;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.6);
+  flex: none;
+}
+.pv-album .art img {
+  height: 100%;
+  border-radius: 0;
+}
+.pv-album {
+  justify-content: center;
+  gap: 12px;
+}
+.pv-album .pv-tx {
+  text-align: center;
+  align-items: center;
+  margin-top: 0;
+}
+.pv-brick .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 2px;
+  position: relative;
+}
+.pv-brick .row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+.pv-brick .row i {
+  height: 9px;
+  border-radius: 3px;
+  background: var(--sel);
+}
+.pv-brick .ball {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--sel);
+  left: 58%;
+  bottom: 26px;
+}
+.pv-brick .pad {
+  position: absolute;
+  left: 40%;
+  bottom: 12px;
+  width: 30%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--scrInk);
+}
+.blk {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.05;
+  color: #fff;
+}
+.blk small {
+  font: 500 11px var(--font-mono);
+  opacity: 0.85;
+  margin-top: 6px;
+}
+/* now playing */
+.np {
+  width: 100%;
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.np .row {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.np .art {
+  width: 118px;
+  height: 118px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+}
+.np .art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.np b {
+  display: block;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.np span {
+  font-size: 12px;
+  opacity: 0.7;
+  display: block;
+  margin-top: 2px;
+}
+.np canvas {
+  width: 100%;
+  height: 52px;
+  display: block;
+}
+.np .bar {
+  height: 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  overflow: hidden;
+}
+.np .bar i {
+  display: block;
+  height: 100%;
+  background: var(--sel);
+  width: 0;
+}
+.np .meta {
+  display: flex;
+  justify-content: space-between;
+  font: 500 10.5px var(--font-mono);
+  opacity: 0.65;
+}
+.vol {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 10px;
+  z-index: 8;
+  background: color-mix(in srgb, var(--scr, #fff) 88%, transparent);
+  border-radius: 10px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 11px var(--font-mono);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.vol.on {
+  opacity: 1;
+}
+.vol div {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+}
+.vol i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--sel);
+}
+/* cover flow */
+.cf {
+  width: 100%;
+  position: relative;
+  perspective: 520px;
+  background: linear-gradient(#202227, #0d0e10);
+  overflow: hidden;
+}
+.cf .it {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: 132px;
+  height: 132px;
+  margin-left: -66px;
+  transition:
+    transform 0.5s var(--ease),
+    opacity 0.4s,
+    filter 0.5s var(--ease);
+}
+.cf .it .rf {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 2px);
+  transform: scaleY(-1);
+  opacity: 0.28;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(transparent 58%, #000);
+  mask-image: linear-gradient(transparent 58%, #000);
+}
+.cf .it img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.cf .cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  text-align: center;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.cf .cap small {
+  display: block;
+  font: 500 9.5px var(--font-mono);
+  opacity: 0.6;
+  margin-top: 2px;
+}
+.brick {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.stoast {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 9;
+  transform: translate(-50%, 8px);
+  background: #0b0b0c;
+  color: #fff;
+  font: 500 12px var(--font-ui);
+  padding: 7px 12px;
+  border-radius: 999px;
+  opacity: 0;
+  transition:
+    opacity 0.25s,
+    transform 0.35s var(--ease);
+  white-space: nowrap;
+}
+.stoast.on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
