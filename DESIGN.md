@@ -46,26 +46,26 @@ typography:
     lineHeight: 1
     letterSpacing: '-0.04em'
   article-display:
-    fontFamily: 'Literata, Georgia, serif'
+    fontFamily: 'Geist, system-ui, sans-serif'
     fontSize: 'clamp(44px, 7.5cqi, 72px)'
     fontSizeNarrow: '30px'
-    fontWeight: 500
-    lineHeight: 1.02
-    letterSpacing: '-0.03em'
+    fontWeight: 600
+    lineHeight: 1.04
+    letterSpacing: '-0.035em'
   article-headline:
-    fontFamily: 'Literata, Georgia, serif'
+    fontFamily: 'Geist, system-ui, sans-serif'
     fontSize: 'clamp(26px, 3.6cqi, 34px)'
-    fontWeight: 500
+    fontWeight: 600
     lineHeight: 1.15
-    letterSpacing: '-0.02em'
+    letterSpacing: '-0.025em'
   article-lead:
-    fontFamily: 'Literata, Georgia, serif'
+    fontFamily: 'Geist, system-ui, sans-serif'
     fontSize: 'clamp(19px, 2.4cqi, 23px)'
     fontWeight: 400
     lineHeight: 1.5
   article-body:
-    fontFamily: 'Literata, Georgia, serif'
-    fontSize: '18.5px'
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: '18px'
     fontSizeNarrow: '15.5px'
     fontWeight: 400
     lineHeight: 1.72
@@ -124,7 +124,7 @@ components:
 
 The entire portfolio is one physical object: an original click-wheel music device, called the Pocket, sitting alone on a quiet colored surface. Visitors do not browse a website. They pick the device up, spin the wheel, press the center, and the device answers with clicks, slides and a screen that powers on. Everything that matters lives on the screen; everything around the device is the room it sits in (the page color). There is no instruction text by default: on the lock screen the center button presses itself every few seconds, and after unlocking a highlight runs around the ring until the wheel is spun. A text line appears only if the visitor still hasn't unlocked after 9 seconds. `?` labels everything.
 
-The system is restrained around the object and generous on it. The page has almost nothing on it: a name top-left, two links top-right, color swatches under the device, and a `?`. All personality goes into the device's materials, its sounds and the craft of its screens. When something needs real reading (a case study), the camera pushes into the screen and the content reflows into a full editorial article set in Literata, so reading is never a squint.
+The system is restrained around the object and generous on it. The page has almost nothing on it: a name top-left, two links top-right, color swatches under the device, and a `?`. All personality goes into the device's materials, its sounds and the craft of its screens. When something needs real reading (a case study), the camera pushes into the screen and the content reflows into a full editorial article, so reading is never a squint.
 
 This system explicitly rejects generic AI-generated portfolios (centered hero over a gradient, three equal cards, an eyebrow label above every section, cream backgrounds), the neo-brutalist card stack of Arvind's previous site, busy concept scenes where the gimmick hides the work, and a literal iPod clone. The device is inspired by click-wheel players, never a replica.
 
@@ -133,7 +133,7 @@ This system explicitly rejects generic AI-generated portfolios (centered hero ov
 - One hero object, centered, with the page acting as its room.
 - The device color re-themes the whole page: background, text, accent and on-screen selection.
 - Tactile feedback everywhere on the device (click sound, press scale, the wheel rocking under the finger, a faint sheen) and almost none off it.
-- Two type voices: Geist for the device and interface, Literata for long-form reading.
+- One type family: Geist for the device and the case studies alike, with Geist Mono for labels.
 - Motion is one choreographed entrance plus physical state changes. No scroll-triggered fade-ins.
 
 ## 2. Colors
@@ -177,18 +177,18 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 ## 3. Typography
 
 **Interface Font:** Geist (with system-ui, sans-serif)
-**Reading Font:** Literata (with Georgia, serif)
+**Reading Font:** Geist as well (the `--font-read` token), weighted for long reading
 **Label/Mono Font:** Geist Mono (with monospace)
 
-**Character:** Geist is the device's firmware: clean, compact, slightly technical, used for every menu, status bar and page label. Literata, a serif designed for long reading on screens, takes over the moment content is opened, so case studies feel like a well-set book rather than a web page.
+**Character:** Geist is the device's firmware: clean, compact, slightly technical, used for every menu, status bar and page label. Case studies are set in Geist too, so opening a project feels like the device's own software rather than a different site: heavier, tightly tracked headings (600) over relaxed body text. A serif (Literata) was used first and dropped because it fought the device's character.
 
 ### Hierarchy
 
-- **Article Display** (Literata 500, clamp(44px, 7.5cqi, 72px), 1.02, -0.03em): case study titles, only inside the zoomed screen.
-- **Article Headline** (Literata 500, clamp(26px, 3.6cqi, 34px), 1.15): section headings inside articles.
-- **Article Lead** (Literata 400, clamp(19px, 2.4cqi, 23px), 1.5): the one-paragraph intro under a title.
-- **Article Body** (Literata 400, 18.5px, 1.72): reading text. Column capped at 680px.
-- **Narrow article sizes** (screen under 560px wide, i.e. phones and small peeks): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62. Articles only ever appear zoomed or in a peek, so these are real reading sizes, never miniature ones.
+- **Article Display** (Geist 600, clamp(44px, 7.5cqi, 72px), 1.04, -0.035em): case study titles, only inside the zoomed screen.
+- **Article Headline** (Geist 600, clamp(26px, 3.6cqi, 34px), 1.15, -0.025em): section headings inside articles.
+- **Article Lead** (Geist 400, clamp(19px, 2.4cqi, 23px), 1.5): the one-paragraph intro under a title.
+- **Article Body** (Geist 400, 18px, 1.7): reading text. Column capped at 680px.
+- **Narrow article sizes** (screen under 560px wide, i.e. phones and small peeks): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62 (narrow headings 600). Articles only ever appear zoomed or in a peek, so these are real reading sizes, never miniature ones.
 - **Lock Clock** (Geist 300, 66px, 1, -0.04em, tabular numerals): the lock screen time.
 - **UI List** (Geist 500, 14.5px): menu rows on the device.
 - **UI Status** (Geist 600, 11.5px): the status bar; 14px once zoomed.
@@ -199,7 +199,7 @@ Sizes inside articles use container query units (`cqi`), because the article is 
 
 ### Named Rules
 
-**The Two Voices Rule.** Geist speaks for the device; Literata speaks for the content. Never set menu UI in Literata and never set long-form reading in Geist.
+**The One Voice Rule.** Geist sets both the device and the content; hierarchy comes from weight, size and tracking, not a second family. Reading text keeps its own token (`--font-read`) and sizes. Geist Mono is the only other voice.
 
 **The Mono Is for Instructions Rule.** Geist Mono is reserved for instructions, metadata and captions. It is never used for headings or body copy, and never as shorthand for "technical".
 
@@ -260,8 +260,8 @@ Editorial and calm; the content is the hero.
 
 - **Column:** 680px max, centered, with fluid gutters clamp(28px, 8cqi, 96px). Wider blocks: pull quote 820px, two-column split and cards 920px, galleries and image panels 1000px, cover image full bleed.
 - **Header:** accent-colored mono kicker, Article Display title, Article Lead, then a four-column meta row (Role, Platform, Tools, Partner) between hairlines.
-- **Stats:** three large Literata numbers with mono captions, closed by a hairline.
-- **Pull quote:** centered Literata italic on a 9% accent tint, 16px radius, with a mono citation.
+- **Stats:** three large Geist 600 numbers (tabular) with mono captions, closed by a hairline.
+- **Pull quote:** centered Geist 500 (upright) on a 9% accent tint, 16px radius, with a mono citation.
 - **Split:** heading and paragraph left, a checklist of large accent percentages right.
 - **Gallery:** stacked full-width images with mono captions, 10px radius and a 1px hairline ring.
 - **Cards:** two side by side, 14px radius, 26 by 28px padding; the positive card uses a 10% accent tint, the other a 5% ink tint.

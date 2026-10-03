@@ -11,7 +11,7 @@ Live at [arvindshastri.com](https://arvindshastri.com).
 - **[Zustand](https://github.com/pmndrs/zustand)** holds the device's state, shared by the React components and the plain TypeScript modules that drive input, motion and audio.
 - **MDX** for case studies, with a small set of article components (stats, pull quotes, galleries, cards).
 - **Plain CSS** with OKLCH theme tokens. No UI framework, no animation library: motion is CSS transitions and the Web Animations API, sound is the Web Audio API.
-- **[Lucide](https://lucide.dev)** icons, **Geist**, **Geist Mono** and **Literata** fonts (self-hosted via Fontsource).
+- **[Lucide](https://lucide.dev)** icons, **Geist** and **Geist Mono** fonts (self-hosted via Fontsource).
 
 ## Run it
 

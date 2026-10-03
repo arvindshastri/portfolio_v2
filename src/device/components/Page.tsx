@@ -132,19 +132,16 @@ export function Peek() {
         </div>
       )}
       {shown?.kind === 'doc' && (
-        <>
-          <span className="tag">peeking at {shown.doc.title} · let go to return</span>
-          <div className="lcdin">
-            <div className="screens" style={{ flex: 1 }}>
-              <div className="scr">
-                <div
-                  className="read"
-                  dangerouslySetInnerHTML={{ __html: articleHtml(shown.doc.key) }}
-                />
-              </div>
+        <div className="lcdin">
+          <div className="screens" style={{ flex: 1 }}>
+            <div className="scr">
+              <div
+                className="read"
+                dangerouslySetInnerHTML={{ __html: articleHtml(shown.doc.key) }}
+              />
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

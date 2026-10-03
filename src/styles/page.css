@@ -371,19 +371,6 @@ body.peeking .veil {
   font: 500 13px var(--font-ui);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
 }
-.peek .tag {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  font: 500 11px var(--font-mono);
-  background: #0b0b0c;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
 
 /* text version */
 dialog.plain {
@@ -402,8 +389,8 @@ dialog.plain::backdrop {
   background: rgba(0, 0, 0, 0.4);
 }
 dialog.plain h2 {
-  font: 500 34px/1.1 var(--font-read);
-  letter-spacing: -0.02em;
+  font: 600 34px/1.1 var(--font-read);
+  letter-spacing: -0.03em;
   margin-bottom: 6px;
 }
 dialog.plain h3 {

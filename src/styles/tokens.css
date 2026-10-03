@@ -1,7 +1,7 @@
 /* Theme tokens and base styles. The values here are the Silver theme; every device color overrides them at runtime (src/data/themes.ts). */
 :root {
   --font-ui: 'Geist Variable', system-ui, sans-serif;
-  --font-read: 'Literata Variable', Georgia, serif;
+  --font-read: 'Geist Variable', system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
   --page: oklch(0.955 0.004 250);
   --ink: oklch(0.21 0.01 250);

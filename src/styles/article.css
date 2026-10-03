@@ -28,8 +28,8 @@ body.dark .read .checks b {
   color: var(--kick);
 }
 .read h1 {
-  font: 500 30px/1.06 var(--font-read);
-  letter-spacing: -0.02em;
+  font: 600 30px/1.08 var(--font-read);
+  letter-spacing: -0.03em;
   margin: 6px 0 10px;
   text-wrap: balance;
 }
@@ -43,7 +43,8 @@ body.dark .read .checks b {
   width: 100%;
 }
 .read h2 {
-  font: 500 21px/1.2 var(--font-read);
+  font: 600 21px/1.2 var(--font-read);
+  letter-spacing: -0.02em;
   margin-block: 34px 8px;
   text-wrap: balance;
 }
@@ -82,14 +83,17 @@ body.dark .read .checks b {
 }
 .read .stats b {
   display: block;
-  font: 500 24px var(--font-read);
+  font: 600 24px var(--font-read);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 .read .stats span {
   font: 500 10.5px var(--font-mono);
   opacity: 0.65;
 }
 .read .pull {
-  font: italic 400 18px/1.4 var(--font-read);
+  font: 500 18px/1.4 var(--font-read);
+  letter-spacing: -0.015em;
   margin-block: 16px;
   padding: 12px;
   border-radius: 10px;
@@ -110,7 +114,7 @@ body.dark .read .checks b {
   border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
 }
 .read .checks b {
-  font: 500 16px var(--font-read);
+  font: 600 16px var(--font-read);
   color: var(--sel);
   min-width: 44px;
 }
@@ -237,8 +241,8 @@ body.dark .read .checks b {
     font-size: 12.5px;
   }
   .read h1 {
-    font: 500 clamp(44px, 7.5cqi, 72px)/1.02 var(--font-read);
-    letter-spacing: -0.03em;
+    font: 600 clamp(44px, 7.5cqi, 72px)/1.04 var(--font-read);
+    letter-spacing: -0.035em;
     margin: 14px auto 18px;
   }
   .read .lead {
@@ -286,15 +290,15 @@ body.dark .read .checks b {
     margin-top: 8px;
   }
   .read h2 {
-    font: 500 clamp(26px, 3.6cqi, 34px)/1.15 var(--font-read);
-    letter-spacing: -0.02em;
+    font: 600 clamp(26px, 3.6cqi, 34px)/1.15 var(--font-read);
+    letter-spacing: -0.025em;
     margin-top: 64px;
     margin-bottom: 14px;
   }
   .read p,
   .read li {
-    font-size: 18.5px;
-    line-height: 1.72;
+    font-size: 18px;
+    line-height: 1.7;
     text-wrap: pretty;
   }
   .read p {
