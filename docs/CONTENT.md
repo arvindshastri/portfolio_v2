@@ -90,7 +90,7 @@ Put the image in `src/assets/photos/`, import it in `src/data/photos.ts` and add
 
 1. Put the audio file in `public/music/`.
 2. Add to `TRACKS` in `src/data/tracks.ts`: `{ name: 'Title', artist: 'Artist', src: '/music/track.mp3', art: { photo: '<photo id>' }, ... }`.
-3. Use only music you have the right to publish (your own, royalty-free, or licensed). Entries without `src` are generated placeholders; remove them once real tracks exist.
+3. Use only music you have the right to publish (your own, royalty-free, or licensed). Entries with a `song` are lo-fi tracks generated in the browser; each is a recipe (tempo, swing, form, two chord progressions, keys, drums, texture, melody style, seed), so a new mood is a new entry.
 
 ### A device color
 
@@ -114,5 +114,5 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 - [ ] About and Experience: drafted from the old portfolio. Review.
 - [ ] A reflection section for Trac Commuter ("What I'd do next"), if wanted.
 - [ ] Photo captions (confirm "Logic", "McMaster", "Campus", "Doctor Strange").
-- [ ] Real music tracks to replace the generated placeholders.
+- [ ] Optional: real, rights-cleared tracks (the three generated lo-fi songs work as they are).
 - [ ] Résumé PDF: confirm it's current.

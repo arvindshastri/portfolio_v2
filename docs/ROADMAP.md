@@ -6,7 +6,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 
 - [ ] Give About and Experience the same editorial treatment as Trac Commuter.
 - [x] Case studies for all four projects drafted from the old portfolio. Arvind to review.
-- [ ] Replace generated music with real, rights-cleared tracks and cover art.
+- [ ] Optional: real, rights-cleared tracks alongside the generated lo-fi songs.
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
 - [ ] Tune the docked dial's scroll speed and momentum after hands-on testing (now 6px/degree, momentum x0.93/frame).

@@ -105,7 +105,7 @@ Goals that came out of that:
 - **Keep:** lock screen, Brick, the music player with a playlist, Photos (cover flow), Settings (Color, Screen, Clicker, Show controls), entrance animation.
 - **Brick** is styled from the theme: bricks in the selection color fading by row, ink paddle, three lives, a score out of 40.
 - **Cut:** Shuffle, the Messages inbox idea, Haptics setting (vibration stays on silently where supported), the wheel-as-instrument idea, "Arvind's Rotation" (can't play real songs), the back-of-device idea (parked: too much work for now), the visible "Text version" button (kept for screen readers only).
-- **Music:** Arvind wants to add his own tracks. The player supports audio files; the generated tracks are placeholders.
+- **Music:** three generated lo-fi songs, each a different mood (melancholic rain, warm jazzy coffee, dreamy night drive), with song forms rather than loops (2026-10-02). Color-block covers, no photos. Audio files are still supported if Arvind adds real tracks.
 - **Contact:** copy the email with visual confirmation; no `mailto:`. Résumé opens the PDF in a new tab.
 
 ### Production stack (2026-10-02)

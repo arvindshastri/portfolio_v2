@@ -129,7 +129,7 @@ Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-throu
 
 - Nothing plays and no audio context is created until the first touch of the device (browser autoplay rules).
 - **Clicker:** a 4ms white-noise burst through a 2.4kHz high-pass filter. Volume scales by action (1 for steps, 2 for selects, 0.5 for continuous dial scrolling). Toggle in Settings.
-- **Music:** tracks with a `src` play from audio files through the same output and visualizer. Tracks without `src` are generated in the browser (pads, bass, kick, hats, plucks) as placeholders. Music continues while browsing; the status bar shows ▶ or ❚❚. When a file track ends, the next track starts.
+- **Music:** tracks with a `src` play from audio files through the same output and visualizer. Tracks with a `song` are lo-fi generated in the browser: a 4-bar-section form (intro, verses, a B progression, a drumless breakdown, an outro, about 100 to 110 seconds), swing, melodies written per section from a seed (a motif, its variation, an answer, a resolution), drum fills into new sections, a mix lowpass that opens in the intro and closes for the breakdown and outro, and a texture bed (rain, vinyl crackle or tape hiss). When a song ends, the next one starts. Music continues while browsing; the status bar shows ▶ or ❚❚. When a file track ends, the next track starts.
 - **Volume:** spinning on Now Playing shows a volume bar for about 1.1 seconds.
 
 ## 6. Contact actions
