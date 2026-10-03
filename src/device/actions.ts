@@ -9,7 +9,7 @@ import { settle } from './engine/slide';
 import { applyZoom, resetZoom } from './engine/zoom';
 import { frameEls, reducedMotion, refs } from './refs';
 import { save } from './storage';
-import { getState, newFrame, patchFrame, setState, top } from './store';
+import { getState, newFrame, patchFrame, setState, top, type Toast } from './store';
 import type { DocRef, Frame, ScreenNode } from './types';
 
 /*
@@ -106,11 +106,9 @@ export function bump() {
 
 /* ===================== input ===================== */
 
-/** Any input dismisses the guide and the notification pill. */
+/** Any input dismisses the guide. */
 function anyInput() {
-  const s = getState();
-  if (s.pill) hidePill();
-  if (s.guide) showGuide(false);
+  if (getState().guide) showGuide(false);
 }
 
 /** One step of the wheel (or an arrow key, or a mouse-wheel notch). */
@@ -367,7 +365,7 @@ export function centerClick() {
   select();
 }
 
-/* ===================== lock screen, hints, notifications ===================== */
+/* ===================== lock screen, hints, toasts ===================== */
 
 export function unlock() {
   setState({ locked: false });
@@ -394,17 +392,17 @@ export function scheduleHint() {
   setTimeout(() => setState({ hintLate: true }), reducedMotion() ? 3000 : 12000);
 }
 
-export function showPill(app: string, msg: string) {
-  setState({ pill: { app, msg } });
-  bodyClass('notif', true);
-  click(1);
-  vibe(8);
-  later('pill', 5200, hidePill);
+/** A toast at the bottom of the device screen. */
+function deviceToast(toast: Toast, ms = 1800) {
+  setState({ deviceToast: toast });
+  later('deviceToast', ms, () => setState({ deviceToast: null }));
 }
 
-function hidePill() {
-  setState({ pill: null });
-  bodyClass('notif', false);
+/** The one-time reward for clearing Brick. */
+export function announceUnlock() {
+  deviceToast({ icon: 'unlocked', text: 'Clear finish unlocked' }, 3600);
+  click(1);
+  vibe(8);
 }
 
 function showVolume() {
@@ -420,12 +418,10 @@ export function showGuide(on: boolean) {
 export function copyEmail(onDevice: boolean) {
   const email = SITE.email;
   void navigator.clipboard?.writeText(email).catch(() => {});
-  const msg = `✓ Copied ${email}`;
-  if (onDevice) {
-    setState({ deviceToast: msg });
-    later('deviceToast', 1800, () => setState({ deviceToast: null }));
-  } else {
-    setState({ pageToast: msg });
+  const toast: Toast = { icon: 'copied', text: `Copied ${email}` };
+  if (onDevice) deviceToast(toast);
+  else {
+    setState({ pageToast: toast });
     later('pageToast', 1800, () => setState({ pageToast: null }));
   }
   vibe(10);
@@ -461,7 +457,7 @@ export function unlockSecret() {
   if (getState().secret) return false;
   setState({ secret: true });
   save('secret', true);
-  showPill('Unlocked', 'the Clear finish');
+  announceUnlock();
   return true;
 }
 

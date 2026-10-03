@@ -123,7 +123,7 @@ Spinning moves the paddle continuously (4.2 canvas px per degree, eased toward t
 
 ### Secret finish unlock
 
-Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-through shell with the dark screen), and shows the only notification in the product: a pill in the status bar reading "Unlocked · the Clear finish" for about 5 seconds.
+Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-through shell with the dark screen), and shows a toast at the bottom of the screen, "Clear finish unlocked" with an open-lock icon, for about 3.5 seconds. Clearing Brick again shows the end card ("All 40 bricks") with no new reward.
 
 ## 5. Audio
 
@@ -170,14 +170,14 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 
 URL parameters in the prototype, for screenshots and testing:
 
-| Param                        | Effect                                                                                    |
-| ---------------------------- | ----------------------------------------------------------------------------------------- |
-| `?color=graphite`            | Start with a device color                                                                 |
-| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` peek, `1`/`-1` step, `pill` show the unlock pill |
-| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                       |
-| `?guide=1`                   | Show the guide pinned                                                                     |
-| `?dark=1`                    | Dark screen                                                                               |
-| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                         |
-| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                    |
+| Param                        | Effect                                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `?color=graphite`            | Start with a device color                                                                   |
+| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` peek, `1`/`-1` step, `toast` show the unlock toast |
+| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                         |
+| `?guide=1`                   | Show the guide pinned                                                                       |
+| `?dark=1`                    | Dark screen                                                                                 |
+| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                           |
+| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                      |
 
 These only run in development (`npm run dev`); production builds don't include them. `?scroll=1200` also scrolls an open article.

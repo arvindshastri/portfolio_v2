@@ -12,7 +12,7 @@ import { setState } from './store';
  *   ?dark=1              dark screen
  *   ?notrans=1           no transitions or animations (headless screenshots)
  *   ?guide=1             show the controls guide
- *   ?go=s,1,1,p          unlock, then: s select, p peek, 1 / -1 step, pill notification
+ *   ?go=s,1,1,p          unlock, then: s select, p peek, 1 / -1 step, toast (the unlock toast)
  *   ?brick=over|won      show Brick's end card (with a go sequence that opens Brick)
  *   ?scroll=1200         scroll the open article (with a go sequence that opens one)
  */
@@ -33,7 +33,7 @@ export function runDevHooks(): boolean {
     for (const a of go.split(',')) {
       if (a === 's') actions.select();
       else if (a === 'p') actions.openPeek();
-      else if (a === 'pill') actions.showPill('Unlocked', 'the Clear finish');
+      else if (a === 'toast') actions.announceUnlock();
       else actions.step(Number(a) as 1 | -1);
     }
   }

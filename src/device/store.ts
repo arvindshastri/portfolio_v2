@@ -10,6 +10,12 @@ export interface MusicState {
   vol: number;
 }
 
+/** A short message: on the device screen, or by the page links. */
+export interface Toast {
+  icon: 'copied' | 'unlocked';
+  text: string;
+}
+
 export type Peek = null | { kind: 'doc'; doc: DocRef } | { kind: 'photo'; index: number };
 
 /** A screen transition in progress: the stack renders it, then reports back when it lands. */
@@ -44,9 +50,8 @@ export interface DeviceState {
   sticky: boolean;
   guide: boolean;
 
-  pill: { app: string; msg: string } | null;
-  deviceToast: string | null;
-  pageToast: string | null;
+  deviceToast: Toast | null;
+  pageToast: Toast | null;
 
   music: MusicState;
   volumeShown: boolean;
@@ -80,7 +85,6 @@ export const useDevice = create<DeviceState>()(() => ({
   peek: null,
   sticky: false,
   guide: false,
-  pill: null,
   deviceToast: null,
   pageToast: null,
   music: { on: false, started: false, track: 0, vol: 0.55 },

@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import { bind } from '../refs';
 import { useDevice } from '../store';
 import { articleHtml } from './Screens';
+import { Toast } from './Toast';
 
 /** The name (which also takes you home), top left. */
 export function Name() {
@@ -19,8 +20,6 @@ export function Name() {
 
 export function Links() {
   const toast = useDevice((s) => s.pageToast);
-  const last = useRef('');
-  if (toast) last.current = toast;
   return (
     <>
       <nav className="links" ref={bind('links')}>
@@ -37,9 +36,7 @@ export function Links() {
           Contact
         </a>
       </nav>
-      <div className={`copied${toast ? ' on' : ''}`} role="status">
-        {last.current}
-      </div>
+      <Toast toast={toast} className="copied" />
     </>
   );
 }

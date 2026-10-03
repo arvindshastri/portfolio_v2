@@ -231,7 +231,7 @@ The page is flat; only the device has depth, and it has it the way a real object
 
 Tactile, precise and quiet: an object first, a UI second.
 
-- **Body:** 360 by 604px, 46px corner radius. Anodized aluminum in every color: a gradient between the theme's two shell tones, faint grain, a 1px machined edge highlight. The secret **Clear** finish replaces the body with a smoked, see-through shell over a circuit board (chips, gold traces, screws, the wheel's sensor ring), a dark wheel and the dark screen. The grain is off for Clear.
+- **Body:** 360 by 604px, 46px corner radius. Anodized aluminum in every color: a gradient between the theme's two shell tones, faint grain, a 1px machined edge highlight. The secret **Clear** finish is a teal-tinted, see-through shell with a polished rim and sharper gloss. Through it you see the board: the amber flex cable from the screen, chips with pin-1 dots and tiny parts, gold traces, screws, the wheel's copper sensor rings, the battery behind a smoky see-through wheel, and a status LED breathing in the accent color. The board drifts a few pixels against the device's tilt, so it reads as sitting deeper than the shell. Dark screen; no grain.
 - **Screen:** inset 13px, 310px tall glass frame (32px radius, bezel black, 7px padding) holding the 25px-radius LCD. Content lays out in a container (`container-type: inline-size`) so it can reflow when zoomed.
 - **Wheel:** 222px diameter, centered 346px from the top. Labels MENU (top), ◀◀ (left), ▶▶ (right), ▶ ❚❚ (bottom) in Geist 650 10.5px, tracked 0.1em, in the theme's wheel ink. A faint sheen (`wglow`) follows the pointer. Pressing the ring rocks the wheel 3deg toward the finger (perspective 600px) until it's released or starts spinning. Spinning registers one step every 18 degrees.
 - **Center button:** 82px, the shell material. Scales to 0.96 and its shadow turns inward when pressed. Holding it draws a ring in the wheel ink over 320ms, then peeks.
@@ -242,7 +242,6 @@ Tactile, precise and quiet: an object first, a UI second.
 
 - Three columns: play state (▶ playing, ❚❚ paused, empty if never played) on the left, the current screen title centered, the time on the right with tabular numerals.
 - 28px tall on the device, 46px with a hairline divider once zoomed.
-- The one-off notification pill grows out of its center (dark #0b0b0c, 22px, Geist 500 12px) and replaces the title for about 5 seconds.
 
 ### List Rows and Preview Pane
 
@@ -281,7 +280,7 @@ Editorial and calm; the content is the hero.
 - **Hint:** "press the center to unlock", shown only if the visitor is still on the lock screen after 12 seconds (3 seconds under reduced motion, where the button animation is off). The page markup holds no hint text.
 - **Affordances:** locked, the center button presses itself (scale .955, inset shadow) every 3.4s and a wheel-ink ring pings out of it. Unlocked but never spun, a soft highlight travels once around the ring, twice, at 2.6s and again at 11s.
 - **Guide:** labeled callouts with hairline leaders and dot terminals pointing at each control. Positions are measured from the live device, so leaders always land on their control. Shown on first visit and via `?`; the leader lines draw in with a 70ms stagger and fade on the next interaction. On phones (under 820px) `?` shows the same labels as a sheet at the bottom instead.
-- **Toasts:** "✓ Copied" pills, dark on the screen, ink-colored on the page.
+- **Toasts:** small rounded messages led by a 14px Lucide icon: a check for "Copied …", an open lock for "Clear finish unlocked". Dark on the screen (bottom of the display), ink-colored by the page links. Copying from the device confirms on the device; from the page, on the page. These are the only notifications in the product.
 
 ## 6. Do's and Don'ts
 

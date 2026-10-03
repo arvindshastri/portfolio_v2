@@ -6,6 +6,7 @@ import { useDevice } from '../store';
 import { Callouts } from './Guide';
 import { Screens } from './Screens';
 import { Swatches } from './Swatches';
+import { Toast } from './Toast';
 
 const clock = (d: Date) => `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, '0')}`;
 
@@ -46,26 +47,11 @@ function StatusBar() {
   const title = useDevice((s) => s.stack[s.stack.length - 1]?.node.title ?? 'Menu');
   const now = useDevice((s) => s.now);
   const { on, started } = useDevice((s) => s.music);
-  const pill = useDevice((s) => s.pill);
-  // the pill grows to fit its message, up to most of the screen's width
-  const pillWidth = pill
-    ? Math.min(
-        (refs.lcd?.clientWidth ?? 320) * 0.78,
-        (pill.app.length + pill.msg.length) * 6.3 + 42,
-      )
-    : 60;
   return (
     <div className="status">
       <span className="play">{on ? '▶' : started ? '❚❚' : ''}</span>
       <span className="ttl">{title}</span>
       <span className="tm">{clock(now)}</span>
-      <div
-        className={`pill${pill ? ' on' : ''}`}
-        style={{ '--pw': `${pillWidth}px` } as React.CSSProperties}
-      >
-        <b>{pill?.app}</b>
-        <span>{pill?.msg}</span>
-      </div>
     </div>
   );
 }
@@ -86,9 +72,7 @@ function LockScreen() {
 
 function DeviceToast() {
   const toast = useDevice((s) => s.deviceToast);
-  const last = useRef('');
-  if (toast) last.current = toast;
-  return <div className={`stoast${toast ? ' on' : ''}`}>{last.current}</div>;
+  return <Toast toast={toast} className="stoast" />;
 }
 
 function Volume() {
@@ -172,31 +156,61 @@ export function Dial() {
   );
 }
 
-/** The circuit board under the secret Clear finish. */
+/**
+ * What you see through the secret Clear finish: the board under a tinted, see-through shell.
+ * It shifts a few pixels against the device's tilt, so it reads as sitting deeper inside.
+ * (Coordinates are inside the shell, which is 340 × 584.)
+ */
 function Guts() {
   return (
     <div className="guts" aria-hidden="true">
-      <div className="chip" style={{ left: 40, top: 340, width: 40, height: 40 }}>
+      {/* the flex cable from the screen and its connector */}
+      <div className="ribbon" style={{ left: 54, top: 296, width: 42, height: 52 }} />
+      <div className="conn" style={{ left: 48, top: 344, width: 54, height: 10 }} />
+      {/* the battery, behind the wheel */}
+      <div className="battery" style={{ left: 92, top: 356, width: 156, height: 172 }}>
+        Li-ion 3.8V
+      </div>
+      {/* the click wheel's sensor rings */}
+      <div className="sensor" style={{ width: 232, height: 232, top: 331 }} />
+      <div className="sensor solid" style={{ width: 196, height: 196, top: 349 }} />
+      <div className="sensor solid" style={{ width: 104, height: 104, top: 395 }} />
+      {/* chips, with a few tiny parts around them */}
+      <div className="chip" style={{ left: 22, top: 374, width: 42, height: 42 }}>
         A16
       </div>
-      <div className="chip" style={{ right: 36, top: 344, width: 34, height: 26 }}>
+      <div className="chip" style={{ right: 20, top: 362, width: 36, height: 28 }}>
         MEM
       </div>
-      <div className="chip" style={{ left: 44, bottom: 30, width: 30, height: 22 }}>
+      <div className="chip" style={{ left: 30, bottom: 28, width: 30, height: 22 }}>
         DAC
       </div>
-      <div className="chip" style={{ right: 44, bottom: 34, width: 26, height: 26 }}>
+      <div className="chip" style={{ right: 30, bottom: 32, width: 26, height: 26 }}>
         BT
       </div>
+      <div className="smd" style={{ right: 26, top: 398, width: 6, height: 3 }} />
+      <div className="smd" style={{ right: 36, top: 398, width: 6, height: 3 }} />
+      <div className="smd" style={{ right: 46, top: 398, width: 6, height: 3 }} />
+      <div className="smd" style={{ left: 26, top: 424, width: 3, height: 6 }} />
+      <div className="smd" style={{ left: 32, top: 424, width: 3, height: 6 }} />
+      <div className="smd" style={{ left: 64, bottom: 34, width: 6, height: 3 }} />
+      <div className="cap" style={{ right: 62, bottom: 30 }} />
+      <div className="cap" style={{ left: 24, top: 336 }} />
+      {/* gold traces */}
       <div
         className="tr"
-        style={{ left: 60, top: 380, width: 60, height: 110, borderRight: 0, borderBottom: 0 }}
+        style={{ left: 42, top: 352, width: 20, height: 22, borderRight: 0, borderBottom: 0 }}
       />
       <div
         className="tr"
-        style={{ right: 52, top: 370, width: 44, height: 150, borderLeft: 0, borderTop: 0 }}
+        style={{ left: 44, top: 416, width: 18, height: 128, borderRight: 0, borderTop: 0 }}
       />
-      <div className="ring" />
+      <div
+        className="tr"
+        style={{ right: 36, top: 390, width: 22, height: 160, borderLeft: 0, borderTop: 0 }}
+      />
+      {/* a status LED in the theme color */}
+      <div className="led" style={{ right: 66, bottom: 52 }} />
       <div className="screw" style={{ left: 14, top: 14 }} />
       <div className="screw" style={{ right: 14, top: 14 }} />
       <div className="screw" style={{ left: 14, bottom: 14 }} />

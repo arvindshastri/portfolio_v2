@@ -85,6 +85,9 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
     if ((e.target as Element).closest('.wheel')) return;
     dev.style.setProperty('--ty', `${(e.clientX / innerWidth - 0.5) * 12}deg`);
     dev.style.setProperty('--tx', `${-(e.clientY / innerHeight - 0.5) * 8}deg`);
+    // the board under the Clear finish shifts against the tilt, for depth
+    dev.style.setProperty('--dx', `${(e.clientX / innerWidth - 0.5) * -5}px`);
+    dev.style.setProperty('--dy', `${(e.clientY / innerHeight - 0.5) * -4}px`);
   };
 
   const onPointerDownCapture = (e: PointerEvent) => {

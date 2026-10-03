@@ -275,6 +275,17 @@ body.guide .callouts {
   opacity: 1;
   transform: none;
 }
+/* toasts (on the device and by the links) lead with a small icon */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.toast svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
 .sr {
   position: absolute;
   width: 1px;
