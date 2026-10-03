@@ -260,12 +260,13 @@ Editorial and calm; the content is the hero.
 
 - **Column:** 680px max, centered, with fluid gutters clamp(28px, 8cqi, 96px). Wider blocks: pull quote 820px, two-column split and cards 920px, galleries and image panels 1000px, cover image full bleed.
 - **Header:** accent-colored mono kicker, Article Display title, Article Lead, then a four-column meta row (Role, Platform, Tools, Partner) between hairlines.
-- **Stats:** three large Geist 600 numbers (tabular) with mono captions, closed by a hairline.
+- **Stats:** three or four large Geist 600 numbers (tabular) with mono captions, closed by a hairline (four shrink slightly; 2×2 on phones).
 - **Pull quote:** centered Geist 500 (upright) on a 9% accent tint, 16px radius, with a mono citation.
 - **Split:** heading and paragraph left, a checklist of large accent percentages right.
 - **Gallery:** stacked full-width images with mono captions, 10px radius and a 1px hairline ring.
 - **Cards:** two side by side, 14px radius, 26 by 28px padding; the positive card uses a 10% accent tint, the other a 5% ink tint.
 - **Panels:** final screens on a 8% accent tint, 16px radius.
+- **Prototypes:** live Figma embeds in a 16:10 frame (920px max, 14px radius, 7% accent tint with an 18% ring), mono caption with an "Open in Figma ↗" link. The iframe loads only when the frame scrolls within 400px of view; until then, in peeks and in the text version, it's a link out.
 
 ### Peek Panel
 

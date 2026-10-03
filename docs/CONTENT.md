@@ -76,7 +76,7 @@ Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects
 - `cover` (relative path to an image) and `coverAlt`
 - `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools...)
 
-The body is Markdown. Headings (`##`) become sections that ◀◀ / ▶▶ jump between. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<PrototypeLink>`. Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
+The body is Markdown. Headings (`##`) become sections that ◀◀ / ▶▶ jump between. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
 
 ### A role
 

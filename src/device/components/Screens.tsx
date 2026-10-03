@@ -71,7 +71,34 @@ export function articleHtml(key: string): string {
 
 function Article({ doc }: { doc: DocRef }) {
   const html = useMemo(() => articleHtml(doc.key), [doc.key]);
-  return <div className="read" dangerouslySetInnerHTML={{ __html: html }} />;
+  const el = useRef<HTMLDivElement>(null);
+
+  // live prototypes load only when they scroll near view (Figma embeds are heavy). This checks
+  // scroll positions rather than using IntersectionObserver, which misfires inside the scaled screen.
+  useEffect(() => {
+    const root = el.current;
+    if (!root) return;
+    let pending = [...root.querySelectorAll<HTMLElement>('.proto .frame[data-embed]')];
+    if (!pending.length) return;
+    const check = () => {
+      const bottom = root.scrollTop + root.clientHeight + 400;
+      pending = pending.filter((frame) => {
+        if (frame.offsetTop > bottom) return true;
+        const iframe = document.createElement('iframe');
+        iframe.src = frame.dataset.embed!;
+        iframe.title = frame.dataset.title ?? 'Prototype';
+        iframe.allowFullscreen = true;
+        frame.appendChild(iframe);
+        return false;
+      });
+      if (!pending.length) root.removeEventListener('scroll', check);
+    };
+    root.addEventListener('scroll', check, { passive: true });
+    check();
+    return () => root.removeEventListener('scroll', check);
+  }, [html]);
+
+  return <div className="read" ref={el} dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 const formatTime = (s: number) =>

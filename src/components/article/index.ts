@@ -5,6 +5,7 @@ import Gallery from './Gallery.astro';
 import LazyFigure from './LazyFigure.astro';
 import Note from './Note.astro';
 import PrototypeLink from './PrototypeLink.astro';
+import PrototypeLinkText from './PrototypeLinkText.astro';
 import PullQuote from './PullQuote.astro';
 import Split from './Split.astro';
 import Stats from './Stats.astro';
@@ -22,5 +23,9 @@ export const articleComponents = {
   Stats,
 };
 
-/** The same, for the text version (a closed dialog), where images should wait until shown. */
-export const textComponents = { ...articleComponents, Figure: LazyFigure };
+/** The same, for the text version (a closed dialog): images wait until shown, prototypes are links. */
+export const textComponents = {
+  ...articleComponents,
+  Figure: LazyFigure,
+  PrototypeLink: PrototypeLinkText,
+};

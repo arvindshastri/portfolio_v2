@@ -200,26 +200,37 @@ body.dark .read .checks b {
   margin: 0;
   opacity: 0.75;
 }
-/* a link out to an interactive Figma prototype */
-.read .proto {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-block: 14px;
-  padding: 14px 16px;
+/* a live Figma prototype; the frame links out until the iframe loads (and in peeks) */
+.read .proto .frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
   border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  background: color-mix(in srgb, var(--sel) 9%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sel) 22%, transparent);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--sel) 7%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sel) 18%, transparent);
 }
-.read .proto span {
-  font: 600 14px var(--font-ui);
-}
-.read .proto b {
+.read .proto .frame > a {
   font: 500 11px var(--font-mono);
   color: var(--kick);
+  text-decoration: none;
+}
+.read .proto iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.read .proto figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.read .proto figcaption a {
+  color: var(--kick);
+  text-decoration: none;
   white-space: nowrap;
 }
 @container (min-width:560px) {
@@ -391,16 +402,10 @@ body.dark .read .checks b {
     margin-top: 40px;
   }
   .read .proto {
-    padding: 20px 24px;
+    max-width: min(920px, calc(100% - var(--g) * 2));
+  }
+  .read .proto .frame {
     border-radius: 14px;
-    margin-top: 24px;
-    margin-bottom: 24px;
-  }
-  .read .proto span {
-    font-size: 16px;
-  }
-  .read .proto b {
-    font-size: 12px;
   }
   .read ul:not(.checks) li {
     margin-bottom: 10px;

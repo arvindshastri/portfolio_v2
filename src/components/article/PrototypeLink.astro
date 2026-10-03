@@ -1,13 +1,26 @@
 ---
-/** A link out to an interactive prototype (Figma), in place of an embed. */
+/**
+ * A live Figma prototype. The iframe is added by the device once the embed scrolls near view
+ * (see Article in Screens.tsx); until then, and in peeks, the frame shows a link out instead.
+ */
 interface Props {
   href: string;
   label: string;
 }
 const { href, label } = Astro.props;
+const embed = `${href.replace('https://www.figma.com/', 'https://embed.figma.com/')}&embed-host=share`;
 ---
 
-<a class="proto" href={href} target="_blank" rel="noopener">
-  <span>{label}</span>
-  <b>Open in Figma ↗</b>
-</a>
+<figure class="proto">
+  <div class="frame" data-embed={embed} data-title={label}>
+    <a href={href} target="_blank" rel="noopener">
+      Open in Figma ↗
+    </a>
+  </div>
+  <figcaption>
+    <span>{label}</span>
+    <a href={href} target="_blank" rel="noopener">
+      Open in Figma ↗
+    </a>
+  </figcaption>
+</figure>
