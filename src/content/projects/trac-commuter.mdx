@@ -1,0 +1,134 @@
+---
+title: Trac Commuter
+order: 1
+kicker: Case study · 2025
+tagline: 2025 · iOS and Android
+pitch: Live shuttle tracking for McMaster. 2,500+ riders a week.
+lead: Live shuttle tracking for McMaster University. Nearly half of commuters said they always missed their bus, because nobody knew where the buses were.
+cover: ../../assets/projects/trac-commuter/trac_commuter_cover.jpg
+coverAlt: Trac Commuter's live map, showing shuttles and stop arrival times
+facts:
+  - { label: Role, value: 'Co-founder, design and engineering' }
+  - { label: Platform, value: iOS and Android }
+  - { label: Tools, value: 'Figma, Flutter, Firebase' }
+  - { label: Partner, value: Attridge Transportation }
+---
+
+import v1 from '../../assets/projects/trac-commuter/trac_commuter_design_v1.png';
+import v2 from '../../assets/projects/trac-commuter/trac_commuter_design_v2.png';
+import v3 from '../../assets/projects/trac-commuter/trac_commuter_design_v3.png';
+import final1 from '../../assets/projects/trac-commuter/trac_commuter_final_result_1.png';
+import final2 from '../../assets/projects/trac-commuter/trac_commuter_final_result_2.png';
+
+<Stats
+  items={[
+    ['3,000+', 'commuters reached'],
+    ['2,500+', 'weekly active users'],
+    ['5', 'live routes'],
+  ]}
+/>
+
+<Note>
+  This case study covers the design process for the Trac Commuter app. Some technical details and
+  internal information can't be shared. To learn more about Trac and its shuttle tracking service,
+  visit [tracinc.ca](https://tracinc.ca).
+</Note>
+
+## Overview
+
+Hundreds of students at McMaster University use the campus shuttle bus service every day to move between the main campus and off-campus parking lots, roughly a 15 minute walk.
+
+Not knowing where a bus was, or when it would arrive, made the choice between waiting at the stop and committing to the long walk much harder, especially in bad weather.
+
+Trac Commuter is a mobile app that shows commuters where nearby shuttles are, estimated arrival times at every stop, live service alerts and up-to-date service information. It works alongside the Trac Driver app, which lets shuttles broadcast their live location along with their availability and how busy they are.
+
+## The problem
+
+To shape a solution around commuters' needs, we put QR-code surveys at shuttle stops around campus to reach people actively riding. The goal was to understand what frustrated them about the service, and what they would want from a tracking app.
+
+With 100+ responses, the frustration was clear: 45% of commuters said they "always" missed their intended bus, and nearly 30% regularly waited more than 20 minutes.
+
+<PullQuote cite="Rider survey, 100+ responses">
+  “86% said they would plan their commute around real-time arrival estimates.”
+</PullQuote>
+
+<Split
+  checks={[
+    ['92%', 'ETAs for their specific stop'],
+    ['90%', 'live shuttle locations on a map'],
+    ['81%', 'live service notifications'],
+    ['52%', 'would wait 10 minutes longer if they knew it was coming'],
+  ]}
+>
+
+## What riders asked for
+
+Riders weren't asking for a feature-rich app. They wanted to know one thing: when is my bus coming? From the survey we defined the core of the commuter app: service information for nearby routes, stops and buses; live bus locations; arrival estimates; bus details like occupancy and availability; and live service notifications.
+
+</Split>
+
+## Design process
+
+With the main features prioritized, we settled on a mobile app with a map-like interface for real-time information about buses, stops and routes. Early sketches used a details panel below a live map, so people could interact with the map and see more below it.
+
+This pattern is common in transit and navigation apps like Google Maps and Transit, and it was the most intuitive way to communicate live service information.
+
+<Gallery>
+  <Figure src={v1} alt="Paper prototypes of the commuter app" caption="Paper prototyping" />
+  <Figure
+    src={v2}
+    alt="Low-fidelity prototypes of the commuter app"
+    caption="Low-fidelity prototyping"
+  />
+</Gallery>
+
+The main interface focused on buses, stops and routes on the map, with their details in a small floating panel or the main lower panel. To match other navigation apps, routes sat in the lower panel with ETAs at a glance.
+
+Over several weeks the design moved from low to high fidelity, keeping the same core: a map with a details panel. Eventually all information moved into the bottom panel for consistency, and the app settled into four main views: home, route, bus and stop.
+
+<Gallery>
+  <Figure
+    src={v3}
+    alt="Mid-fidelity prototypes of the commuter app"
+    caption="Mid-fidelity prototyping"
+  />
+</Gallery>
+
+<PrototypeLink
+  href="https://www.figma.com/proto/yowmuDKl2mIlXy73fOPlBi/Commuter-View?page-id=0%3A1&node-id=959-532&p=f&viewport=970%2C-863%2C0.11&scaling=scale-down&content-scaling=fixed&starting-point-node-id=959%3A532"
+  label="High-fidelity prototype"
+/>
+
+## Usability testing
+
+To check the prototypes for qualities like intuitiveness, we ran rounds of usability testing with commuters at McMaster and with the university's Parking Office team, who manage the shuttle service.
+
+<Duo>
+  <Card title="What worked" good>
+    Every participant said the app had all the features they'd expect from a shuttle tracking app,
+    and that the transit information was clear, intuitive and straightforward. Many compared it to
+    the navigation apps they already use.
+  </Card>
+  <Card title="What we changed">
+    Nearly 90% of participants were on iOS, and some gestures felt Android-first. Over half said the
+    information could be condensed to reach the relevant ETAs faster.
+  </Card>
+</Duo>
+
+Testing showed the design was intuitive, professional and easy to understand. The core features and user concerns were covered, but accessibility, information hierarchy and parts of the experience could still improve, and we addressed those in later iterations.
+
+As Trac's brand identity developed over a few months, we introduced and maintained an internal design system alongside the app: accessible color palettes for themes, consistent typography and iconography from Google Fonts, and templates for common screens to keep the hierarchy consistent.
+
+<Figure src={final1} alt="Final Trac Commuter screens" variant="panel" />
+
+## Final result
+
+The app was polished over several months to match the Trac brand and design system. Secondary details like stop photos and operating hours were condensed into buttons so the primary information was easier to reach. Bus statuses became scalable, condensed components so the ETAs beneath them were easier to find.
+
+<Figure src={final2} alt="More final Trac Commuter screens" variant="panel" />
+
+## Building and launching
+
+Trac partners with Attridge Transportation to run the shuttle tracking service at McMaster University. Hundreds of commuters use the app every day to get across campus, making the service more transparent and less frustrating.
+
+Since its first release in October, the app has passed 3,000 downloads across platforms and keeps getting new features. In January 2026, Trac was featured as a McMaster Engineering success story.

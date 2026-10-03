@@ -1,0 +1,55 @@
+---
+/*
+ * A plain version of the whole site, as real HTML: for screen readers, search engines and
+ * anyone without JavaScript. It opens from a visually hidden button in the corner.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+import { SITE } from '@/data/site';
+import { getJobs, getProjects } from '@/lib/content';
+import { textComponents } from './article';
+
+interface Props {
+  /** On a project page, that case study is included in full. */
+  project?: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const projects = await getProjects();
+const jobs = await getJobs();
+const Full = project ? (await render(project)).Content : null;
+---
+
+<dialog class="plain" id="plain">
+  <form method="dialog">
+    <button class="close">close</button>
+  </form>
+  <h2>{SITE.name}</h2>
+  <p>Product designer and software engineer. McMaster Software Engineering, co-founder of Trac.</p>
+  {project && Full && (
+    <article>
+      <h3>{project.data.title}</h3>
+      <p>{project.data.lead}</p>
+      <Full components={textComponents} />
+    </article>
+  )}
+  <h3>Projects</h3>
+  <ul>
+    {projects.map((p) => (
+      <li>
+        <a href={`/projects/${p.id}/`}>{p.data.title}</a>: {p.data.pitch}
+      </li>
+    ))}
+  </ul>
+  <h3>Experience</h3>
+  <ul>
+    {jobs.map((j) => (
+      <li>
+        {j.data.company}, {j.data.role} ({j.data.period}). {j.data.summary}
+      </li>
+    ))}
+  </ul>
+  <h3>Contact</h3>
+  <p>
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · <a href={SITE.linkedin}>LinkedIn</a> ·
+    <a href={SITE.github}>GitHub</a> · <a href={SITE.resume}>Résumé (PDF)</a>
+  </p>
+</dialog>

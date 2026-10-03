@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+  /** Tinted with the theme color, for the positive side of a comparison. */
+  good?: boolean;
+}
+const { title, good } = Astro.props;
+---
+
+<div class:list={['card', { good }]}>
+  <h3>{title}</h3>
+  <slot />
+</div>

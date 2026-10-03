@@ -1,0 +1,21 @@
+---
+/** Text on the left, a list of big numbers on the right. */
+interface Props {
+  checks: [string, string][];
+}
+const { checks } = Astro.props;
+---
+
+<div class="split">
+  <div>
+    <slot />
+  </div>
+  <ul class="checks">
+    {checks.map(([value, label]) => (
+      <li>
+        <b>{value}</b>
+        <span>{label}</span>
+      </li>
+    ))}
+  </ul>
+</div>

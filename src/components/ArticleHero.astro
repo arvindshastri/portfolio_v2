@@ -1,0 +1,25 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  lead: string;
+  facts?: { label: string; value: string }[];
+}
+const { kicker, title, lead, facts } = Astro.props;
+---
+
+<header class="hero">
+  <div class="kick">{kicker}</div>
+  <h1>{title}</h1>
+  <p class="lead">{lead}</p>
+  {facts && (
+    <dl class="meta">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</header>

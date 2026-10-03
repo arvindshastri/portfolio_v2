@@ -1,0 +1,70 @@
+---
+/*
+ * Every long-form page the device can open, rendered to HTML at build time and parked in
+ * <template> tags. The device copies one into its screen when you zoom in or peek.
+ */
+import { Image } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+import { getJobs, getProjects } from '@/lib/content';
+import ArticleHero from './ArticleHero.astro';
+import { articleComponents } from './article';
+
+const projects = await Promise.all(
+  (await getProjects()).map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+const jobs = await Promise.all(
+  (await getJobs()).map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+const about = (await getEntry('pages', 'about'))!;
+const { Content: AboutContent } = await render(about);
+const end = 'press MENU to go back';
+---
+
+{projects.map(({ entry, Content }) => (
+  <template data-article={`project:${entry.id}`}>
+    <ArticleHero
+      kicker={entry.data.kicker}
+      title={entry.data.title}
+      lead={entry.data.lead}
+      facts={entry.data.facts}
+    />
+    <figure class="bleed">
+      <Image
+        src={entry.data.cover}
+        alt={entry.data.coverAlt}
+        widths={[800, 1400, 2000]}
+        sizes="100vw"
+        loading="eager"
+      />
+    </figure>
+    <Content components={articleComponents} />
+    <p class="end">{end}</p>
+  </template>
+))}
+{jobs.map(({ entry, Content }) => (
+  <template data-article={`job:${entry.id}`}>
+    <ArticleHero
+      kicker={entry.data.period}
+      title={entry.data.company}
+      lead={`${entry.data.role}.`}
+    />
+    <Content />
+    <p class="end">{end}</p>
+  </template>
+))}
+<template data-article="page:about">
+  <ArticleHero kicker={about.data.kicker} title={about.data.title} lead={about.data.lead} />
+  {about.data.image && (
+    <figure class="bleed portrait">
+      <Image
+        src={about.data.image}
+        alt={about.data.imageAlt ?? ''}
+        widths={[800, 1400, 2000]}
+        sizes="100vw"
+        loading="eager"
+      />
+    </figure>
+  )}
+  <AboutContent components={articleComponents} />
+  <p class="end">{end}</p>
+</template>

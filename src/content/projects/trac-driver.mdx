@@ -1,0 +1,124 @@
+---
+title: Trac Driver
+order: 2
+kicker: Case study · 2025
+tagline: 2025 · Driver tablet app
+pitch: One-tap tools that keep every bus on the map.
+lead: The rider app only works if buses broadcast where they are. Trac Driver runs on dash-mounted tablets and streams each shuttle's live location, availability and occupancy.
+cover: ../../assets/projects/trac-driver/trac_driver_cover.jpg
+coverAlt: Trac Driver running on a dashboard tablet
+facts:
+  - { label: Role, value: 'Co-founder, design and engineering' }
+  - { label: Platform, value: Android tablets }
+  - { label: Tools, value: 'Figma, Flutter, Firebase' }
+  - { label: Users, value: Shuttle drivers }
+---
+
+import proto1 from '../../assets/projects/trac-driver/trac_driver_prototypes_1.png';
+import proto2 from '../../assets/projects/trac-driver/trac_driver_prototypes_2.png';
+import proto5 from '../../assets/projects/trac-driver/trac_driver_prototypes_5.png';
+import final from '../../assets/projects/trac-driver/trac_driver_final_result.png';
+
+<Note>
+  This case study covers the design process for the Trac Driver app. Some technical details and
+  internal information can't be shared. To learn more about Trac and its shuttle tracking service,
+  visit [tracinc.ca](https://tracinc.ca).
+</Note>
+
+## Overview
+
+Trac Driver is a tablet app that streams live location data from shuttle buses to commuters using the Trac Commuter app.
+
+It's designed for minimal distraction on dash-mounted tablets. Drivers use it to share their bus's real-time location, how busy it is and whether it's in service. It also modernizes passenger counting, replacing paper logs with a simple occupancy control.
+
+## Research
+
+To broadcast bus locations, the team considered hardware options like GPS trackers and Bluetooth devices. Tablets were more flexible than traditional trackers: they could send details about the bus alongside its location. Mounted on the dashboard within arm's reach, a tablet would let drivers quickly set up their bus before starting a "session" that broadcasts it live.
+
+Research showed that dashboard tablets were standard practice for other vehicle tracking services, and modern vehicles already have large dashboard screens, so the interaction would feel familiar.
+
+Talking with drivers, we learned they count passengers by hand every so often, so the shuttle service's administrators can see how busy it is at different times of day.
+
+After more discussion with stakeholders, we defined the app's core jobs:
+
+- Transmit the tablet's live location
+- Select the current bus
+- Select the current route
+- Change the bus's availability
+- Update the bus's passenger count
+
+## Design process
+
+This design was unusual: a landscape tablet interface used from a driver's seat. Unlike most apps, built for many screen sizes, this one had to account for the physical setting of someone reaching for a dashboard-mounted screen.
+
+The live location would stream in the background whenever a driver started a session. So the flow split into two parts: a setup, where drivers choose their bus and route, and the session itself, where they update availability and occupancy.
+
+The first quick paper and Figma prototypes focused on separating setup from the session.
+
+<Gallery>
+  <Figure src={proto1} alt="Paper prototypes of the driver app" caption="Paper prototyping" />
+  <Figure
+    src={proto2}
+    alt="Low-fidelity prototypes of the driver app"
+    caption="Low-fidelity prototyping"
+  />
+</Gallery>
+
+With the functionality and hierarchy in place, we tested these prototypes with drivers. They told us small buttons and text were hard to use, and asked for bigger buttons and simpler wording for staff who aren't tech-savvy.
+
+I hadn't considered the drivers' physical limits enough. Seated, they can only reach so far, and since they're always moving along their route, interactions have to be quick, simple and hard to get wrong. The whitespace looked clean, but it wasted screen space.
+
+The next iteration used larger, bolder elements to make repetitive passenger counting easier, and moved bus status changes into their own component.
+
+<PrototypeLink
+  href="https://www.figma.com/proto/BccJ1QQuK0FoQSorBz6XxY/Bus-Driver-View?page-id=0%3A1&node-id=372-414&viewport=447%2C-751%2C0.1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=372%3A414"
+  label="High-fidelity prototype, iteration 1"
+/>
+
+We tested again with drivers and consulted business stakeholders, including the university's parking office and Attridge Transportation. They pointed out that:
+
+- Counting passengers digitally at every stop is as tedious as counting on paper
+- Counting like this is hard on a bus with two doors
+- Drivers can forget to submit counts, which makes the data inaccurate
+
+That feedback showed us a chance to simplify the counting process itself. Replacing exact counts with descriptions, from slightly to moderately to very busy, lets drivers judge capacity at a glance and save it with one tap.
+
+The next iteration prioritized large, simple buttons for the repetitive jobs of changing occupancy and availability during a session.
+
+<PrototypeLink
+  href="https://www.figma.com/proto/BccJ1QQuK0FoQSorBz6XxY/Bus-Driver-View?page-id=0%3A1&node-id=799-644&viewport=519%2C-818%2C0.1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=799%3A644"
+  label="High-fidelity prototype, iteration 2"
+/>
+
+<Duo>
+  <Card title="What drivers liked" good>
+    Describing occupancy instead of counting worked much better than manual counts. An "on break"
+    status would help them communicate with commuters.
+  </Card>
+  <Card title="What still got in the way">
+    Selecting a status was confusing; one status at a time would be clearer. The setup screen was
+    crowded, and GPS and connection statuses meant nothing to drivers, since they couldn't fix them.
+  </Card>
+</Duo>
+
+We were on the right track. Drivers wanted status selection to be as simple as occupancy, and reminded us that they can't tinker with the tablet while driving: they can only act on information they understand.
+
+To simplify setup, we tried six-digit bus numbers and QR codes to identify sessions. In practice, buses and drivers were swapped around constantly, and drivers cared most about starting a session quickly, whatever the bus or tablet. The idea only confused them more, so we dropped it and removed bus numbers entirely, since they did nothing for commuters either.
+
+<Figure
+  src={proto5}
+  alt="An iteration with bus numbers and QR codes"
+  caption="Bus numbers and QR codes"
+/>
+
+In the end, setup split into a home screen and route selection, trimmed to the essentials. Without bus numbers, drivers can start a session in three taps. GPS statuses and live error messages were removed, replaced by pop-up messages only when needed. On-break and going-on-break statuses were added so commuters can see what's happening.
+
+<Figure src={final} alt="Final Trac Driver screens" variant="panel" />
+
+## Final result
+
+The final app has a consistent interface and hierarchy. The welcome screen invites new and returning drivers to start a session, with a tutorial one tap away. Route selection shows a preview image for each route in a scrolling panel, which can be enlarged. The session screen splits into two clear panes: occupancy on the left, availability on the right. When the bus isn't in service, the occupancy pane greys out behind a lock. A dark theme helps at night.
+
+The design leans on minimal text and clear icons so drivers can start a session quickly. It turns manual passenger counting into one-tap occupancy updates.
+
+Trac Driver runs on six shuttle buses across five routes at McMaster University, helping hundreds of commuters find their bus every day.

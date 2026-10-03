@@ -1,0 +1,97 @@
+---
+title: Orderly
+order: 3
+kicker: UX research · 2024
+tagline: 2024 · UX research
+pitch: Priority-based scheduling for people juggling deadlines.
+lead: A task manager for hectic schedules, built around priorities and study buddies instead of another to-do list.
+cover: ../../assets/projects/orderly/orderly_cover.jpg
+coverAlt: Orderly's task list with priority colors
+facts:
+  - { label: Course, value: SFWRENG 4HC3 }
+  - { label: Platform, value: Mobile }
+  - { label: Tools, value: 'Figma, paper prototyping' }
+  - { label: Timeline, value: Fall 2024 }
+---
+
+import brainstorming from '../../assets/projects/orderly/orderly_brainstorming.png';
+import storyboarding from '../../assets/projects/orderly/orderly_storyboarding.png';
+import paper from '../../assets/projects/orderly/orderly_paper_prototyping.png';
+
+## Overview
+
+Orderly was designed for McMaster University's SFWRENG 4HC3 course in Fall 2024. The project covers the ideation, design process and usability testing of a high-fidelity prototype for a task management app for people with hectic daily schedules.
+
+Unlike a standard to-do list, Orderly focuses on priority-based scheduling and study buddy matching, for first-year university students and busy professionals. The aim was to reduce the stress and overhead of managing tasks, which often leads to missed deadlines and poorly spent time.
+
+## User research
+
+Our research found that people struggle to know which task to pick up at any given moment, and end up spending more time planning work than doing it.
+
+<Duo>
+  <Card title="First-year students" good>
+    Our highest priority group. The jump from high school brings a big shift in workload, and
+    students often feel shy or unsure about connecting with peers for study support.
+  </Card>
+  <Card title="Working professionals">
+    Juggling many responsibilities across business quarters and release cycles. They need much less
+    overhead from managing their tasks.
+  </Card>
+</Duo>
+
+From this, we defined the core needs:
+
+- Change and reprioritize tasks easily, in fewer than five clicks
+- Search for study buddies by course and availability
+- Label tasks by priority, so high-value work is easy to spot
+
+## Design process
+
+Ideation used brainstorming, scenario analysis and rapid ideation with sticky notes. We generated 20 ideas and chose priority-based scheduling and study buddy matching to build.
+
+<Gallery>
+  <Figure src={brainstorming} alt="Brainstorming session notes" caption="Brainstorming" />
+  <Figure src={storyboarding} alt="Storyboards for Orderly" caption="Scenario modeling" />
+</Gallery>
+
+We went through four iterations, from paper monthly and daily views to a low-fidelity Figma wireframe that supported five core functions: viewing commitments, filtering by timeframe, recording and categorizing tasks, reviewing schedule changes, and receiving reminders.
+
+<Figure src={paper} alt="Paper prototype of Orderly" caption="Paper prototyping" />
+
+<PrototypeLink
+  href="https://www.figma.com/proto/cZ7I3ms4cgN7PQJUVecsM5/M3-Prototype?node-id=43-1832"
+  label="Low-fidelity prototype"
+/>
+
+## Testing
+
+Early sessions with volunteer participants, fourth-year Software Engineering students, found the interface "aesthetically pleasing", but surfaced some ambiguities:
+
+- The month label didn't obviously switch between day, week and month views
+- Item colors could read as priorities instead of task groups
+- The deadline markers were ambiguous
+- The plus button needed a label to explain what it does
+
+Participants rated intuitiveness 8 out of 10, and suggested smoother transitions between schedule views and more concrete progress tracking. The core task flow made sense, but secondary features needed clearer guidance.
+
+## Final prototype
+
+The high-fidelity prototype answered that feedback. Using the Gestalt principle of proximity, view switching became one clearly labeled dropdown with a down-arrow signifier. A traffic-light model, red, yellow and green for high, medium and low priority, matched how people already think, backed by a new priority legend.
+
+<PrototypeLink
+  href="https://www.figma.com/proto/28HnA6dWSp3bEMxna9xxAN/M4-Prototype?node-id=37-2721&starting-point-node-id=37%3A2721"
+  label="High-fidelity prototype"
+/>
+
+<Duo>
+  <Card title="Functional clarity" good>
+    The "Add task" button gained a text label and moved closer to the task list. Deadlines now read
+    "Due in", shown on each task for immediate context.
+  </Card>
+  <Card title="Information depth">
+    Each task shows a progress bar for concrete tracking. Cut-off items signal that lists scroll,
+    and an "Add category" option shows the app can be customized.
+  </Card>
+</Duo>
+
+Together, these refinements and a polished look reduce the friction of managing a busy schedule, with clear affordances and no ambiguity.

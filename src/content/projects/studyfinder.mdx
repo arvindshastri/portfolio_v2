@@ -1,0 +1,67 @@
+---
+title: StudyFinder
+order: 4
+kicker: UX research · 2024
+tagline: 2024 · UX research
+pitch: Find an open study spot on campus without wandering.
+lead: Finding a study spot meant wandering building to building. StudyFinder helps McMaster students discover, review and share campus study spaces.
+cover: ../../assets/projects/studyfinder/studyfinder_cover.jpg
+coverAlt: StudyFinder's explore feed of campus study spots
+facts:
+  - { label: Course, value: SFWRENG 4HC3 }
+  - { label: Platform, value: Mobile }
+  - { label: Tools, value: 'Figma, paper prototyping' }
+  - { label: Timeline, value: Fall 2024 }
+---
+
+import paper from '../../assets/projects/studyfinder/studyfinder_paper_prototyping.png';
+
+## Overview
+
+StudyFinder was designed for McMaster University's SFWRENG 4HC3 course in Fall 2024. It's a mobile app that helps undergraduate and graduate students find, review and share study spaces on campus, built around filters and toggles so students can search by what they actually need.
+
+## User research
+
+Research found two groups with overlapping frustrations but different priorities.
+
+<Duo>
+  <Card title="Undergraduate students" good>
+    Tech-savvy, with busy schedules and constant movement between classes. They want study spots
+    within a short walk that they can reach quickly.
+  </Card>
+  <Card title="Graduate students">
+    Tight schedules and resource-heavy work. Their main frustration is not knowing what specialized
+    resources a space has, like 3D printers or lab gear, or whether it suits long sessions.
+  </Card>
+</Duo>
+
+The core needs came down to three things:
+
+- **Accessibility:** how close a spot is and how long it takes to get there
+- **Availability:** whether seats are open, and how long you can stay
+- **Suitability:** the environment, from noise and temperature to amenities and resources
+
+From these, we set the main requirements: search and filter spaces by name and location; filter by environment, noise, hours, capacity and resources; bookmark and review spaces; and ask whether a space has open seats, with a notification when one frees up.
+
+## Design process
+
+After the initial concept, we built paper prototypes to test the navigation and search flows, making sure filtering stayed intuitive for both groups.
+
+<Figure src={paper} alt="Paper prototype of StudyFinder" caption="Paper prototyping" />
+
+To keep the learning curve low, the design borrowed familiar models from social and service apps like Instagram and Uber Eats.
+
+- **Gestalt principles:** proximity groups search and filter actions, similarity keeps listings consistent, and partly visible carousels signal there's more to explore
+- **Norman's principles:** clear occupancy icons for visibility, success and error messages for feedback, and buttons that change from "Review" to "Edit" as signifiers
+- **Information hierarchy:** truncated reviews, see-more toggles, and filter popups over a dimmed background keep each step focused
+
+## Final prototype
+
+The high-fidelity Figma prototype has an explore feed that invites scrolling, robust search, and a detailed view for each spot with live occupancy charts and community reviews.
+
+<PrototypeLink
+  href="https://www.figma.com/proto/ykU8g8VNKqUWLt19tcRpP1/4HC3-A2?node-id=21-386"
+  label="High-fidelity prototype"
+/>
+
+Combining a familiar layout with easy toggles and sorting, students can quickly find and review spaces that suit them. Undergraduates can filter by location and use "Inquire" to see if there's room. Graduate students can filter further for resources and longer hours. Reviews let everyone share their experience and get a feel for a space.

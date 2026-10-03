@@ -1,0 +1,16 @@
+---
+interface Props {
+  /** [value, label] pairs, e.g. ['3,000+', 'commuters reached'] */
+  items: [string, string][];
+}
+const { items } = Astro.props;
+---
+
+<div class="stats">
+  {items.map(([value, label]) => (
+    <div>
+      <b>{value}</b>
+      <span>{label}</span>
+    </div>
+  ))}
+</div>

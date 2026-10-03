@@ -1,0 +1,9 @@
+---
+/** Figure for the text version, where the article sits in a closed dialog: don't load images until shown. */
+import type { ComponentProps } from 'astro/types';
+import Figure from './Figure.astro';
+
+type Props = ComponentProps<typeof Figure>;
+---
+
+<Figure {...Astro.props} loading="lazy" />

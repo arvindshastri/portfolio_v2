@@ -1,0 +1,13 @@
+---
+/** A link out to an interactive prototype (Figma), in place of an embed. */
+interface Props {
+  href: string;
+  label: string;
+}
+const { href, label } = Astro.props;
+---
+
+<a class="proto" href={href} target="_blank" rel="noopener">
+  <span>{label}</span>
+  <b>Open in Figma ↗</b>
+</a>
