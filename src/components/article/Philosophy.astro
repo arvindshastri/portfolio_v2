@@ -1,0 +1,16 @@
+---
+/** A statement block: a mono label, a short belief as a heading, and a sentence or two under it. */
+interface Props {
+  label: string;
+  title: string;
+}
+const { label, title } = Astro.props;
+---
+
+<section class="philosophy">
+  <div class="kick">{label}</div>
+  <h3>{title}</h3>
+  <div class="body">
+    <slot />
+  </div>
+</section>

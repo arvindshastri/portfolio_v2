@@ -1,0 +1,22 @@
+---
+/** Labeled groups of tags, e.g. a role's tools and skills or the About toolkit. Empty groups are skipped. */
+interface Props {
+  groups: [string, string[]][];
+}
+const groups = Astro.props.groups.filter(([, items]) => items.length > 0);
+---
+
+{groups.length > 0 && (
+  <dl class={`tags${groups.length > 2 ? ' grid' : ''}`}>
+    {groups.map(([label, items]) => (
+      <div>
+        <dt>{label}</dt>
+        <dd>
+          {items.map((t) => (
+            <span>{t}</span>
+          ))}
+        </dd>
+      </div>
+    ))}
+  </dl>
+)}

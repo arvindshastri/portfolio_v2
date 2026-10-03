@@ -269,6 +269,36 @@ body.dark .read .checks b {
   border-radius: 999px;
   background: color-mix(in srgb, var(--sel) 9%, transparent);
 }
+.read .tags.grid > div {
+  min-width: 0;
+}
+/* tags right under a heading (the About toolkit) skip the closing hairline */
+.read h2 + .tags {
+  margin-top: 12px;
+  padding-top: 0;
+  border-top: 0;
+}
+/* a statement block, inverted against the screen (dark on a light screen, light on a dark one) */
+.read .philosophy {
+  margin-block: 22px 8px;
+  padding: 22px 20px;
+  border-radius: 12px;
+  background: var(--scrInk);
+  color: var(--scr);
+}
+.read .philosophy .kick {
+  color: color-mix(in oklch, var(--sel), var(--scr) 35%);
+}
+.read .philosophy h3 {
+  font: 600 21px/1.25 var(--font-read);
+  letter-spacing: -0.02em;
+  margin: 12px 0 10px;
+  text-wrap: balance;
+}
+.read .philosophy .body {
+  font: 400 15.5px/1.6 var(--font-read);
+  opacity: 0.75;
+}
 @container (min-width:560px) {
   .read {
     padding: 0 0 80px;
@@ -469,5 +499,30 @@ body.dark .read .checks b {
   .read .tags span {
     font-size: 14px;
     padding: 6px 12px;
+  }
+}
+
+@container (min-width:560px) {
+  .read .tags.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 40px;
+  }
+  .read h2 + .tags {
+    margin-top: 20px;
+  }
+  .read .philosophy {
+    max-width: min(820px, calc(100% - var(--g) * 2));
+    margin-top: 56px;
+    margin-bottom: 16px;
+    padding: 44px 48px;
+    border-radius: 16px;
+  }
+  .read .philosophy h3 {
+    font-size: clamp(24px, 3.2cqi, 30px);
+    margin: 16px 0 14px;
+  }
+  .read .philosophy .body {
+    font-size: 18px;
   }
 }

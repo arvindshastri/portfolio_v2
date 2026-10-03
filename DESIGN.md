@@ -267,6 +267,8 @@ Editorial and calm; the content is the hero.
 - **Cards:** two side by side, 14px radius, 26 by 28px padding; the positive card uses a 10% accent tint, the other a 5% ink tint.
 - **Panels:** final screens on a 8% accent tint, 16px radius.
 - **Role pages:** kicker (dates), company as the title, role as the lead, then the résumé bullets as an arrow list, then a hairline and two tag groups side by side ("Tools and technologies", "Skills"): mono labels over pills on a 9% accent tint. Role previews have no image, so the summary may run up to 12 lines.
+- **Philosophy block (About):** inverted against the screen (`scrInk` background, `scr` text), 16px radius, 44 by 48px padding, 820px max: accent mono label, a Geist 600 statement (24 to 30px), then a sentence at 75% opacity.
+- **Tag groups:** a role's tools and skills, or the About toolkit (four groups in a 2×2 grid; stacked on phones).
 - **Prototypes:** live Figma embeds in a 16:10 frame (920px max, 14px radius, 7% accent tint with an 18% ring), mono caption with an "Open in Figma ↗" link. The iframe loads only when the frame scrolls within 400px of view; until then, in peeks and in the text version, it's a link out.
 
 ### Peek Panel

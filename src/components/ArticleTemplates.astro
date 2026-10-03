@@ -8,6 +8,7 @@ import { getEntry, render } from 'astro:content';
 import { getJobs, getProjects } from '@/lib/content';
 import ArticleHero from './ArticleHero.astro';
 import { articleComponents } from './article';
+import Tags from './article/Tags.astro';
 
 const projects = await Promise.all(
   (await getProjects()).map(async (entry) => ({ entry, ...(await render(entry)) })),
@@ -45,26 +46,12 @@ const { Content: AboutContent } = await render(about);
     <section class="duties">
       <Content />
     </section>
-    {(entry.data.tools.length > 0 || entry.data.skills.length > 0) && (
-      <dl class="tags">
-        {[
-          ['Tools and technologies', entry.data.tools],
-          ['Skills', entry.data.skills],
-        ].map(
-          ([label, items]) =>
-            items.length > 0 && (
-              <div>
-                <dt>{label}</dt>
-                <dd>
-                  {(items as string[]).map((t) => (
-                    <span>{t}</span>
-                  ))}
-                </dd>
-              </div>
-            ),
-        )}
-      </dl>
-    )}
+    <Tags
+      groups={[
+        ['Tools and technologies', entry.data.tools],
+        ['Skills', entry.data.skills],
+      ]}
+    />
   </template>
 ))}
 <template data-article="page:about">
