@@ -61,7 +61,6 @@ function LockScreen() {
   const now = useDevice((s) => s.now);
   return (
     <div className={`lock${locked ? '' : ' open'}`} ref={bind('lock')}>
-      <img className="wall" src={actions.getContent().lockWallpaper} alt="" />
       <div className="clk">{clock(now)}</div>
       <div className="dt">
         {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}

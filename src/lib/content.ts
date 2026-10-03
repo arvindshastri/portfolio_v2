@@ -1,6 +1,6 @@
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { LOCK_WALLPAPER, PHOTOS } from '@/data/photos';
+import { PHOTOS } from '@/data/photos';
 import { TRACKS } from '@/data/tracks';
 import type { DeviceContent } from '@/device/types';
 
@@ -46,6 +46,5 @@ export async function getDeviceContent(): Promise<DeviceContent> {
       })),
     ),
     trackArt,
-    lockWallpaper: await url(LOCK_WALLPAPER, 800),
   };
 }

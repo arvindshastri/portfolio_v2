@@ -22,7 +22,10 @@ export type ThemeTokens = Record<
   | 'scrL'
   | 'inkL'
   | 'scrD'
-  | 'inkD',
+  | 'inkD'
+  /** lock screen wallpaper: its tint and the dark end of its gradient */
+  | 'wall'
+  | 'wall2',
   string
 >;
 
@@ -48,6 +51,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.47 0.012 250)',
       accent: 'oklch(0.56 0.18 255)',
       sel: 'oklch(0.56 0.18 255)',
+      wall: 'oklch(0.84 0.02 250)',
+      wall2: 'oklch(0.4 0.012 250)',
       shell: 'oklch(0.9 0.006 250)',
       shell2: 'oklch(0.76 0.01 250)',
       wheel: 'oklch(0.26 0.005 260)',
@@ -75,6 +80,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.72 0.01 260)',
       accent: 'oklch(0.76 0.12 235)',
       sel: 'oklch(0.55 0.16 250)',
+      wall: 'oklch(0.5 0.015 260)',
+      wall2: '#08090e',
       shell: 'oklch(0.44 0.006 260)',
       shell2: 'oklch(0.31 0.006 260)',
       wheel: 'oklch(0.2 0.004 260)',
@@ -102,6 +109,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.46 0.04 245)',
       accent: 'oklch(0.52 0.14 245)',
       sel: 'oklch(0.55 0.14 245)',
+      wall: 'oklch(0.55 0.14 245)',
+      wall2: '#08090e',
       shell: 'oklch(0.86 0.045 235)',
       shell2: 'oklch(0.74 0.065 238)',
       wheel: 'oklch(0.985 0.006 235)',
@@ -129,6 +138,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.47 0.04 30)',
       accent: 'oklch(0.55 0.12 30)',
       sel: 'oklch(0.56 0.12 32)',
+      wall: 'oklch(0.56 0.12 32)',
+      wall2: '#08090e',
       shell: 'oklch(0.87 0.042 42)',
       shell2: 'oklch(0.74 0.062 36)',
       wheel: 'oklch(0.985 0.006 40)',
@@ -158,6 +169,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.76 0.03 190)',
       accent: 'oklch(0.8 0.12 175)',
       sel: 'oklch(0.52 0.11 185)',
+      wall: 'oklch(0.52 0.11 185)',
+      wall2: '#08090e',
       shell: 'rgba(120,200,190,.16)',
       shell2: 'rgba(14,26,28,.42)',
       wheel: 'rgba(30,44,46,.62)',

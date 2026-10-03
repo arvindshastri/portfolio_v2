@@ -252,7 +252,7 @@ Tactile, precise and quiet: an object first, a UI second.
 
 ### Lock Screen
 
-- One static photo at 60% opacity over #0f141f, the time in Lock Clock style, the date below. Nothing else. The page hint below the device says "press the center to unlock". Unlocking slides the lock screen up.
+- A stock-style gradient wallpaper tinted by each theme's `wall` and `wall2` tokens (a light glow top-left, a deep pool bottom-right, over the dark `wall2` end: near-black for most themes, mid steel gray for Silver), so it follows the device color; no photo. Silver and Graphite use neutral steel and charcoal tints; the other themes use their accent. The time in Lock Clock style, the date below. Nothing else. The page hint below the device says "press the center to unlock". Unlocking slides the lock screen up.
 
 ### Zoomed Article (case studies)
 

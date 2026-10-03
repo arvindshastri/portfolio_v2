@@ -2,7 +2,7 @@
  * The Music playlist.
  *
  * To add your own music, put the audio file in public/music/ and add an entry with `src`:
- *   { name: 'Track title', artist: 'Artist', src: '/music/track.mp3', art: { photo: 'sunset' } }
+ *   { name: 'Track title', artist: 'Artist', src: '/music/track.mp3', art: { photo: 'nyc' } }
  * Only use music you have the rights to publish. Entries without `src` are generated in the
  * browser as placeholders, from the bpm, waveform, filter cutoff and chord progression below.
  */
@@ -22,7 +22,7 @@ export interface Track {
 export const TRACKS: Track[] = [
   {
     name: 'Shipping Season',
-    art: { photo: 'sunset' },
+    art: { gradient: 'linear-gradient(160deg,#3fb6a8,#0f3b4a)', label: 'Shipping<br>Season' },
     bpm: 80,
     wave: 'triangle',
     cut: 1100,

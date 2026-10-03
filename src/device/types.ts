@@ -24,7 +24,6 @@ export interface DeviceContent {
   photos: PhotoInfo[];
   /** Optimized album art, keyed by photo id (see src/data/tracks.ts). */
   trackArt: Record<string, string>;
-  lockWallpaper: string;
 }
 
 /**

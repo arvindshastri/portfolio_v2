@@ -451,7 +451,4 @@ dialog.plain .close {
     transition-duration: 0.01ms !important;
     animation: none !important;
   }
-  .lock .walls img:first-child {
-    opacity: 0.6;
-  }
 }

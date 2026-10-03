@@ -103,7 +103,7 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 ## 6. Assets
 
 - `src/assets/projects/`: every image from the old portfolio's case studies, one folder per project.
-- `src/assets/photos/`: `nyc.jpg`, `sunset.jpg`, `spiderverse.jpg` (a drawing), `doctor_strange.jpg`, `logic.jpg`, `mac_wrld.jpg`, `cfest_banners.jpg`. Captions for the less obvious ones are guesses; confirm them.
+- `src/assets/photos/`: `nyc.jpg`, `spiderverse.jpg` (a drawing), `doctor_strange.jpg`, `logic.jpg`, `mac_wrld.jpg`. Captions for the less obvious ones are guesses; confirm them.
 - `public/resume.pdf`, copied from the previous portfolio. Confirm it's the latest version.
 - `public/music/`, empty, ready for real tracks.
 
