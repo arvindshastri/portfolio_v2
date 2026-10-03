@@ -266,7 +266,6 @@ Editorial and calm; the content is the hero.
 - **Gallery:** stacked full-width images with mono captions, 10px radius and a 1px hairline ring.
 - **Cards:** two side by side, 14px radius, 26 by 28px padding; the positive card uses a 10% accent tint, the other a 5% ink tint.
 - **Panels:** final screens on a 8% accent tint, 16px radius.
-- **End line:** "press MENU to go back", centered mono.
 
 ### Peek Panel
 

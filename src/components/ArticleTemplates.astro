@@ -17,7 +17,6 @@ const jobs = await Promise.all(
 );
 const about = (await getEntry('pages', 'about'))!;
 const { Content: AboutContent } = await render(about);
-const end = 'press MENU to go back';
 ---
 
 {projects.map(({ entry, Content }) => (
@@ -38,7 +37,6 @@ const end = 'press MENU to go back';
       />
     </figure>
     <Content components={articleComponents} />
-    <p class="end">{end}</p>
   </template>
 ))}
 {jobs.map(({ entry, Content }) => (
@@ -49,7 +47,6 @@ const end = 'press MENU to go back';
       lead={`${entry.data.role}.`}
     />
     <Content />
-    <p class="end">{end}</p>
   </template>
 ))}
 <template data-article="page:about">
@@ -66,5 +63,4 @@ const end = 'press MENU to go back';
     </figure>
   )}
   <AboutContent components={articleComponents} />
-  <p class="end">{end}</p>
 </template>

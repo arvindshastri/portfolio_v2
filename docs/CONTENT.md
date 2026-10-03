@@ -44,7 +44,6 @@ Every project article uses the same building blocks, in roughly this order. Not 
 | Gallery    | `<div class="gallery">` of `figure` + `figcaption`             | Design iterations, stacked full width                                                            |
 | Cards      | `<div class="duo">` with `.card.good` and `.card`              | "What worked" vs "What we changed"                                                               |
 | Panel      | `<figure class="panel">`                                       | Final screens on a tinted panel                                                                  |
-| End        | `<p class="end">press MENU to go back</p>`                     | Closing line                                                                                     |
 
 Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()` helper: header, optional cover, body, end line.
 

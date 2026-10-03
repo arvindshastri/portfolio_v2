@@ -6,7 +6,7 @@
   width: 100%;
   overflow-y: auto;
   scrollbar-width: none;
-  padding: 14px 20px 96px;
+  padding: 14px 20px 48px;
   scroll-behavior: smooth;
   --g: 20px;
 }
@@ -158,12 +158,6 @@ body.dark .read .checks b {
   border-radius: 12px;
   background: color-mix(in srgb, var(--sel) 8%, transparent);
 }
-.read .end {
-  text-align: center;
-  font: 500 11px var(--font-mono);
-  opacity: 0.55;
-  margin-top: 40px;
-}
 .read img {
   height: auto;
 }
@@ -226,7 +220,7 @@ body.dark .read .checks b {
 }
 @container (min-width:560px) {
   .read {
-    padding: 0 0 140px;
+    padding: 0 0 80px;
     --g: clamp(28px, 8cqi, 96px);
   }
   .read > * {
@@ -377,10 +371,6 @@ body.dark .read .checks b {
   }
   .read .panel img {
     border-radius: 8px;
-  }
-  .read .end {
-    margin-top: 96px;
-    font-size: 12px;
   }
   .read .note p {
     font-size: 15px;
