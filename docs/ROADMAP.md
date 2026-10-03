@@ -10,7 +10,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
 - [ ] Tune the docked dial's scroll speed and momentum after hands-on testing (now 6px/degree, momentum x0.93/frame).
-- [ ] Phone reading: the zoomed screen is roughly square, so a tall phone shows only ~330px of article. Decide whether phones get a taller screen when zoomed (needs Arvind's call; close to the rejected Grow mode).
+- [x] Phone reading: under 640px wide, the zoomed screen stretches down into the device body to fill the space above the dial (2026-10-03).
 - [ ] A second game for Extras, playable with only wheel + center (ideas to brainstorm first).
 - [ ] Confirm Sky as the third color.
 - [ ] Fill every placeholder in [CONTENT.md §7](CONTENT.md#7-open-placeholders-must-be-replaced-before-launch).

@@ -439,8 +439,10 @@ dialog.plain .close {
   .swatches {
     top: calc(100% + 18px);
   }
+  /* sits above the corner buttons, so the ? that closes it stays visible */
   body.guide .legend {
     display: block;
+    bottom: 56px;
   }
   .dial {
     --dd: 156px;

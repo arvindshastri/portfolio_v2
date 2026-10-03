@@ -6,7 +6,14 @@ years: Jun 2025 - now
 order: 1
 summary: Real-time shuttle bus tracking application to provide live bus location and real-time ETAs
 tools: [Flutter, Dart, Mapbox, Firebase, Figma]
-skills: [Product management, Product design, User research, Rapid prototyping, Software development life cycle]
+skills:
+  [
+    Product management,
+    Product design,
+    User research,
+    Rapid prototyping,
+    Software development life cycle,
+  ]
 ---
 
 - Built and scaled a 0-to-1 real-time shuttle tracking application to 4,000+ active users, securing a B2B partnership with Attridge Transportation and [deploying into production at McMaster University](https://news.mcmaster.ca/engineering-students-create-app-to-track-campus-shuttles/)

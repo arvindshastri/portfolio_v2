@@ -98,6 +98,7 @@ Goals that came out of that:
 - Fonts: Geist (interface and reading), Geist Mono (labels). Literata was the reading font until 2026-10-02; Arvind felt a serif went against the device, and picked all-Geist over Mona Sans, Schibsted Grotesk, IBM Plex Sans and Atkinson Hyperlegible.
 - No end line on articles ("press MENU to go back" removed 2026-10-02): MENU is labeled, the guide explains it, and back/Esc work.
 - Figma prototypes are live embeds again, like the old portfolio (2026-10-02), loaded only when scrolled near; the link-out card felt like a placeholder.
+- Phones get a taller screen while reading: the zoomed screen stretches into the device body (2026-10-03).
 - The lock screen uses a theme-colored gradient wallpaper instead of a photo (2026-10-02).
 
 ### Features

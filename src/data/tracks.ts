@@ -52,7 +52,7 @@ export const TRACKS: Track[] = [
     // melancholic: minor ninths, brushed drums, rain on the window
     name: 'Rain on the Window',
     artist: 'Kyle Anderson',
-    art: { gradient: 'linear-gradient(160deg,#5f7d95,#1c2834)', label: 'Rain on<br>The Window' },
+    art: { gradient: 'linear-gradient(160deg,#5f7d95,#1c2834)', label: 'Rain on<br>the Window' },
     song: {
       bpm: 72,
       swing: 0.18,

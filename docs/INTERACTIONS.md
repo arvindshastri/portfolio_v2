@@ -153,7 +153,7 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 
 - The device scales to fit: `min(1, (vw - 24) / 380, (vh - 210) / 604)`.
 - Touch drag on the wheel works like a pointer drag; vibration fires on supported phones (Android Chrome; iOS Safari has no vibration API).
-- When zoomed, the screen fills the width and the 156px dial sits under the thumb, fully visible.
+- When zoomed, the screen fills the width and stretches down into the device body (up to 266 device px, over 800ms with the zoom) so it fills the space above the dial, and the device body grows with it so the dial still sits on the device; the 156px dial sits under the thumb, fully visible. Zooming out shrinks it back.
 - Articles use narrow reading sizes on phones (15.5px body, 30px titles).
 - The guide callouts don't fit beside the device under 820px; `?` shows the same labels as a sheet at the bottom instead (tap it or touch the device to dismiss).
 - Known limit: the screen is roughly square, so on a tall phone the zoomed article uses about 330px of height. See ROADMAP.

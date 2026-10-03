@@ -141,7 +141,12 @@ function contactMenu(): ScreenNode {
         leaf: true,
         mark: true,
         value: () => '↗',
-        preview: { kind: 'icon', icon: 'linkedin', title: 'Open LinkedIn', sub: '/in/arvind-shastri' },
+        preview: {
+          kind: 'icon',
+          icon: 'linkedin',
+          title: 'Open LinkedIn',
+          sub: '/in/arvind-shastri',
+        },
         act: () => openTab(SITE.linkedin),
       },
       {
