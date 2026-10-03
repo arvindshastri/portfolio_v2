@@ -6,7 +6,7 @@ What lives on the device, how to write it, and how to add more. Strategy is in [
 
 - **Name:** Arvind Shastri. Product designer and software engineer.
 - **Education:** B.Eng. Software Engineering (Co-op), McMaster University, Hamilton, Ontario (graduated 2025).
-- **Trac** (2025 to now): Co-founder, Software Engineer. Real-time shuttle tracking for McMaster; 3,000+ commuters reached, 2,500+ weekly active users, B2B partnership with Attridge Transportation on 5 routes, built in Flutter and Firebase. Featured as a McMaster Engineering success story.
+- **Trac** (2025 to now): Co-founder, Software Engineer. Real-time shuttle tracking for McMaster; 4,000+ users reached, 2,500+ weekly active users, 6 buses, B2B partnership with Attridge Transportation on 5 routes, built in Flutter and Firebase. Featured as a McMaster Engineering success story.
 - **Ericsson** (2023 to 2024): Software Developer Co-op. React, Redux and TypeScript features for a hardware network design tool; led a MATLAB-to-React migration study with high-fidelity Figma prototypes.
 - **CGI** (2022): Software Developer Co-op. Refactored a Java scheduling backend and cut redundant API calls; 40% faster scheduling.
 - **Arbol** (2021): Front-End Developer Intern. 10+ reusable React and Bootstrap components for a funding platform MVP, with Figma prototyping.

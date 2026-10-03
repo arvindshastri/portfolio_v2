@@ -81,6 +81,10 @@ body.dark .read .checks b {
   gap: 6px;
   margin-block: 12px;
 }
+.read .stats[data-n='4'] {
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 14px;
+}
 .read .stats b {
   display: block;
   font: 600 24px var(--font-read);
@@ -277,6 +281,12 @@ body.dark .read .checks b {
   .read .stats b {
     font-size: clamp(36px, 6cqi, 54px);
     line-height: 1;
+  }
+  .read .stats[data-n='4'] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .read .stats[data-n='4'] b {
+    font-size: clamp(32px, 4.6cqi, 44px);
   }
   .read .stats span {
     font-size: 12px;

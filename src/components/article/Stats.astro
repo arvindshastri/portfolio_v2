@@ -6,7 +6,7 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<div class="stats">
+<div class="stats" data-n={items.length}>
   {items.map(([value, label]) => (
     <div>
       <b>{value}</b>
