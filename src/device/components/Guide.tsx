@@ -88,10 +88,9 @@ export function Callouts() {
     const place = () => {
       const dev = refs.dev;
       if (!dev) return;
-      // measure the device flat
+      // measure the device flat, without disturbing its current tilt
       dev.style.transition = 'none';
-      dev.style.setProperty('--tx', '0deg');
-      dev.style.setProperty('--ty', '0deg');
+      dev.style.transform = 'none';
       const box = dev.getBoundingClientRect();
       const w = dev.offsetWidth;
       const k = box.width / w;
@@ -103,8 +102,12 @@ export function Callouts() {
           return { x, y, width: c.side === 'l' ? x + GAP : w + GAP - x };
         }),
       );
+      dev.style.transform = '';
       void dev.offsetWidth;
       dev.style.transition = '';
+      // then let it ease flat, in step with the callouts fading in
+      for (const v of ['--tx', '--ty']) dev.style.setProperty(v, '0deg');
+      for (const v of ['--dx', '--dy']) dev.style.setProperty(v, '0px');
     };
     place();
     addEventListener('resize', place);

@@ -185,6 +185,8 @@ body.guide .callouts {
   display: block;
   height: 1px;
   background: color-mix(in srgb, var(--ink) 45%, transparent);
+  /* a page-colored halo keeps the line readable where it crosses a dark wheel */
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--page) 55%, transparent);
   position: relative;
   transform-origin: var(--o, left);
 }
@@ -195,6 +197,7 @@ body.guide .callouts {
   height: 6px;
   border-radius: 50%;
   background: var(--ink);
+  box-shadow: 0 0 0 2px var(--page);
   top: -2.5px;
 }
 .co.l {
