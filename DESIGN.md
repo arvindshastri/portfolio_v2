@@ -2,118 +2,118 @@
 name: Arvind Shastri · Pocket
 description: A one-page portfolio that lives inside an original click-wheel device.
 colors:
-  page: "oklch(0.955 0.004 250)"
-  ink: "oklch(0.21 0.01 250)"
-  mute: "oklch(0.47 0.012 250)"
-  accent: "oklch(0.56 0.18 255)"
-  selection: "oklch(0.56 0.18 255)"
-  screen: "oklch(0.985 0.002 250)"
-  screen-ink: "oklch(0.2 0.01 250)"
-  screen-dark: "oklch(0.16 0.005 250)"
-  screen-ink-dark: "oklch(0.94 0.004 250)"
-  bezel: "#060607"
-  shell-light: "oklch(0.9 0.006 250)"
-  shell-dark: "oklch(0.76 0.01 250)"
-  wheel: "oklch(0.26 0.005 260)"
-  wheel-ink: "oklch(0.86 0.005 260)"
-  swatch-silver: "#cfd2d7"
-  swatch-graphite: "#4a4d53"
-  swatch-sky: "#a9c8e4"
-  swatch-rosegold: "#e3b9a8"
-  swatch-clear: "conic-gradient(#9fe3c9, #c9a24a, #9fe3c9)"
+  page: 'oklch(0.955 0.004 250)'
+  ink: 'oklch(0.21 0.01 250)'
+  mute: 'oklch(0.47 0.012 250)'
+  accent: 'oklch(0.56 0.18 255)'
+  selection: 'oklch(0.56 0.18 255)'
+  screen: 'oklch(0.985 0.002 250)'
+  screen-ink: 'oklch(0.2 0.01 250)'
+  screen-dark: 'oklch(0.16 0.005 250)'
+  screen-ink-dark: 'oklch(0.94 0.004 250)'
+  bezel: '#060607'
+  shell-light: 'oklch(0.9 0.006 250)'
+  shell-dark: 'oklch(0.76 0.01 250)'
+  wheel: 'oklch(0.26 0.005 260)'
+  wheel-ink: 'oklch(0.86 0.005 260)'
+  swatch-silver: '#cfd2d7'
+  swatch-graphite: '#4a4d53'
+  swatch-sky: '#a9c8e4'
+  swatch-rosegold: '#e3b9a8'
+  swatch-clear: 'conic-gradient(#9fe3c9, #c9a24a, #9fe3c9)'
 typography:
   page-name:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "18px"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: '18px'
     fontWeight: 700
-    letterSpacing: "-0.02em"
+    letterSpacing: '-0.02em'
   label:
-    fontFamily: "Geist Mono, monospace"
-    fontSize: "12.5px"
+    fontFamily: 'Geist Mono, monospace'
+    fontSize: '12.5px'
     fontWeight: 500
   ui-list:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "14.5px"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: '14.5px'
     fontWeight: 500
   ui-status:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "11.5px"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: '11.5px'
     fontWeight: 600
   lock-clock:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "66px"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: '66px'
     fontWeight: 300
     lineHeight: 1
-    letterSpacing: "-0.04em"
+    letterSpacing: '-0.04em'
   article-display:
-    fontFamily: "Literata, Georgia, serif"
-    fontSize: "clamp(44px, 7.5cqi, 72px)"
-    fontSizeNarrow: "30px"
+    fontFamily: 'Literata, Georgia, serif'
+    fontSize: 'clamp(44px, 7.5cqi, 72px)'
+    fontSizeNarrow: '30px'
     fontWeight: 500
     lineHeight: 1.02
-    letterSpacing: "-0.03em"
+    letterSpacing: '-0.03em'
   article-headline:
-    fontFamily: "Literata, Georgia, serif"
-    fontSize: "clamp(26px, 3.6cqi, 34px)"
+    fontFamily: 'Literata, Georgia, serif'
+    fontSize: 'clamp(26px, 3.6cqi, 34px)'
     fontWeight: 500
     lineHeight: 1.15
-    letterSpacing: "-0.02em"
+    letterSpacing: '-0.02em'
   article-lead:
-    fontFamily: "Literata, Georgia, serif"
-    fontSize: "clamp(19px, 2.4cqi, 23px)"
+    fontFamily: 'Literata, Georgia, serif'
+    fontSize: 'clamp(19px, 2.4cqi, 23px)'
     fontWeight: 400
     lineHeight: 1.5
   article-body:
-    fontFamily: "Literata, Georgia, serif"
-    fontSize: "18.5px"
-    fontSizeNarrow: "15.5px"
+    fontFamily: 'Literata, Georgia, serif'
+    fontSize: '18.5px'
+    fontSizeNarrow: '15.5px'
     fontWeight: 400
     lineHeight: 1.72
 rounded:
-  row: "9px"
-  preview: "12px"
-  card: "14px"
-  panel: "16px"
-  screen: "25px"
-  screen-frame: "32px"
-  device: "46px"
-  pill: "999px"
+  row: '9px'
+  preview: '12px'
+  card: '14px'
+  panel: '16px'
+  screen: '25px'
+  screen-frame: '32px'
+  device: '46px'
+  pill: '999px'
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "14px"
-  lg: "28px"
-  xl: "64px"
-  page-gutter: "26px"
+  xs: '4px'
+  sm: '8px'
+  md: '14px'
+  lg: '28px'
+  xl: '64px'
+  page-gutter: '26px'
 components:
   list-row:
-    textColor: "{colors.screen-ink}"
-    typography: "{typography.ui-list}"
-    rounded: "{rounded.row}"
-    height: "32px"
-    padding: "0 10px"
+    textColor: '{colors.screen-ink}'
+    typography: '{typography.ui-list}'
+    rounded: '{rounded.row}'
+    height: '32px'
+    padding: '0 10px'
   list-row-selected:
-    backgroundColor: "{colors.selection}"
-    textColor: "#ffffff"
-    rounded: "{rounded.row}"
-    height: "32px"
+    backgroundColor: '{colors.selection}'
+    textColor: '#ffffff'
+    rounded: '{rounded.row}'
+    height: '32px'
   page-link:
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
+    textColor: '{colors.ink}'
+    typography: '{typography.label}'
   swatch:
-    size: "20px"
-    rounded: "{rounded.pill}"
+    size: '20px'
+    rounded: '{rounded.pill}'
   screen-toast:
-    backgroundColor: "#0b0b0c"
-    textColor: "#ffffff"
-    rounded: "{rounded.pill}"
-    padding: "7px 12px"
+    backgroundColor: '#0b0b0c'
+    textColor: '#ffffff'
+    rounded: '{rounded.pill}'
+    padding: '7px 12px'
   article-card:
-    rounded: "{rounded.card}"
-    padding: "26px 28px"
+    rounded: '{rounded.card}'
+    padding: '26px 28px'
   article-panel:
-    rounded: "{rounded.panel}"
-    padding: "clamp(18px, 3cqi, 36px)"
+    rounded: '{rounded.panel}'
+    padding: 'clamp(18px, 3cqi, 36px)'
 ---
 
 # Design System: Arvind Shastri · Pocket
@@ -129,6 +129,7 @@ The system is restrained around the object and generous on it. The page has almo
 This system explicitly rejects generic AI-generated portfolios (centered hero over a gradient, three equal cards, an eyebrow label above every section, cream backgrounds), the neo-brutalist card stack of Arvind's previous site, busy concept scenes where the gimmick hides the work, and a literal iPod clone. The device is inspired by click-wheel players, never a replica.
 
 **Key Characteristics:**
+
 - One hero object, centered, with the page acting as its room.
 - The device color re-themes the whole page: background, text, accent and on-screen selection.
 - Tactile feedback everywhere on the device (click sound, press scale, the wheel rocking under the finger, a faint sheen) and almost none off it.
@@ -139,22 +140,24 @@ This system explicitly rejects generic AI-generated portfolios (centered hero ov
 
 A tinted-neutral room per device color, each with a single accent; the device itself carries the saturated color.
 
-Every device color is a complete theme, and every public color is the same modern, anodized device. The one exception is the secret Clear finish. Each theme also decides whether the device ships with a light or a dark screen. The frontmatter lists the default Silver theme; the full set lives in the `COLORS` table in the prototype (`prototype/index.html`). All theme values are authored in OKLCH.
+Every device color is a complete theme, and every public color is the same modern, anodized device. The one exception is the secret Clear finish. Each theme also decides whether the device ships with a light or a dark screen. The frontmatter lists the default Silver theme; the full set lives in `src/data/themes.ts`. All theme values are authored in OKLCH.
 
-| Theme | Screen | Page | Ink | Accent | Screen selection |
-|---|---|---|---|---|---|
-| Silver (default) | Light | oklch(0.955 0.004 250) | oklch(0.21 0.01 250) | oklch(0.56 0.18 255) | oklch(0.56 0.18 255) |
-| Graphite | Dark | oklch(0.18 0.006 260) | oklch(0.95 0.003 260) | oklch(0.76 0.12 235) | oklch(0.55 0.16 250) |
-| Sky | Light | oklch(0.95 0.016 235) | oklch(0.24 0.03 245) | oklch(0.52 0.14 245) | oklch(0.55 0.14 245) |
-| Rose Gold (always last) | Light | oklch(0.95 0.014 25) | oklch(0.26 0.03 30) | oklch(0.55 0.12 30) | oklch(0.56 0.12 32) |
-| Clear (secret, unlocked by clearing Brick) | Dark | oklch(0.2 0.02 190) | oklch(0.95 0.01 190) | oklch(0.8 0.12 175) | oklch(0.52 0.11 185) |
+| Theme                                      | Screen | Page                   | Ink                   | Accent               | Screen selection     |
+| ------------------------------------------ | ------ | ---------------------- | --------------------- | -------------------- | -------------------- |
+| Silver (default)                           | Light  | oklch(0.955 0.004 250) | oklch(0.21 0.01 250)  | oklch(0.56 0.18 255) | oklch(0.56 0.18 255) |
+| Graphite                                   | Dark   | oklch(0.18 0.006 260)  | oklch(0.95 0.003 260) | oklch(0.76 0.12 235) | oklch(0.55 0.16 250) |
+| Sky                                        | Light  | oklch(0.95 0.016 235)  | oklch(0.24 0.03 245)  | oklch(0.52 0.14 245) | oklch(0.55 0.14 245) |
+| Rose Gold (always last)                    | Light  | oklch(0.95 0.014 25)   | oklch(0.26 0.03 30)   | oklch(0.55 0.12 30)  | oklch(0.56 0.12 32)  |
+| Clear (secret, unlocked by clearing Brick) | Dark   | oklch(0.2 0.02 190)    | oklch(0.95 0.01 190)  | oklch(0.8 0.12 175)  | oklch(0.52 0.11 185) |
 
 Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, Rose Gold) pair a dark or white wheel with their shell; Graphite, the one dark body, uses a dark wheel and the dark screen. Rose Gold is a copper-pink metal (shell hue 36 to 42) on a pink-white room (hue 25), which keeps it out of the cream band.
 
 ### Primary
+
 - **Signal Blue** (oklch(0.56 0.18 255)): the Silver theme's accent and on-screen selection. Used for the selected list row, the visualizer bars, Brick's bricks and ball, page focus rings and the article kicker. It never fills large page areas.
 
 ### Neutral
+
 - **Cool Silver Room** (oklch(0.955 0.004 250)): default page background. A near-white with a whisper of blue, never warm.
 - **Graphite Ink** (oklch(0.21 0.01 250)): page text and the name.
 - **Slate Mute** (oklch(0.47 0.012 250)): secondary page text (role line, hints, callout descriptions). Passes 4.5:1 on the page.
@@ -164,6 +167,7 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 - **Bezel Black** (#060607): the glass frame around the screen.
 
 ### Named Rules
+
 **The Device Paints the Room Rule.** The page background, ink, accent and on-screen selection always come from the selected device color. Nothing on the page may hard-code a color outside the theme tokens, and no content-driven glows or gradients may tint the room.
 
 **The One Accent Rule.** Each theme has exactly one accent. It marks selection, focus and progress. It is never used decoratively and never covers more than about 10% of the visible page.
@@ -179,6 +183,7 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 **Character:** Geist is the device's firmware: clean, compact, slightly technical, used for every menu, status bar and page label. Literata, a serif designed for long reading on screens, takes over the moment content is opened, so case studies feel like a well-set book rather than a web page.
 
 ### Hierarchy
+
 - **Article Display** (Literata 500, clamp(44px, 7.5cqi, 72px), 1.02, -0.03em): case study titles, only inside the zoomed screen.
 - **Article Headline** (Literata 500, clamp(26px, 3.6cqi, 34px), 1.15): section headings inside articles.
 - **Article Lead** (Literata 400, clamp(19px, 2.4cqi, 23px), 1.5): the one-paragraph intro under a title.
@@ -193,6 +198,7 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 Sizes inside articles use container query units (`cqi`), because the article is laid out at the size of the zoomed screen, not the viewport.
 
 ### Named Rules
+
 **The Two Voices Rule.** Geist speaks for the device; Literata speaks for the content. Never set menu UI in Literata and never set long-form reading in Geist.
 
 **The Mono Is for Instructions Rule.** Geist Mono is reserved for instructions, metadata and captions. It is never used for headings or body copy, and never as shorthand for "technical".
@@ -204,6 +210,7 @@ Sizes inside articles use container query units (`cqi`), because the article is 
 The page is flat; only the device has depth, and it has it the way a real object does: a body shadow, a soft blurred floor shadow beneath it, and specular highlights on its material. Depth on the screen comes from tonal layering and the screen-glass reflection, not drop shadows.
 
 ### Shadow Vocabulary
+
 - **Device body** (`box-shadow: inset 0 0 0 1px var(--edge), inset 0 2px 0 var(--edge), inset 0 -3px 8px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.14), 0 40px 60px -34px rgba(10,14,20,.45)`): a machined edge highlight, a tight contact shadow and one grounded drop shadow.
 - **Screen recess** (`inset 0 1px 2px rgba(0,0,0,.7), 0 1px 0 var(--edge)` on the glass frame): the screen sits below the shell; the lower lip catches light.
 - **Backlight falloff** (`inset 0 0 18px rgba(0,0,0,.09)` inside the LCD): the edges of the display are a touch dimmer than the middle. Removed while zoomed.
@@ -213,6 +220,7 @@ The page is flat; only the device has depth, and it has it the way a real object
 - **Peek panel** (`box-shadow: 0 0 0 8px #0d0e10, 0 40px 80px -30px rgba(0,0,0,.55)`): the magnified screen, framed like the bezel.
 
 ### Named Rules
+
 **The Grounded Object Rule.** The device always sits on the surface (floor shadow) and tilts slightly toward the pointer (at most 12deg Y, 8deg X). It never floats, bounces or spins.
 
 **The Flat Room Rule.** Nothing on the page outside the device casts a shadow. Links, swatches and hints are flat. The room itself may have light: a fixed radial falloff (transparent at the center, `rgba(0,0,0,.07)` at the corners) like a studio sweep lit from above the device. It is never colored by content.
@@ -220,7 +228,9 @@ The page is flat; only the device has depth, and it has it the way a real object
 ## 5. Components
 
 ### The Pocket (signature component)
+
 Tactile, precise and quiet: an object first, a UI second.
+
 - **Body:** 360 by 604px, 46px corner radius. Anodized aluminum in every color: a gradient between the theme's two shell tones, faint grain, a 1px machined edge highlight. The secret **Clear** finish replaces the body with a smoked, see-through shell over a circuit board (chips, gold traces, screws, the wheel's sensor ring), a dark wheel and the dark screen. The grain is off for Clear.
 - **Screen:** inset 13px, 310px tall glass frame (32px radius, bezel black, 7px padding) holding the 25px-radius LCD. Content lays out in a container (`container-type: inline-size`) so it can reflow when zoomed.
 - **Wheel:** 222px diameter, centered 346px from the top. Labels MENU (top), ◀◀ (left), ▶▶ (right), ▶ ❚❚ (bottom) in Geist 650 10.5px, tracked 0.1em, in the theme's wheel ink. A faint sheen (`wglow`) follows the pointer. Pressing the ring rocks the wheel 3deg toward the finger (perspective 600px) until it's released or starts spinning. Spinning registers one step every 18 degrees.
@@ -229,21 +239,26 @@ Tactile, precise and quiet: an object first, a UI second.
 - **Zoomed status bar:** at any zoom, side padding is 1.15 times the zoomed screen's corner radius, so the title and time never touch the rounded corners.
 
 ### Status Bar
+
 - Three columns: play state (▶ playing, ❚❚ paused, empty if never played) on the left, the current screen title centered, the time on the right with tabular numerals.
 - 28px tall on the device, 46px with a hairline divider once zoomed.
 - The one-off notification pill grows out of its center (dark #0b0b0c, 22px, Geist 500 12px) and replaces the title for about 5 seconds.
 
 ### List Rows and Preview Pane
+
 - **Rows:** 32px tall, Geist 500 14.5px. The `›` chevron appears only on the highlighted row (fades and slides in). Settings rows always show their value (On, Off, Light, Dark) at 55% opacity. Action markers (↗, PDF) behave like the chevron: only on the highlighted row. Long labels truncate with an ellipsis; on the highlighted row they scroll across once and back after a 1.4s pause, then rest.
 - **Selected:** one highlight bar (9px radius, the theme's selection color, white text) that slides between rows in 150ms (ease-out-quart).
 - **Preview pane:** the right 53% of list screens (the list takes 47%), 12px radius, on a tinted panel (`scrInk` at 5% over `scr`). **Main menu:** one big line icon on its own (1.5px stroke in the selection color, up to 118px), no title, no eyebrow, over a soft pool of the selection color (13%) with a faint cover-flow reflection beneath. Icons are static (no draw-in or idle motion; tried and removed) and come from **Lucide** (lucide.dev, ISC), inlined, 1.6px stroke. Icons: layers (Projects), briefcase (Experience), person (About), photo (Photos), note (Music), game pad (Extras), sliders (Settings), envelope (Contact). **Second level:** projects show their cover, a mono eyebrow (year, platform) in the selection color, title and pitch; jobs show the same eyebrow (years), role and summary; tracks show album art with title and artist directly beneath, centered as one group; Contact rows use Lucide icons (mail, LinkedIn, GitHub, file-text); the ↗ marker is 17px; Brick shows a mini game board. Images never drift or zoom. Arvind will specify final preview content.
 - **Screen transitions:** new screens slide in from the right over 340ms (ease-out-expo); the previous screen parallaxes 35% left, then hides.
 
 ### Lock Screen
+
 - One static photo at 60% opacity over #0f141f, the time in Lock Clock style, the date below. Nothing else. The page hint below the device says "press the center to unlock". Unlocking slides the lock screen up.
 
 ### Zoomed Article (case studies)
+
 Editorial and calm; the content is the hero.
+
 - **Column:** 680px max, centered, with fluid gutters clamp(28px, 8cqi, 96px). Wider blocks: pull quote 820px, two-column split and cards 920px, galleries and image panels 1000px, cover image full bleed.
 - **Header:** accent-colored mono kicker, Article Display title, Article Lead, then a four-column meta row (Role, Platform, Tools, Partner) between hairlines.
 - **Stats:** three large Literata numbers with mono captions, closed by a hairline.
@@ -255,9 +270,11 @@ Editorial and calm; the content is the hero.
 - **End line:** "press MENU to go back", centered mono.
 
 ### Peek Panel
+
 - Up to 880 by 720px, 26px radius, framed by an 8px bezel ring. Scales from 0.35 to 1 over 380ms. Project peeks show the article; photo peeks show the image on black with a caption.
 
 ### Page Chrome
+
 - **Name block:** top-left. The name is a button that returns the device to the main menu (zooming out first if needed). Below it the mono role line "designer + engineer". Nothing else.
 - **Links:** top-right, "Résumé" and "Contact" in Geist 15px with an underline that draws in from the left on hover.
 - **Swatches:** 20px circles centered under the device; the active one gets a 2px page-colored gap and a 1.5px ink ring.
@@ -269,6 +286,7 @@ Editorial and calm; the content is the hero.
 ## 6. Do's and Don'ts
 
 ### Do:
+
 - **Do** keep everything on or around the single device. One object, done perfectly.
 - **Do** let the device color theme the entire page through the theme tokens.
 - **Do** open long content by zooming into the screen and reflowing it, with a quick screen blank (140ms) so the reflow is never visible.
@@ -278,6 +296,7 @@ Editorial and calm; the content is the hero.
 - **Do** keep sound opt-in by interaction: nothing plays until the visitor touches the device.
 
 ### Don't:
+
 - **Don't** build generic AI-generated portfolio patterns: a centered hero over a gradient, three equal cards, eyebrow labels on every section, cream backgrounds.
 - **Don't** drift back toward the previous portfolio: neo-brutalist cards, hard shadows, an indigo accent, content scattered across pages.
 - **Don't** build over-busy concept scenes where the gimmick hides the work (a cluttered desk, a 3D room to explore).

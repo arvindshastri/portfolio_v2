@@ -16,39 +16,40 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 
 ## 2. Screen map and content
 
-| Screen | Content | Opens as |
-|---|---|---|
-| Lock | Static photo (`nyc.jpg`), time, date | Press to unlock |
-| Menu | Work, About, Experience, Music, Photos, Extras, Settings, Contact, each with a preview | List |
-| Work | Trac Commuter, Trac Driver, Orderly, StudyFinder | Zoomed article (hold to peek) |
-| About | Intro, design skills, engineering skills, portrait | Zoomed article |
-| Experience | Trac, Ericsson, CGI, Arbol | Zoomed article per role |
-| Music | Playlist of tracks | Now Playing |
-| Photos | Cover flow of personal photos with captions | Peek |
-| Extras | Brick (more games later) | Game screen |
-| Settings | Color, Screen, Clicker, Show controls | In place |
-| Contact | Copy email, LinkedIn, GitHub, Résumé | Actions |
+| Screen     | Content                                                                                    | Opens as                      |
+| ---------- | ------------------------------------------------------------------------------------------ | ----------------------------- |
+| Lock       | Static photo (`nyc.jpg`), time, date                                                       | Press to unlock               |
+| Menu       | Projects, Experience, About, Photos, Music, Extras, Settings, Contact, each with a preview | List                          |
+| Projects   | Trac Commuter, Trac Driver, Orderly, StudyFinder                                           | Zoomed article (hold to peek) |
+| About      | Intro, design skills, engineering skills, portrait                                         | Zoomed article                |
+| Experience | Trac, Ericsson, CGI, Arbol                                                                 | Zoomed article per role       |
+| Music      | Playlist of tracks                                                                         | Now Playing                   |
+| Photos     | Cover flow of personal photos with captions                                                | Peek                          |
+| Extras     | Brick (more games later)                                                                   | Game screen                   |
+| Settings   | Color, Screen, Clicker, Show controls                                                      | In place                      |
+| Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions                       |
 
 ## 3. Case study template
 
 Every project article uses the same building blocks, in roughly this order. Not every block is required; Trac Commuter uses all of them and is the reference.
 
-| Block | Markup | Purpose |
-|---|---|---|
-| Header | `<header class="hero">` with `.kick`, `h1`, `.lead`, `dl.meta` | Kicker ("Case study · 2025"), title, a 1–2 sentence lead, then Role / Platform / Tools / Partner |
-| Cover | `<figure class="bleed">` | Edge-to-edge cover image |
-| Stats | `<div class="stats">` with 3 × `b` + `span` | Three real numbers. Never invent numbers |
-| Section | `h2` + `p` | The story: problem, research, design, testing, build, reflection |
-| Pull quote | `<blockquote class="pull">…<cite>` | One striking finding with its source |
-| Split | `<div class="split">` with text left, `ul.checks` right | A finding plus a percentage checklist |
-| Gallery | `<div class="gallery">` of `figure` + `figcaption` | Design iterations, stacked full width |
-| Cards | `<div class="duo">` with `.card.good` and `.card` | "What worked" vs "What we changed" |
-| Panel | `<figure class="panel">` | Final screens on a tinted panel |
-| End | `<p class="end">press MENU to go back</p>` | Closing line |
+| Block      | Markup                                                         | Purpose                                                                                          |
+| ---------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Header     | `<header class="hero">` with `.kick`, `h1`, `.lead`, `dl.meta` | Kicker ("Case study · 2025"), title, a 1–2 sentence lead, then Role / Platform / Tools / Partner |
+| Cover      | `<figure class="bleed">`                                       | Edge-to-edge cover image                                                                         |
+| Stats      | `<div class="stats">` with 3 × `b` + `span`                    | Three real numbers. Never invent numbers                                                         |
+| Section    | `h2` + `p`                                                     | The story: problem, research, design, testing, build, reflection                                 |
+| Pull quote | `<blockquote class="pull">…<cite>`                             | One striking finding with its source                                                             |
+| Split      | `<div class="split">` with text left, `ul.checks` right        | A finding plus a percentage checklist                                                            |
+| Gallery    | `<div class="gallery">` of `figure` + `figcaption`             | Design iterations, stacked full width                                                            |
+| Cards      | `<div class="duo">` with `.card.good` and `.card`              | "What worked" vs "What we changed"                                                               |
+| Panel      | `<figure class="panel">`                                       | Final screens on a tinted panel                                                                  |
+| End        | `<p class="end">press MENU to go back</p>`                     | Closing line                                                                                     |
 
 Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()` helper: header, optional cover, body, end line.
 
 ### Recommended story arc
+
 1. **The problem**, with real data.
 2. **What people asked for** (research).
 3. **Design rounds**, with what changed and why.
@@ -68,39 +69,51 @@ Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()
 ## 5. How to add things
 
 ### A project
-Add an entry to `PROJECTS` with `label`, `prev` (preview image via `img("file.jpg")`) and `html` (the article). Put images in `prototype/assets/`. Every project is automatically zoomable and peekable.
+
+Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects/<name>/`). Frontmatter:
+
+- `title`, `order` (position in the Projects list), `kicker` ("Case study · 2025"), `lead` (the intro paragraph)
+- `tagline` ("2025 · iOS and Android") and `pitch` (one line): the menu preview
+- `cover` (relative path to an image) and `coverAlt`
+- `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools...)
+
+The body is Markdown. Headings (`##`) become sections that ◀◀ / ▶▶ jump between. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<PrototypeLink>`. Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
+
+### A role
+
+Add `src/content/experience/<company>.md` with `company`, `role`, `period`, `years` (short, for the preview), `order` and `summary`. The body is the article.
 
 ### A photo
-Add `["file.jpg","Caption"]` to `PHOTOS`, the full image to `prototype/assets/`, and a 400px-max thumbnail with the same name to `prototype/assets/thumbs/` (cover flow uses the thumbnail, the peek uses the full image).
+
+Put the image in `src/assets/photos/`, import it in `src/data/photos.ts` and add `{ id, image, caption }`. Thumbnails for cover flow and the full-size peek are generated automatically.
 
 ### A music track
-1. Put the audio file in `prototype/assets/music/`.
-2. Add to `TRACKS`: `{name:"Title", artist:"Artist", src:"assets/music/track.mp3", art:img("cover.jpg")}`.
+
+1. Put the audio file in `public/music/`.
+2. Add to `TRACKS` in `src/data/tracks.ts`: `{ name: 'Title', artist: 'Artist', src: '/music/track.mp3', art: { photo: '<photo id>' }, ... }`.
 3. Use only music you have the right to publish (your own, royalty-free, or licensed). Entries without `src` are generated placeholders; remove them once real tracks exist.
 
 ### A device color
-Previews: projects need `cover`, `meta` ("2025 · iOS and Android") and a one-line `pitch`; the preview is built from those. Other previews are built in `ROOT` with `pvTx(kicker,title,text)`.
 
-Arvind will specify what each menu preview shows; the current previews are placeholders built from existing content.
+Add a theme to `THEMES` in `src/data/themes.ts`: `id`, `name`, `screen` (`light` or `dark`, the display it ships with), a `swatch` color, optional `secret: true`, and the full token set. Every public color is the same anodized modern device; keep the set at five or fewer. Check text contrast on the new page color and white text on `sel`.
 
-Add an entry to `COLORS` with an `id`, `name`, `screen` (`light` or `dark`, the display it ships with), a swatch color `c`, optional `secret:true`, and the full token set `v` (page, ink, mute, accent, sel, shell, shell2, wheel, wheel2, wink, btn, btn2, edge, floor, wglow, scrL, inkL, scrD, inkD). Every color is the same anodized modern device; keep the set at five or fewer. Check text contrast on the new page color and white text on `sel`.
+### Menu previews
+
+Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and role previews are built from their frontmatter. Arvind will specify what each menu preview should show; the current ones are placeholders built from existing content.
 
 ## 6. Assets
 
-`prototype/assets/` currently holds:
-- Project images: Trac Commuter (cover, design v1 to v3, final results 1 and 2), Trac Driver (cover, final result), Orderly (cover), StudyFinder (cover).
-- Personal: `arvind_portrait.jpg` (graduation photo), `nyc.jpg`, `sunset.jpg`, `spiderverse.jpg` (a drawing), `doctor_strange.jpg`, `logic.jpg`, `mac_wrld.jpg`, `cfest_banners.jpg`. Captions for the less obvious ones are guesses; confirm them.
-- `resume.pdf`, copied from the previous portfolio. Confirm it's the latest version.
-- `music/`, empty, ready for real tracks.
+- `src/assets/projects/`: every image from the old portfolio's case studies, one folder per project.
+- `src/assets/photos/`: `arvind_portrait.jpg` (graduation photo), `nyc.jpg`, `sunset.jpg`, `spiderverse.jpg` (a drawing), `doctor_strange.jpg`, `logic.jpg`, `mac_wrld.jpg`, `cfest_banners.jpg`. Captions for the less obvious ones are guesses; confirm them.
+- `public/resume.pdf`, copied from the previous portfolio. Confirm it's the latest version.
+- `public/music/`, empty, ready for real tracks.
 
 ## 7. Open placeholders (must be replaced before launch)
 
-- [ ] Email: `hello@arvindshastri.com` is a placeholder.
-- [ ] LinkedIn and GitHub URLs point to the generic homepages.
-- [ ] Trac Commuter "What I'd do next" reflection.
-- [ ] Full case studies for Trac Driver, Orderly and StudyFinder (currently short).
-- [ ] About page: personal intro beyond the one-liner.
-- [ ] Experience pages: more detail per role.
+- [x] Email, LinkedIn and GitHub: taken from the old portfolio (arvind.shastri@outlook.com, linkedin.com/in/arvind-shastri, github.com/arvindshastri). Confirm they're current.
+- [ ] Case studies: drafted from the old portfolio's pages (lightly tightened, no em dashes). Review the wording.
+- [ ] About and Experience: drafted from the old portfolio. Review.
+- [ ] A reflection section for Trac Commuter ("What I'd do next"), if wanted.
 - [ ] Photo captions (confirm "Logic", "McMaster", "Campus", "Doctor Strange").
 - [ ] Real music tracks to replace the generated placeholders.
 - [ ] Résumé PDF: confirm it's current.

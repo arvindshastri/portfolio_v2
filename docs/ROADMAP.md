@@ -5,7 +5,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 ## Phase 1: Finish the design in the prototype
 
 - [ ] Give About and Experience the same editorial treatment as Trac Commuter.
-- [ ] Write full case studies for Trac Driver, Orderly and StudyFinder (content from the old portfolio is a starting point).
+- [x] Case studies for all four projects drafted from the old portfolio. Arvind to review.
 - [ ] Replace generated music with real, rights-cleared tracks and cover art.
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
@@ -15,34 +15,19 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 - [ ] Confirm Sky as the third color.
 - [ ] Fill every placeholder in [CONTENT.md §7](CONTENT.md#7-open-placeholders-must-be-replaced-before-launch).
 
-## Phase 2: Production build
+## Phase 2: Production build (done, 2026-10-02)
 
-Recommended stack: **Vite + TypeScript, no UI framework.** The site is one interactive object with no routing or data layer, so a framework would add weight without benefit. The prototype is already vanilla JS and ports cleanly.
+Built with Astro + React + TypeScript (see the README for the stack and layout). The prototype stays in `prototype/` as the design reference.
 
-Suggested structure:
-
-```
-src/
-  content/        projects.ts, experience.ts, photos.ts, tracks.ts, about.ts  (all copy and data)
-  theme/          colors.ts (the COLORS table), tokens.css
-  device/         device.ts (stack, screens), wheel.ts, zoom.ts, peek.ts, lock.ts, status.ts
-  screens/        list.ts, article.ts, nowPlaying.ts, coverFlow.ts, brick.ts, settings.ts
-  audio/          clicker.ts, player.ts (files + generated fallback), visualizer.ts
-  page/           entrance.ts, guide.ts, swatches.ts, contact.ts
-  styles/         device.css, article.css, page.css
-index.html
-public/assets/    images, resume.pdf, music/
-```
-
-Tasks:
-- [ ] Port the prototype into modules; content moves out of code into `content/`.
-- [ ] Keep the OKLCH theme tokens as CSS custom properties, generated from `colors.ts`.
-- [ ] Self-host fonts (Geist, Geist Mono, Literata) with `font-display: swap`, subset to Latin.
-- [ ] Convert images to AVIF/WebP with explicit dimensions; lazy-load anything not on the lock screen.
-- [ ] Remove the prototype test hooks (`?go`, `?notrans`, etc.).
-- [ ] Render the text version as real HTML in the page (visually hidden), so search engines and screen readers get all the content without JavaScript.
-- [ ] Add meta tags, an Open Graph image (a render of the device), and a favicon.
-- [ ] Each case study gets a shareable URL (for example `/#trac-commuter` opens the device zoomed into it), so links from a résumé land directly on a project.
+- [x] Port the prototype: content in `src/content` and `src/data`, the device in `src/device`.
+- [x] OKLCH theme tokens as CSS custom properties, set from `src/data/themes.ts` (and applied before first paint for returning visitors).
+- [x] Self-hosted fonts (Fontsource).
+- [x] Images resized and converted to WebP at build time; cover flow uses generated thumbnails.
+- [x] Prototype test hooks only run in development (`import.meta.env.DEV`).
+- [x] A text version of the site as real HTML (including the full case study on project pages).
+- [x] Meta tags, link previews (project pages use their cover) and a favicon.
+- [x] Each case study has its own URL (`/projects/<name>/`); the address bar and back button follow the device.
+- [ ] A link-preview image for the home page (a render of the device).
 
 ## Phase 3: Quality
 
@@ -56,7 +41,7 @@ Tasks:
 
 ## Phase 4: Launch
 
-- [ ] Domain and hosting (Vercel, Netlify or Cloudflare Pages; all fine for a static site).
+- [ ] Deploy to Netlify on arvindshastri.com (Arvind is handling this; `netlify.toml` is set up).
 - [ ] Privacy-friendly analytics, if wanted (Plausible or similar), to see which projects get opened.
 - [ ] Update the résumé, LinkedIn and GitHub to link to the new site.
 
