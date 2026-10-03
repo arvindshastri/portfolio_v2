@@ -1,0 +1,31 @@
+---
+/* Each case study has its own URL. The page is the same site, opened straight into the project. */
+import { getImage } from 'astro:assets';
+import ArticleTemplates from '@/components/ArticleTemplates.astro';
+import TextVersion from '@/components/TextVersion.astro';
+import Pocket from '@/device/Pocket';
+import Base from '@/layouts/Base.astro';
+import { getDeviceContent, getProjects } from '@/lib/content';
+
+export async function getStaticPaths() {
+  return (await getProjects()).map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const content = await getDeviceContent();
+const preview = await getImage({ src: project.data.cover, width: 1200, format: 'jpg' });
+---
+
+<Base
+  title={project.data.title}
+  description={project.data.lead}
+  image={new URL(preview.src, Astro.site).href}
+  locked={false}
+>
+  <Pocket client:only="react" content={content} initialProject={project.id} />
+  <TextVersion project={project} />
+  <ArticleTemplates />
+</Base>

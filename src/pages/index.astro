@@ -1,0 +1,15 @@
+---
+import ArticleTemplates from '@/components/ArticleTemplates.astro';
+import TextVersion from '@/components/TextVersion.astro';
+import Pocket from '@/device/Pocket';
+import Base from '@/layouts/Base.astro';
+import { getDeviceContent } from '@/lib/content';
+
+const content = await getDeviceContent();
+---
+
+<Base>
+  <Pocket client:only="react" content={content} />
+  <TextVersion />
+  <ArticleTemplates />
+</Base>
