@@ -82,7 +82,9 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 
 ### Reading
 
-- A 52px bar on top (56px on wide pages): `‹ Projects` (the list it came from, in the accent color) on the left, the title centered. Nothing on the right.
+- A 52px bar on top (56px on wide pages): `‹ Projects` (the list it came from, in the accent color) on the left, the title centered.
+- **Contents** (articles with 3 or more `##` sections): a numbered list just before the first section, one column on phones and two columns read top to bottom on wider pages. Choosing a section eases the page there (heading 24px from the top) and moves focus to it.
+- Once the inline Contents has scrolled away, the bar's right side shows the current section (`04 Design process ⌄`; `04/07 ⌄` on phones). It opens the Contents as a menu; `Esc` or a tap outside closes the menu without closing the page. The current section is the last heading above 30% of the page height.
 - The article scrolls natively (touch, trackpad, mouse wheel, scrollbar). The mouse wheel over the bar scrolls it too.
 - `↑`/`↓` scroll 110px per press and `Space`/`Enter` page down (80% of the page), all eased.
 - No wheel or dial while reading (the docked dial was removed on 2026-10-06).

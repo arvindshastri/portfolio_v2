@@ -76,7 +76,7 @@ Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects
 - `cover` (relative path to an image) and `coverAlt`
 - `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools...)
 
-The body is Markdown. Headings (`##`) become sections. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
+The body is Markdown. Headings (`##`) become sections; with 3 or more, the article gets a Contents list. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
 
 ### A role
 

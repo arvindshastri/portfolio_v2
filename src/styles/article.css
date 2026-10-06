@@ -533,6 +533,72 @@ body.dark .read .checks b {
   }
 }
 
+/* Contents: a numbered list of the sections, just before the first one */
+.read .contents {
+  margin-block: 30px 6px;
+  padding-block: 16px 10px;
+  border-block: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+}
+.contents .clabel {
+  font: 500 11px var(--font-mono);
+  opacity: 0.55;
+  margin-bottom: 8px;
+}
+.contents ol {
+  list-style: none;
+}
+.read .contents li {
+  margin: 0;
+  padding: 0;
+}
+.read .contents li::before {
+  content: none;
+}
+.contents button,
+.secmenu .drop button {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  padding: 7px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: 500 15.5px/1.35 var(--font-ui);
+  color: inherit;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.contents button:hover,
+.secmenu .drop button:hover {
+  opacity: 1;
+}
+.contents button span,
+.secmenu .drop button span {
+  flex: none;
+  width: 18px;
+  font: 500 11px var(--font-mono);
+  color: var(--kick);
+}
+@container (min-width:560px) {
+  .read .contents {
+    margin-block: 48px 0;
+    padding-block: 22px 14px;
+  }
+  /* two columns read down, then across: 01 to 04 on the left, the rest on the right */
+  .read .contents ol {
+    columns: 2;
+    column-gap: 32px;
+  }
+  .read .contents li {
+    break-inside: avoid;
+  }
+  .contents button {
+    font-size: 16px;
+  }
+}
+
 /* the open-link icon after "Open in Figma" (in articles and the text version) */
 svg.ext {
   width: 0.85em;

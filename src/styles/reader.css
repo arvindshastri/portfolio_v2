@@ -7,6 +7,7 @@
   color: var(--scrInk);
 }
 .rin {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -14,6 +15,9 @@
   container-type: inline-size;
 }
 .rbar {
+  /* above the article, so the section menu opens over it */
+  position: relative;
+  z-index: 2;
   flex: none;
   height: 52px;
   display: grid;
@@ -72,5 +76,106 @@
   .rbar {
     height: 56px;
     padding: 0 20px;
+  }
+}
+
+/* the current section, at the bar's right once the inline Contents has scrolled away; it opens
+   the Contents as a menu */
+.secmenu {
+  justify-self: end;
+  position: relative;
+  opacity: 0;
+  translate: 0 -4px;
+  pointer-events: none;
+  transition:
+    opacity 0.25s var(--quart),
+    translate 0.35s var(--ease);
+}
+.secmenu.on {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+.secmenu .current {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 34vw;
+  padding: 8px 6px 8px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  font: 500 14px var(--font-ui);
+  color: inherit;
+  transition: background 0.15s;
+}
+.secmenu .current:hover,
+.secmenu.open .current {
+  background: color-mix(in srgb, currentColor 9%, transparent);
+}
+.secmenu .n,
+.secmenu .of {
+  font: 500 11px var(--font-mono);
+  color: var(--kick);
+}
+.secmenu .of {
+  margin-left: -6px;
+  opacity: 0.6;
+}
+.secmenu .t {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+.secmenu .current svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  transition: rotate 0.25s var(--ease);
+}
+.secmenu.open .current svg {
+  rotate: 180deg;
+}
+.secmenu .drop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(320px, calc(100vw - 24px));
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: var(--scr);
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  translate: 0 -6px;
+  pointer-events: none;
+  transition:
+    opacity 0.18s var(--quart),
+    translate 0.3s var(--ease);
+}
+.secmenu.open .drop {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+.secmenu .drop ol {
+  list-style: none;
+}
+.secmenu .drop button.now {
+  opacity: 1;
+  font-weight: 600;
+}
+/* phones: just the number, so the title keeps its room */
+@container (max-width:559px) {
+  .secmenu .t {
+    display: none;
+  }
+}
+@container (min-width:560px) {
+  .secmenu .of {
+    display: none;
   }
 }

@@ -55,6 +55,7 @@ Goals that came out of that:
 - **Reading is a full-window page** (2026-10-06, replacing the camera zoom into the screen): the screen grows into a page that looks like a regular website, with a `‹ Projects` bar on top, native scrolling, and no wheel. Text never visibly reflows: the article fades in at its final size. Arvind felt the zoom with a docked dial was more complex and less intuitive than a plain page.
 - ~~While zoomed, a smaller full wheel docks at the bottom center~~ (removed 2026-10-06 with the reading page), fully visible with all four labels (round 8: the half-hidden dial looked awkward and was hard to spin). No mini wheel at the side, no top hint.
 - **No ◀◀ / ▶▶ "next project".** They skip tracks and photos. (While reading there is no wheel; a Contents list near the top of each article does section jumps.)
+- **Contents** (2026-10-06, brought back from the old case studies): a numbered list before the first section, plus the current section in the reading bar, which opens the list as a menu. A sticky side rail was tried and dropped: the case studies' wide blocks (cards, galleries) ran over it.
 - **Reading pages close** with the bar's back button, `Esc`, or the browser's back button; every reading page has a history entry so back never leaves the site.
 - Case studies stay **long-form**.
 - Photos and Contact do **not** open a reading page. Photos enlarge on press; Contact is a small on-device list.

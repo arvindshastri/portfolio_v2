@@ -256,6 +256,7 @@ Tactile, precise and quiet: an object first, a UI second.
 
 - **The page:** full window, in the screen's colors (`scr`, `scrInk`). It grows out of the device's screen: a clip from the screen's exact outline and corner radius to the whole window, 620ms ease-out-expo, and the content cascades in while it opens: the bar fades in, then the header's parts and the blocks below each fade and rise 18px, 50ms apart. Closing: the content settles back and fades (220ms) as the page shrinks into the screen (520ms), and the page dissolves into the list as it settles (300ms crossfade).
 - **Bar:** 52px (56px at 560px wide and up), a hairline under it (`scrInk` at 9%). `‹` Lucide `ChevronLeft` (20px, 2.2 stroke) and the parent list's name in the accent color (`kick`), Geist 500 15px, with a 9% tint on hover; the title centered in Geist 600, truncated. No play/pause or time.
+- **Contents:** a numbered list before the first section, between hairlines (`scrInk` at 10%): mono label "Contents" at 55%, rows in Geist 500 15.5px (16px wide) at 80% with a mono number in the accent color; two columns from 560px, read down then across (CSS columns). In the bar, the current section (mono number in the accent color, title at 85%, a `ChevronDown` that turns over when open) opens the same list as a menu: 320px max, 14px radius, hairline border, a soft shadow, the current row in 600.
 - **Scrollbar:** visible and thin, in `scrInk` at 25%, unlike the device's screen.
 
 Editorial and calm; the content is the hero.

@@ -47,8 +47,10 @@ export function scrollBy(dy: number) {
 }
 
 export function scrollTo(y: number) {
-  if (!readEl()) return;
+  const el = readEl();
+  if (!el) return;
   sync();
+  el.style.scrollBehavior = 'auto';
   rs.target = y;
   kick();
 }
