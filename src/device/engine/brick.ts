@@ -20,6 +20,10 @@ const W = 656;
 const UI = '"Geist Variable", system-ui, sans-serif';
 const MONO = '"Geist Mono Variable", ui-monospace, monospace';
 const ROW_ALPHA = [1, 0.8, 0.62, 0.46, 0.32];
+/** One physics step, in ms. */
+const TICK = 1000 / 60;
+/** The fastest the ball moves sideways per step (it falls at 8). */
+const MAX_VX = 8;
 
 const game = {
   paddle: 328,
@@ -79,12 +83,22 @@ export function start(el: HTMLCanvasElement, win: () => boolean) {
   onWin = win;
   reset();
   cancelAnimationFrame(raf);
-  const loop = () => {
+  // the physics runs in fixed 60Hz steps, so the ball is the same speed on 60Hz and 120Hz screens
+  let last = performance.now();
+  let behind = 0;
+  const loop = (now = last) => {
     if (!canvas) return;
-    step();
+    // after a stall (a background tab), catch up at most a few steps instead of jumping
+    behind = Math.min(behind + now - last, TICK * 4);
+    last = now;
+    while (behind >= TICK) {
+      step();
+      behind -= TICK;
+    }
     draw();
     raf = requestAnimationFrame(loop);
   };
+  step();
   loop();
 }
 
@@ -124,7 +138,8 @@ function step() {
   if (b.y < 78) b.vy = Math.abs(b.vy);
   if (b.vy > 0 && b.y > 492 && b.y < 512 && Math.abs(b.x - game.paddle) < 62) {
     b.vy = -Math.abs(b.vy);
-    b.vx += (b.x - game.paddle) * 0.08;
+    // hitting off-center angles the ball, but it never gets faster sideways than it falls
+    b.vx = Math.max(-MAX_VX, Math.min(MAX_VX, b.vx + (b.x - game.paddle) * 0.08));
     click();
   }
   if (b.y > 575) {
