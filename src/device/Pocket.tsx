@@ -32,6 +32,7 @@ export default function Pocket({ content, initialProject }: Props) {
       // a project link skips the lock screen and waits on the Projects list
       root.hidden = true;
       setState({ stack: [root, newFrame(projectsMenu(content), index)], locked: false });
+      actions.startAtProject();
     }
   });
 

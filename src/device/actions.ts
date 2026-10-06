@@ -37,16 +37,26 @@ export function push(node: ScreenNode): Frame {
     stack: [...s.stack, frame],
     slide: prev ? { seq: ++slideSeq, dir: 1, inId: frame.id, outId: prev.id } : null,
   }));
+  // forward redoes it: Now Playing directly, anything else by choosing the same row again
+  remember(node.type === 'np' ? { np: true } : { via: prev?.sel });
   click(2);
   return frame;
 }
 
+/** MENU, Esc and the on-screen back buttons: one step back, the same as the browser's back. */
 export function pop() {
   const s = getState();
   if (s.photo !== null) return closePhoto();
   if (s.busy) return;
-  if (s.zoomed) return closeDoc();
+  if (s.zoomed) return back(() => closeReading());
   // already at the main menu: nowhere to go back to
+  if (s.stack.length < 2) return;
+  back(popScreen);
+}
+
+/** Slides back to the screen below. */
+function popScreen() {
+  const s = getState();
   if (s.stack.length < 2) return;
   const leaving = top();
   const rest = s.stack.slice(0, -1);
@@ -84,10 +94,12 @@ function popNow() {
 /** Back to the main menu from anywhere (the name in the top-left corner). */
 export function home() {
   const s = getState();
-  if (s.photo !== null) closePhoto();
   if (s.locked) return unlock();
+  // every step has a history entry: going back past all of them unwinds the device too
+  if (level > 0) return history.go(-level);
+  if (s.photo !== null) hidePhoto();
   if (s.zoomed) {
-    closeDoc();
+    closeReading();
     later('home', 700, toRoot);
   } else toRoot();
 }
@@ -280,7 +292,9 @@ export function openDoc(doc: DocRef) {
   }));
   bodyClass('zoomed', true);
   click(2);
-  urlOpen(doc);
+  document.title = `${doc.title} · ${TITLE}`;
+  // only projects change the address
+  remember({ doc }, doc.slug ? `/projects/${doc.slug}/` : undefined);
   later('read', reducedMotion() ? 0 : 620, () => setState({ busy: false }));
 }
 
@@ -294,47 +308,109 @@ function zoomOut(andPop: boolean) {
   void shrink(refs.reader).then(() => setState({ reading: null, busy: false }));
 }
 
-/** MENU while reading. Project pages have URLs, so going back also goes back in history. */
-function closeDoc() {
-  if (history.state?.doc || history.state?.reading) {
-    history.back(); // the popstate handler zooms out
-    return;
-  }
+/** Closes the reading page, back to the list it came from. */
+function closeReading() {
   zoomOut(true);
-  urlReset();
+  document.title = TITLE;
+  if (location.pathname !== '/' && level === 0) history.replaceState(null, '', '/');
 }
 
-/* ===================== project URLs ===================== */
+/* ===================== history: back undoes one step ===================== */
 
 const TITLE = SITE.name;
 
 /**
- * Every reading page gets a history entry, so the browser's back button (and Android's back
- * gesture) closes it instead of leaving the site. Only projects change the address.
+ * Every step deeper on the device (a screen, a reading page, an enlarged image) gets a history
+ * entry that records how deep it is, so the browser's back button and Android's back gesture undo
+ * exactly one step, like MENU. MENU and the on-screen back buttons also go back through history,
+ * so the two can never disagree; the history handler (`onHistory`) does the undoing. Only
+ * projects change the address.
  */
-function urlOpen(doc: DocRef) {
-  document.title = `${doc.title} · ${TITLE}`;
-  if (!doc.slug) return history.pushState({ reading: true }, '', location.pathname);
-  const path = `/projects/${doc.slug}/`;
-  if (location.pathname !== path) history.pushState({ doc: doc.slug }, '', path);
+let level = 0;
+/** Set while redoing a step for the forward button, which already has its entry. */
+let replaying = false;
+
+/** What an entry needs to redo its step when the forward button returns to it. */
+interface Step {
+  /** A screen opened from this row of the list below it. */
+  via?: number;
+  np?: boolean;
+  doc?: DocRef;
+  image?: Enlarged;
 }
 
-function urlReset() {
-  document.title = TITLE;
-  if (location.pathname !== '/') history.replaceState(null, '', '/');
+function remember(step: Step = {}, url = location.pathname) {
+  if (replaying) return;
+  level += 1;
+  history.pushState({ ...step, level }, '', url);
+}
+
+/** One step back through history, or directly when the step has no entry. */
+function back(direct: () => void) {
+  if (level > 0) history.back();
+  else direct();
+}
+
+/** A page opened straight into a project: Menu, then Projects, then the project, as if navigated. */
+export function startAtProject() {
+  history.replaceState(null, '', '/');
+  remember();
 }
 
 /** Browser back/forward. */
-export function onHistory(state: { doc?: string; reading?: boolean } | null) {
-  // back with an image enlarged only closes the image (its entry sits on top of the page's)
-  if (getState().photo !== null) return hidePhoto();
-  if (state?.doc) {
-    const project = getContent().projects.find((p) => p.slug === state.doc);
-    if (project && !getState().zoomed) openDoc(projectDoc(project.slug, project.title));
-  } else if (getState().zoomed) {
+export function onHistory(state: (Step & { level?: number }) | null) {
+  const target = state?.level ?? 0;
+  if (target > level) {
+    // forward: redo the step this entry records (one at a time, as the button goes)
+    if (target === level + 1 && state) redo(state);
+    level = target;
+    return;
+  }
+  if (target === level) return;
+  // back: undo the steps above the entry we landed on, top first
+  let steps = level - target;
+  level = target;
+  if (getState().photo !== null && steps > 0) {
+    hidePhoto();
+    steps--;
+  }
+  if (getState().zoomed && steps > 0) {
     zoomOut(true);
     document.title = TITLE;
+    steps--;
   }
+  if (steps === 1) popScreen();
+  else if (steps > 1) popScreens(steps);
+}
+
+function redo(step: Step) {
+  replaying = true;
+  try {
+    if (step.image) return enlarge(step.image);
+    if (step.doc) return openDoc(step.doc);
+    if (step.np) return void push({ type: 'np', title: 'Now Playing' });
+    const f = top();
+    const item = step.via != null && f.node.type === 'list' ? f.node.items[step.via] : null;
+    if (item?.go) {
+      patchFrame(f.id, { sel: step.via! });
+      push(item.go());
+    }
+  } finally {
+    replaying = false;
+  }
+}
+
+/** Several screens at once (the name, or a long jump back): no slide. */
+function popScreens(n: number) {
+  const s = getState();
+  const rest = s.stack.slice(0, Math.max(1, s.stack.length - n));
+  const back = rest[rest.length - 1]!;
+  settle(frameEls.get(back.id));
+  setState({
+    stack: rest.map((f) => (f.id === back.id ? { ...f, hidden: false } : f)),
+    exiting: [],
+    slide: null,
+  });
 }
 
 export const projectDoc = (slug: string, title: string): DocRef => ({
@@ -351,8 +427,7 @@ function enlarge(image: Enlarged) {
   bodyClass('photo-open', true);
   click(2);
   vibe(12);
-  // while reading, the back button (or Android's back gesture) closes the image, not the page
-  if (getState().zoomed) history.pushState({ ...history.state, image: true }, '', location.href);
+  remember({ image });
 }
 
 /** Photos: the photo at `index`. */
@@ -374,8 +449,7 @@ export function enlargeImage(img: HTMLImageElement) {
 }
 
 export function closePhoto() {
-  if (history.state?.image) return history.back(); // the history handler closes it
-  hidePhoto();
+  back(hidePhoto);
 }
 
 function hidePhoto() {

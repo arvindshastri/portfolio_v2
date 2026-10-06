@@ -60,7 +60,7 @@ Goals that came out of that:
 - **The wheel only cancels scrolling over the device** (2026-10-06): a cancelable wheel listener on the whole window made trackpad scrolling on reading pages feel off in Edge; the window listener is passive.
 - **Article images enlarge on tap** (2026-10-06), in the same view as Photos, at their largest size: design screenshots need detail, and every block now sits in the 680px column.
 - **The screen is touchable** (2026-10-06): rows, covers and the lock screen respond to taps and clicks, so the wheel is the fun way to move around but never the only one. Friends couldn't work out spin-and-press.
-- **Reading pages close** with the bar's back button, `Esc`, or the browser's back button; every reading page has a history entry so back never leaves the site.
+- **Back is one step, everywhere** (2026-10-06): every screen, reading page and enlarged image has a history entry, so the browser's back button and Android's back gesture behave exactly like MENU (Arvind instinctively used the page's back button from a project, then again expecting the menu).
 - Case studies stay **long-form**.
 - Photos and Contact do **not** open a reading page. Photos enlarge on press; Contact is a small on-device list.
 - At the end of a list, the screen content **rubber-bands once**: the list (with its highlight) or the row of covers stretches a little past the edge and eases back. No repeated shaking, no sound. The whole device used to nudge up 2px; it read as a bug and was replaced on 2026-10-06 (a highlight squash with a dull thud was tried first and rejected as too weak).
@@ -117,7 +117,7 @@ Goals that came out of that:
 - **Astro + React + TypeScript**, chosen so each case study is its own file and its own page (`/projects/<name>/`), while the device stays one React component. Zustand for shared state; plain CSS with the theme tokens (no Tailwind); no animation library.
 - Case studies are **MDX** with a small set of article components. Content was brought over from the old portfolio as drafts.
 - Only projects get URLs. About and each role are their own files but open inside the device.
-- A direct project link plays the entrance, skips the lock screen and opens straight into the case study. The address bar follows the device, and the browser's back button closes the reading page.
+- A direct project link plays the entrance, skips the lock screen and opens straight into the case study. The address bar follows the device, and the browser's back button steps back through the case study, Projects and the main menu.
 - The prototype stays in the repo as the design reference.
 
 ## 4. Things to never re-pitch

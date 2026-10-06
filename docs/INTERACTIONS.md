@@ -91,7 +91,7 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 - `↑`/`↓` scroll 110px per press and `Space`/`Enter` page down (80% of the page), all eased.
 - No wheel or dial while reading (the docked dial was removed on 2026-10-06).
 - Closing: the back button, `Esc`/`Backspace`, or the browser's back button. The list returns in the screen underneath, the content settles back (10px down, 98.5% scale) and fades (220ms) as the page shrinks back into the screen (520ms, from 70ms); over the last part (from 290ms, 300ms) the page dissolves into the list, so the list fades in instead of appearing when the page goes, then the page chrome is back.
-- Every reading page has a history entry, so the browser's back button and Android's back gesture close it instead of leaving the site. Only projects change the address (`/projects/<name>/`).
+- Only projects change the address (`/projects/<name>/`). Back works the same from every screen; see **Back** below.
 
 ### Enlarged image
 
@@ -101,11 +101,15 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 - The panel takes the photo's own aspect ratio (up to 92% of the width and 84% of the height), so the whole photo always shows.
 - It opens at once on the cover flow's thumbnail, which is already loaded and the same shape, and the full photo fades in over it once decoded. Each photo gets its own image elements, so a previously enlarged photo can never show in place of the new one.
 - There is no hold-to-peek anywhere (removed 2026-10-06).
-- While reading, an enlarged image gets its own history entry: the browser's back button or Android's back gesture closes the image, not the page. Back with an image open only ever closes the image.
+- The browser's back button or Android's back gesture closes an enlarged image, and nothing else.
 
 ### Photos (cover flow)
 
 Spinning moves the existing covers to their new positions (500ms ease-out-expo): the center cover swings flat and forward, neighbors rotate 64 degrees and dim. Nothing is re-rendered, so every step animates. The caption shows the title and "3 of 8". Covers can also be tapped (a side cover comes to the middle, the middle one enlarges) and swiped (more than 30px sideways steps once). Taps act on click, not on release, so the click can't land on the backdrop of the photo it opens.
+
+### Back
+
+Every step deeper on the device (a screen, a reading page, an enlarged image) gets a history entry recording its depth, so **the browser's back button and Android's back gesture undo exactly one step**, the same as MENU, `Esc`, `‹ Menu` in the status bar and the reading bar's back button. Those also go back through history, so the two can never disagree; one handler does the undoing. From the main menu, back leaves the site. The name unwinds every step at once. A page opened straight into a project is set up as Menu, then Projects, then the project, so back walks out the same way. Each entry also records how to redo its step (the row it was opened from, the article, the image, or Now Playing), so the forward button redoes it, one step at a time.
 
 ### Name button
 
