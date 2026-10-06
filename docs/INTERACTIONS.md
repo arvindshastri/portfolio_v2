@@ -49,7 +49,7 @@ Lock screen (press center)
     └── Contact         Copy email · LinkedIn · GitHub · Résumé (each opens in a new tab)
 ```
 
-The highlighted row shows a chevron icon if it opens something or acts in place (Copy email), and an open-link icon if it opens a new tab (LinkedIn, GitHub, Résumé). Settings rows always show their value (On, Off, Light, Dark). Long labels truncate; the highlighted one scrolls to reveal the rest.
+The highlighted row shows a chevron icon if it opens something or acts in place (Copy email), and an open-link icon if it opens a new tab (LinkedIn, GitHub, Résumé). Settings rows always show their value (On, Off, Light, Dark). Long labels truncate; the highlighted one scrolls to reveal the rest, whenever it overflows at all (the browser shows the ellipsis for even 1px).
 
 ## 4. States and transitions
 

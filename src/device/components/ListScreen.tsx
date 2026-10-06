@@ -21,9 +21,10 @@ export function ListScreen({ frame, node }: { frame: Frame; node: ListNode }) {
     const row = listRef.current?.querySelector<HTMLElement>('.it.on');
     if (!row) return;
     const text = row.querySelector('span')!;
+    // any overflow at all: the browser shows "…" for even 1px, so the name must scroll then too
     const overflow = text.scrollWidth - text.clientWidth;
-    row.classList.toggle('long', overflow > 2);
-    if (overflow > 2) {
+    row.classList.toggle('long', overflow > 0);
+    if (overflow > 0) {
       const em = row.querySelector('em')!;
       em.style.setProperty('--mq', `${-(overflow + 2)}px`);
       em.style.setProperty('--mqt', `${Math.max(1.6, overflow / 28)}s`);
