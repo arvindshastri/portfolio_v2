@@ -67,7 +67,7 @@ Goals that came out of that:
 
 ### Status bar and notifications
 
-- Status bar: play/pause icon left, **screen title** center, time right. No name, padlock or unread dot.
+- Status bar: **screen title** center, time right. On the main menu the play/pause icon sits left; below it, the left side is a **back button** (`‹ Menu`, named after the screen it returns to) and the play state moves beside the time (2026-10-06: a friend didn't know MENU meant back). No name, padlock or unread dot.
 - **No recurring notifications.** The only messages are toasts: the email-copied confirmation and the one-off "Clear finish unlocked" (the status-bar pill was replaced by a toast on 2026-10-02). Device events never notify outside the device.
 - **Clear finish, richer:** a tinted see-through shell showing the board (flex cable, chips, battery, sensor rings, an accent LED), with the board drifting against the tilt for depth.
 

@@ -1,4 +1,4 @@
-import { Pause, Play } from 'lucide-react';
+import { ChevronLeft, Pause, Play } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import * as actions from '../actions';
 import { ensureAudio } from '../engine/audio';
@@ -46,15 +46,34 @@ export function Device() {
   );
 }
 
+/**
+ * Title in the middle, time on the right. Below the main menu the left side is a back button
+ * named after the screen it returns to (the same as MENU), and the play state moves beside the
+ * time; on the main menu the play state sits on the left.
+ */
 function StatusBar() {
   const title = useDevice((s) => s.stack[s.stack.length - 1]?.node.title ?? 'Menu');
+  const parent = useDevice((s) =>
+    s.stack.length > 1 ? s.stack[s.stack.length - 2]!.node.title : null,
+  );
   const now = useDevice((s) => s.now);
   const { on, started } = useDevice((s) => s.music);
+  const play = on ? <Play {...mark} /> : started ? <Pause {...mark} /> : null;
   return (
     <div className="status">
-      <span className="play">{on ? <Play {...mark} /> : started ? <Pause {...mark} /> : null}</span>
+      {parent ? (
+        <button className="sback" onClick={() => actions.pop()} aria-label={`Back to ${parent}`}>
+          <ChevronLeft aria-hidden />
+          <span>{parent}</span>
+        </button>
+      ) : (
+        <span className="play">{play}</span>
+      )}
       <span className="ttl">{title}</span>
-      <span className="tm">{clock(now)}</span>
+      <span className="tm">
+        {parent && play && <span className="play">{play}</span>}
+        {clock(now)}
+      </span>
     </div>
   );
 }

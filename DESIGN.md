@@ -238,7 +238,8 @@ Tactile, precise and quiet: an object first, a UI second.
 
 ### Status Bar
 
-- Three columns: play state (a filled Lucide `Play` icon while playing, `Pause` when paused, empty if never played) on the left, the current screen title centered, the time on the right with tabular numerals.
+- Three columns (`1fr auto 1fr`, so the title stays centered): the current screen title centered, the time on the right with tabular numerals. The play state is a filled Lucide `Play` icon while playing, `Pause` when paused, empty if never played.
+- **On the main menu** the play state sits on the left. **Below it** the left side is a back button: Lucide `ChevronLeft` (13px, 2.6 stroke) and the name of the screen it returns to, Geist 500 in the accent color (`kick`), its hit area running to the screen's edge; the play state moves to the right, beside the time.
 - 28px tall.
 
 ### List Rows and Preview Pane
