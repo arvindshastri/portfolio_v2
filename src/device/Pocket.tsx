@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import * as actions from './actions';
 import { Device, Dial } from './components/Device';
 import { Legend } from './components/Guide';
@@ -34,7 +34,9 @@ export default function Pocket({ content, initialProject }: Props) {
     }
   });
 
-  useEffect(() => {
+  // a layout effect runs before the first paint, so the device is fitted and the entrance has
+  // started by the first frame (a plain effect painted the finished page for a frame first)
+  useLayoutEffect(() => {
     actions.setColor(getState().color);
     fitDevice();
     const tick = setInterval(() => setState({ now: new Date() }), 15000);
