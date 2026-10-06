@@ -59,7 +59,7 @@ Goals that came out of that:
 - The zoomed article fills the screen glass exactly (fixed in round 8: it used to be laid out too small when the device was scaled down to fit the window).
 - Case studies stay **long-form**.
 - Photos and Contact do **not** zoom. Photos peek; Contact is a small on-device list.
-- At the end of a list, the device nudges **once, subtly**. No repeated shaking.
+- At the end of a list, the screen content **rubber-bands once**: the list (with its highlight) or the row of covers stretches a little past the edge and eases back. No repeated shaking, no sound. The whole device used to nudge up 2px; it read as a bug and was replaced on 2026-10-06 (a highlight squash with a dull thud was tried first and rejected as too weak).
 
 ### Status bar and notifications
 

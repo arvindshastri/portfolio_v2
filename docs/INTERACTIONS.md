@@ -24,7 +24,7 @@ How the device behaves. This is the source of truth for controls, states, transi
 - **Spin resolution:** one step every 18 degrees of rotation. Mouse wheel over the device: one notch (|deltaY| ≥ 50) is exactly one step; trackpads accumulate 40px per step, at most one step per 70ms.
 - **Selection:** the highlight bar slides to the new row (150ms); only the row classes and the preview change, the list is not re-rendered.
 - **Tap vs spin:** a pointer-up with under 8 degrees of total rotation counts as a tap on the ring quadrant under the pointer.
-- **End of list:** the first time a spin hits the top or bottom, the device nudges up 2px once (220ms). Further spinning at the edge does nothing until you move away.
+- **End of list:** the first time a spin hits the top or bottom, the list and its highlight stretch 6px past the edge in the direction of the spin and ease back (420ms, no overshoot). In Photos the row of covers stretches 10px the way covers move. The device itself never moves and there is no sound. Further spinning at the edge does nothing until you move away. Reduced motion skips it. MENU on the main menu does nothing.
 - **Wheel sheen:** a faint highlight in the wheel's own material (`wglow`) follows the pointer. Never the accent color.
 - **Wheel rock:** pressing the ring tilts the wheel 3 degrees toward the finger. It levels out on release or once the press turns into a spin.
 - **Device tilt:** the device leans toward a mouse pointer (12deg/8deg max), but holds still while the pointer is on the wheel, while any button is down, while the guide is open, and for touch input.

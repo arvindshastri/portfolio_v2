@@ -46,7 +46,8 @@ export function pop() {
   if (s.sticky) return closePeek();
   if (s.busy) return;
   if (s.zoomed) return closeDoc();
-  if (s.stack.length < 2) return bump();
+  // already at the main menu: nowhere to go back to
+  if (s.stack.length < 2) return;
   const leaving = top();
   const rest = s.stack.slice(0, -1);
   const back = rest[rest.length - 1]!;
@@ -97,11 +98,27 @@ function toRoot() {
   setState({ stack: [{ ...root, hidden: false }], exiting: [], slide: null });
 }
 
-export function bump() {
-  refs.dev?.animate([{ translate: '0 0' }, { translate: '0 -2px' }, { translate: '0 0' }], {
-    duration: 220,
-    easing: 'cubic-bezier(.25,1,.5,1)',
-  });
+/**
+ * The end of a list, shown on the screen rather than by moving the device: a rubber band.
+ * Whatever normally moves (the list with its highlight, or the row of covers) stretches a little
+ * past the edge in the direction of the spin and eases back, without overshooting.
+ */
+function hitEnd(f: Frame, d: 1 | -1) {
+  if (reducedMotion()) return;
+  const screen = frameEls.get(f.id);
+  const list = screen?.querySelector<HTMLElement>('.list');
+  // the highlight moves down a list, but the covers move left as you go forward
+  const targets = list ? [list] : [...(screen?.querySelectorAll<HTMLElement>('.cf .it') ?? [])];
+  const shift = list ? `0 ${d * 6}px` : `${-d * 10}px 0`;
+  for (const el of targets)
+    el.animate(
+      [
+        { translate: '0 0', easing: 'cubic-bezier(.3,.7,.4,1)' },
+        { translate: shift, offset: 0.3, easing: 'cubic-bezier(.25,1,.5,1)' },
+        { translate: '0 0' },
+      ],
+      { duration: 420 },
+    );
 }
 
 /* ===================== input ===================== */
@@ -129,7 +146,7 @@ export function step(d: 1 | -1) {
     if (next === f.sel) {
       if (!f.edge) {
         patchFrame(f.id, { edge: true });
-        bump();
+        hitEnd(f, d);
       }
       return;
     }
