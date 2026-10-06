@@ -3,7 +3,6 @@ import { SITE } from '@/data/site';
 import * as actions from '../actions';
 import { bind } from '../refs';
 import { useDevice } from '../store';
-import { articleHtml } from './Screens';
 import { Toast } from './Toast';
 
 /** The name (which also takes you home), top left. */
@@ -73,15 +72,13 @@ export function Corner() {
   );
 }
 
-/** Dims the page while reading or looking at a photo; clicking it backs out. */
+/** Dims the page under an enlarged photo; clicking it closes the photo. */
 export function Veil() {
   return (
     <div
       className="veil"
       onClick={() => {
-        const s = useDevice.getState();
-        if (s.zoomed) actions.pop();
-        else if (s.photo !== null) actions.closePhoto();
+        if (useDevice.getState().photo !== null) actions.closePhoto();
       }}
     />
   );

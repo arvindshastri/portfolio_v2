@@ -1,12 +1,12 @@
 import { SITE } from '@/data/site';
 import { TRACKS } from '@/data/tracks';
 import { applyThemeTokens, THEMES, themeById } from '@/data/themes';
-import { click, ensureAudio, vibe } from './engine/audio';
+import { click, vibe } from './engine/audio';
 import * as brick from './engine/brick';
 import * as music from './engine/music';
 import * as reader from './engine/reader';
 import { settle } from './engine/slide';
-import { applyZoom, resetZoom } from './engine/zoom';
+import { shrink } from './engine/reading';
 import { frameEls, reducedMotion, refs } from './refs';
 import { save } from './storage';
 import { getState, newFrame, patchFrame, setState, top, type Toast } from './store';
@@ -211,11 +211,6 @@ function skip(d: 1 | -1) {
 /** ◀◀ / ▶▶: tracks on Now Playing, sections while reading, a step elsewhere. */
 export function side(d: 1 | -1) {
   if (skip(d)) return;
-  if (top().node.type === 'doc') {
-    reader.jumpSection(d);
-    click();
-    return;
-  }
   step(d);
 }
 
@@ -232,56 +227,40 @@ export function arrowSide(d: 1 | -1) {
   if (!skip(d) && top().node.type === 'cf') step(d);
 }
 
-/* ===================== reading: zoom into the screen ===================== */
+/* ===================== reading: a full-window page ===================== */
 
+/** Opens an article as a page grown out of the screen (see Reader and engine/reading.ts). */
 export function openDoc(doc: DocRef) {
   const s = getState();
   if (s.zoomed || s.busy) return;
-  setState({ busy: true, redraw: true });
+  const prev = top();
+  const frame = newFrame({ type: 'doc', title: doc.title, doc });
+  setState((st) => ({
+    stack: [...st.stack.map((f) => (f.id === prev.id ? { ...f, hidden: true } : f)), frame],
+    slide: null,
+    zoomed: true,
+    busy: true,
+    reading: { doc, back: prev.node.title },
+  }));
+  bodyClass('zoomed', true);
   click(2);
-  setTimeout(() => {
-    const prev = top();
-    const frame = newFrame({ type: 'doc', title: doc.title, doc });
-    setState((st) => ({
-      stack: [...st.stack.map((f) => (f.id === prev.id ? { ...f, hidden: true } : f)), frame],
-      slide: null,
-    }));
-    zoomIn(true);
-    if (doc.slug) urlOpen(doc);
-  }, 140);
+  urlOpen(doc);
+  later('read', reducedMotion() ? 0 : 620, () => setState({ busy: false }));
 }
 
-function zoomIn(already: boolean) {
-  if (getState().zoomed) return;
-  setState({ zoomed: true, busy: true, redraw: true }); // 1. the display blanks
-  setTimeout(
-    () => {
-      // 2. reflow and camera push while it's blank
-      bodyClass('zoomed', true);
-      refs.dev?.style.setProperty('--tx', '0deg');
-      refs.dev?.style.setProperty('--ty', '0deg');
-      applyZoom();
-    },
-    already ? 0 : 140,
-  );
-  setTimeout(() => setState({ redraw: false, busy: false }), already ? 440 : 560); // 3. redraw at the new size
-}
-
+/** Shrinks the page back into the screen, which already shows the list again underneath. */
 function zoomOut(andPop: boolean) {
   if (!getState().zoomed) return;
-  setState({ zoomed: false, busy: true, redraw: true });
-  setTimeout(() => {
-    if (andPop) popNow();
-    bodyClass('zoomed', false);
-    resetZoom();
-  }, 140);
-  setTimeout(() => setState({ redraw: false, busy: false }), 620);
+  setState({ zoomed: false, busy: true });
+  if (andPop) popNow();
+  bodyClass('zoomed', false);
   click(2);
+  void shrink(refs.reader).then(() => setState({ reading: null, busy: false }));
 }
 
 /** MENU while reading. Project pages have URLs, so going back also goes back in history. */
 function closeDoc() {
-  if (history.state?.doc) {
+  if (history.state?.doc || history.state?.reading) {
     history.back(); // the popstate handler zooms out
     return;
   }
@@ -289,16 +268,17 @@ function closeDoc() {
   urlReset();
 }
 
-export function relayout() {
-  if (getState().zoomed) applyZoom();
-}
-
 /* ===================== project URLs ===================== */
 
 const TITLE = SITE.name;
 
+/**
+ * Every reading page gets a history entry, so the browser's back button (and Android's back
+ * gesture) closes it instead of leaving the site. Only projects change the address.
+ */
 function urlOpen(doc: DocRef) {
   document.title = `${doc.title} · ${TITLE}`;
+  if (!doc.slug) return history.pushState({ reading: true }, '', location.pathname);
   const path = `/projects/${doc.slug}/`;
   if (location.pathname !== path) history.pushState({ doc: doc.slug }, '', path);
 }
@@ -309,7 +289,7 @@ function urlReset() {
 }
 
 /** Browser back/forward. */
-export function onHistory(state: { doc?: string } | null) {
+export function onHistory(state: { doc?: string; reading?: boolean } | null) {
   if (state?.doc) {
     const project = getContent().projects.find((p) => p.slug === state.doc);
     if (project && !getState().zoomed) openDoc(projectDoc(project.slug, project.title));

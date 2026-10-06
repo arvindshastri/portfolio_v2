@@ -2,7 +2,6 @@ import * as actions from '../actions';
 import { getState, top } from '../store';
 import { click, ensureAudio } from './audio';
 import * as brick from './brick';
-import * as reader from './reader';
 
 /** Degrees of rotation per menu step. */
 const STEP = 18;
@@ -54,15 +53,6 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
       }
       return;
     }
-    // reading: the dial scrolls continuously, with momentum
-    if (s.zoomed && reader.readEl()) {
-      reader.dragBy(d * 6);
-      if ((drag.ticks += Math.abs(d)) > 15) {
-        drag.ticks = 0;
-        click(0.5);
-      }
-      return;
-    }
     drag.acc += d;
     while (drag.acc >= STEP) {
       actions.step(1);
@@ -86,7 +76,6 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
   const onEnd = (e: PointerEvent) => {
     el.classList.remove('drag');
     tilt(null);
-    reader.release();
     if (drag && drag.moved < 8 && e.type === 'pointerup') actions.ringTap(angleOf(e));
     drag = null;
   };

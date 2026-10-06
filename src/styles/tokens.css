@@ -26,11 +26,13 @@
   --inkD: oklch(0.94 0.004 250);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --quart: cubic-bezier(0.25, 1, 0.5, 1);
+  /* the device, then the page around it, then the reading page over both, then an enlarged
+     photo (with its veil) over everything, then dialogs */
   --z-device: 10;
-  --z-veil: 20;
-  --z-dial: 30;
-  --z-photo: 40;
-  --z-chrome: 50;
+  --z-chrome: 30;
+  --z-reader: 40;
+  --z-veil: 45;
+  --z-photo: 50;
   --z-dialog: 60;
 }
 * {

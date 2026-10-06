@@ -3,7 +3,7 @@ import { refs } from '../refs';
 import { getState } from '../store';
 import { ensureAudio } from './audio';
 import * as reader from './reader';
-import { fitDevice } from './zoom';
+import { fitDevice } from './fit';
 
 /** Page-wide listeners: keyboard, mouse wheel, the device's tilt, resizing and history. */
 export function attachGlobalInput(skipIntro: () => void): () => void {
@@ -87,10 +87,7 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
   const onPointerDownCapture = (e: PointerEvent) => {
     if ((e.target as Element).closest('.read')) reader.stopScroll();
   };
-  const onResize = () => {
-    if (getState().zoomed) actions.relayout();
-    else fitDevice();
-  };
+  const onResize = () => fitDevice();
   const onPopState = (e: PopStateEvent) => actions.onHistory(e.state);
 
   addEventListener('wheel', onWheel, { passive: false });

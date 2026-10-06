@@ -184,18 +184,18 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 
 ### Hierarchy
 
-- **Article Display** (Geist 600, clamp(44px, 7.5cqi, 72px), 1.04, -0.035em): case study titles, only inside the zoomed screen.
+- **Article Display** (Geist 600, clamp(44px, 7.5cqi, 72px), 1.04, -0.035em): case study titles, only on the reading page.
 - **Article Headline** (Geist 600, clamp(26px, 3.6cqi, 34px), 1.15, -0.025em): section headings inside articles.
 - **Article Lead** (Geist 400, clamp(19px, 2.4cqi, 23px), 1.5): the one-paragraph intro under a title.
 - **Article Body** (Geist 400, 18px, 1.7): reading text. Column capped at 680px.
-- **Narrow article sizes** (screen under 560px wide, i.e. phones): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62 (narrow headings 600). Articles only ever appear zoomed, so these are real reading sizes, never miniature ones.
+- **Narrow article sizes** (screen under 560px wide, i.e. phones): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62 (narrow headings 600). Articles only ever appear on the reading page, so these are real reading sizes, never miniature ones.
 - **Lock Clock** (Geist 300, 66px, 1, -0.04em, tabular numerals): the lock screen time.
 - **UI List** (Geist 500, 14.5px): menu rows on the device.
-- **UI Status** (Geist 600, 11.5px): the status bar; 14px once zoomed.
+- **UI Status** (Geist 600, 11.5px): the device's status bar.
 - **Page Name** (Geist 700, 18px, -0.02em): "Arvind Shastri" top-left.
 - **Label** (Geist Mono 500, 12.5px): the role line, the instruction hint, meta labels, captions and the article kicker.
 
-Sizes inside articles use container query units (`cqi`), because the article is laid out at the size of the zoomed screen, not the viewport.
+Sizes inside articles use container query units (`cqi`) against the reading page's width.
 
 ### Named Rules
 
@@ -213,9 +213,9 @@ The page is flat; only the device has depth, and it has it the way a real object
 
 - **Device body** (`box-shadow: inset 0 0 0 1px var(--edge), inset 0 2px 0 var(--edge), inset 0 -3px 8px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.14), 0 40px 60px -34px rgba(10,14,20,.45)`): a machined edge highlight, a tight contact shadow and one grounded drop shadow.
 - **Screen recess** (`inset 0 1px 2px rgba(0,0,0,.7), 0 1px 0 var(--edge)` on the glass frame): the screen sits below the shell; the lower lip catches light.
-- **Backlight falloff** (`inset 0 0 18px rgba(0,0,0,.09)` inside the LCD): the edges of the display are a touch dimmer than the middle. Removed while zoomed.
+- **Backlight falloff** (`inset 0 0 18px rgba(0,0,0,.09)` inside the LCD): the edges of the display are a touch dimmer than the middle.
 - **Wheel recess** (`0 0 0 1px rgba(0,0,0,.2), 0 1.5px 0 1px var(--edge)`): the wheel sits in a shallow well.
-- **Floor** (300 by 40px ellipse, theme `--floor` color, `filter: blur(18px)`): grounds the device on the surface. Hidden while zoomed.
+- **Floor** (300 by 40px ellipse, theme `--floor` color, `filter: blur(18px)`): grounds the device on the surface. Hidden while reading.
 - **Screen glass** (linear-gradient 150deg from rgba(255,255,255,.2) to transparent at 38%): a reflection that shifts with the device tilt.
 - **Enlarged photo** (`box-shadow: 0 0 0 8px #0d0e10, 0 40px 80px -30px rgba(0,0,0,.55)`): the photo panel, framed like the bezel.
 
@@ -232,16 +232,14 @@ The page is flat; only the device has depth, and it has it the way a real object
 Tactile, precise and quiet: an object first, a UI second.
 
 - **Body:** 360 by 604px, 46px corner radius. Anodized aluminum in every color: a gradient between the theme's two shell tones, faint grain, a 1px machined edge highlight. The secret **Clear** finish is a teal-tinted, see-through shell with a polished rim and sharper gloss. Through it you see the board: the amber flex cable from the screen, chips with pin-1 dots and tiny parts, gold traces, screws, the wheel's copper sensor rings, the battery behind a smoky see-through wheel, and a status LED breathing in the accent color. The board drifts a few pixels against the device's tilt, so it reads as sitting deeper than the shell. Dark screen; no grain.
-- **Screen:** inset 13px, 310px tall glass frame (32px radius, bezel black, 7px padding) holding the 25px-radius LCD. Content lays out in a container (`container-type: inline-size`) so it can reflow when zoomed.
-- **Wheel:** 222px diameter, centered 346px from the top. Labels: MENU (top) in Geist 650 11px (10px on the docked dial), tracked 0.1em; the transport marks ◀◀ (left), ▶▶ (right) and ▶ ❚❚ (bottom) are Lucide `Play` and `Pause` icons, filled, at 12px (11px on the docked dial), with each skip mark made of two nested play triangles (rewind mirrored). All in the theme's wheel ink. All four sit at the same inset from the rim, measured to the drawn ink (about 17.5px on the wheel, 14px on the dial), and are optically centered; MENU gets 0.1em of left padding to cancel the tracking after its last letter. Never text glyphs: Geist lacks them, so phones drew them from mismatched fallback fonts (a heavy, oversized pause; an emoji play). A faint sheen (`wglow`) follows the pointer. Pressing the ring rocks the wheel 3deg toward the finger (perspective 600px) until it's released or starts spinning. Spinning registers one step every 18 degrees.
+- **Screen:** inset 13px, 310px tall glass frame (32px radius, bezel black, 7px padding) holding the 25px-radius LCD. Content lays out in a container (`container-type: inline-size`).
+- **Wheel:** 222px diameter, centered 346px from the top. Labels: MENU (top) in Geist 650 11px, tracked 0.1em; the transport marks ◀◀ (left), ▶▶ (right) and ▶ ❚❚ (bottom) are Lucide `Play` and `Pause` icons, filled, at 12px, with each skip mark made of two nested play triangles (rewind mirrored). All in the theme's wheel ink. All four sit at the same inset from the rim, measured to the drawn ink (about 17.5px), and are optically centered; MENU gets 0.1em of left padding to cancel the tracking after its last letter. Never text glyphs: Geist lacks them, so phones drew them from mismatched fallback fonts (a heavy, oversized pause; an emoji play). A faint sheen (`wglow`) follows the pointer. Pressing the ring rocks the wheel 3deg toward the finger (perspective 600px) until it's released or starts spinning. Spinning registers one step every 18 degrees.
 - **Center button:** 82px, the shell material. Scales to 0.96 and its shadow turns inward when pressed. There is no hold action.
-- **Docked dial:** when zoomed, the device wheel fades out and a smaller copy (176px, 156px on phones) rises into view at the bottom center (600ms ease-out-expo), 16px from the edge, with all four labels and a 64px center button. The zoom framing reserves room for it. (A version where the wheel flew into the dock was tried and reverted: the size change read as a restyle.)
-- **Zoomed status bar:** at any zoom, side padding is 1.15 times the zoomed screen's corner radius, so the title and time never touch the rounded corners.
 
 ### Status Bar
 
 - Three columns: play state (a filled Lucide `Play` icon while playing, `Pause` when paused, empty if never played) on the left, the current screen title centered, the time on the right with tabular numerals.
-- 28px tall on the device, 46px with a hairline divider once zoomed.
+- 28px tall.
 
 ### List Rows and Preview Pane
 
@@ -254,7 +252,11 @@ Tactile, precise and quiet: an object first, a UI second.
 
 - A stock-style gradient wallpaper tinted by each theme's `wall` and `wall2` tokens (a light glow top-left, a deep pool bottom-right, over the dark `wall2` end: near-black for most themes, mid steel gray for Silver), so it follows the device color; no photo. Silver and Graphite use neutral steel and charcoal tints; the other themes use their accent. The time in Lock Clock style, the date below. Nothing else. The page hint below the device says "press the center to unlock". Unlocking slides the lock screen up.
 
-### Zoomed Article (case studies)
+### Reading Page (case studies, roles, About)
+
+- **The page:** full window, in the screen's colors (`scr`, `scrInk`). It grows out of the device's screen: a clip from the screen's exact outline and corner radius to the whole window, 620ms ease-out-expo, and the content cascades in while it opens: the bar fades in, then the header's parts and the blocks below each fade and rise 18px, 50ms apart. Closing: the content settles back and fades (220ms) as the page shrinks into the screen (520ms), and the page dissolves into the list as it settles (300ms crossfade).
+- **Bar:** 52px (56px at 560px wide and up), a hairline under it (`scrInk` at 9%). `‹` Lucide `ChevronLeft` (20px, 2.2 stroke) and the parent list's name in the accent color (`kick`), Geist 500 15px, with a 9% tint on hover; the title centered in Geist 600, truncated. No play/pause or time.
+- **Scrollbar:** visible and thin, in `scrInk` at 25%, unlike the device's screen.
 
 Editorial and calm; the content is the hero.
 
@@ -291,7 +293,7 @@ Editorial and calm; the content is the hero.
 
 - **Do** keep everything on or around the single device. One object, done perfectly.
 - **Do** let the device color theme the entire page through the theme tokens.
-- **Do** open long content by zooming into the screen and reflowing it, with a quick screen blank (140ms) so the reflow is never visible.
+- **Do** open long content by growing the screen into a full-window page, with the article fading in at its final size so the reflow is never visible.
 - **Do** give every device control physical feedback: a 4ms high-passed click, a press scale, the wheel rocking under the finger.
 - **Do** use ease-out curves only (ease-out-expo `cubic-bezier(.16,1,.3,1)` and ease-out-quart `cubic-bezier(.25,1,.5,1)`).
 - **Do** provide a reduced-motion path for every animation (instant or crossfade).
@@ -306,7 +308,7 @@ Editorial and calm; the content is the hero.
 - **Don't** make a literal iPod clone: no Apple logos, no exact Apple proportions or wording, no white-earbud imagery.
 - **Don't** put notifications, toasts or banners outside the device for device events.
 - **Don't** shake the device repeatedly. One 2px nudge the first time a list end is reached.
-- **Don't** show a small preview before zooming, or let text visibly reflow during a zoom.
+- **Don't** show a small preview before opening, or let text visibly reflow while the page grows.
 - **Don't** add public finishes other than the modern anodized body (no glossy classic). Clear stays secret. Don't use the accent for the wheel's hover sheen.
 - **Don't** let the device tilt follow the pointer while it's on the wheel or dragging; the object holds still while you use it.
 - **Don't** use bounce or elastic easing, side-stripe borders, gradient text, glassmorphism as decoration, or decorative grid backgrounds.

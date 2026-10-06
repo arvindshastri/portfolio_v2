@@ -14,12 +14,12 @@ export type RefName =
   | 'lock'
   | 'wheel'
   | 'center'
-  | 'dial'
   | 'name'
   | 'links'
   | 'corner'
   | 'foot'
-  | 'swatches';
+  | 'swatches'
+  | 'reader';
 
 export const refs: Partial<Record<RefName, HTMLElement | null>> = {};
 

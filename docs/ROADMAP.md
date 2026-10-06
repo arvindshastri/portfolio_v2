@@ -9,8 +9,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 - [ ] Optional: real, rights-cleared tracks alongside the generated lo-fi songs.
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
-- [ ] Tune the docked dial's scroll speed and momentum after hands-on testing (now 6px/degree, momentum x0.93/frame).
-- [x] Phone reading: under 640px wide, the zoomed screen stretches down into the device body to fill the space above the dial (2026-10-03).
+- [x] Reading is a full-window page grown out of the screen, with a back bar and no dial (2026-10-06).
 - [ ] A second game for Extras, playable with only wheel + center (ideas to brainstorm first).
 - [ ] Confirm Sky as the third color.
 - [ ] Fill every placeholder in [CONTENT.md §7](CONTENT.md#7-open-placeholders-must-be-replaced-before-launch).
@@ -36,8 +35,8 @@ Built with Astro + React + TypeScript (see the README for the stack and layout).
 - [ ] Contrast check in all five themes (page text, white on `sel`, kicker on dark screens).
 - [ ] Reduced-motion pass.
 - [ ] Real-device testing: iPhone Safari, Android Chrome, small laptops, large monitors.
-- [ ] Performance: Lighthouse LCP under 2.5s, no layout shift during the entrance, 60fps wheel and zoom on a mid-range phone.
-- [ ] Automated smoke tests (Playwright): unlock, open a case study, zoom out, change color, peek a photo, copy email.
+- [ ] Performance: Lighthouse LCP under 2.5s, no layout shift during the entrance, 60fps wheel and reading-page transition on a mid-range phone.
+- [ ] Automated smoke tests (Playwright): unlock, open a case study, close it, change color, peek a photo, copy email.
 
 ## Phase 4: Launch
 

@@ -307,14 +307,9 @@ body.guide .callouts {
   pointer-events: none;
   transition: opacity 0.5s var(--quart);
 }
-body.zoomed .veil {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 5;
-}
 body.photo-open .veil {
   opacity: 1;
-  z-index: 35;
+  pointer-events: auto;
 }
 .enlarged {
   position: fixed;
@@ -446,9 +441,6 @@ dialog.plain .close {
   body.guide .legend {
     display: block;
     bottom: 56px;
-  }
-  .dial {
-    --dd: 156px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

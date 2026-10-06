@@ -1,6 +1,6 @@
 # Arvind Shastri · Portfolio
 
-My portfolio, built as one object: an original click-wheel music device that holds everything. Spin the wheel to browse, press the center to open a project (the camera zooms into the screen and the case study reflows into a full article), and pick a device color that re-themes the whole page. There's music, photos and a small Brick game inside.
+My portfolio, built as one object: an original click-wheel music device that holds everything. Spin the wheel to browse, press the center to open a project (the screen grows into a full-page article), and pick a device color that re-themes the whole page. There's music, photos and a small Brick game inside.
 
 Live at [arvindshastri.com](https://arvindshastri.com).
 
@@ -39,7 +39,7 @@ src/
     store.ts             device state
     actions.ts           what every control does
     menu.ts              the menu tree
-    engine/              wheel input, zoom, reading scroller, screen slides, audio, music, Brick
+    engine/              wheel input, reading page, reading scroller, screen slides, audio, music, Brick
     components/          screens, previews, the guide, the page around the device
   pages/               index and /projects/[slug]
   styles/              tokens, page, device, screens, article

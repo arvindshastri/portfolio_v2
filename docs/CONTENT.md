@@ -16,18 +16,18 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 
 ## 2. Screen map and content
 
-| Screen     | Content                                                                                    | Opens as                |
-| ---------- | ------------------------------------------------------------------------------------------ | ----------------------- |
-| Lock       | Static photo (`nyc.jpg`), time, date                                                       | Press to unlock         |
-| Menu       | Projects, Experience, About, Photos, Music, Extras, Settings, Contact, each with a preview | List                    |
-| Projects   | Trac Commuter, Trac Driver, Orderly, StudyFinder                                           | Zoomed article          |
-| About      | Intro, design skills, engineering skills, portrait                                         | Zoomed article          |
-| Experience | Trac, Ericsson, CGI, Arbol                                                                 | Zoomed article per role |
-| Music      | Playlist of tracks                                                                         | Now Playing             |
-| Photos     | Cover flow of personal photos with captions                                                | Enlarged on press       |
-| Extras     | Brick (more games later)                                                                   | Game screen             |
-| Settings   | Color, Screen, Clicker, Show controls                                                      | In place                |
-| Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions                 |
+| Screen     | Content                                                                                    | Opens as              |
+| ---------- | ------------------------------------------------------------------------------------------ | --------------------- |
+| Lock       | Static photo (`nyc.jpg`), time, date                                                       | Press to unlock       |
+| Menu       | Projects, Experience, About, Photos, Music, Extras, Settings, Contact, each with a preview | List                  |
+| Projects   | Trac Commuter, Trac Driver, Orderly, StudyFinder                                           | Reading page          |
+| About      | Intro, design skills, engineering skills, portrait                                         | Reading page          |
+| Experience | Trac, Ericsson, CGI, Arbol                                                                 | Reading page per role |
+| Music      | Playlist of tracks                                                                         | Now Playing           |
+| Photos     | Cover flow of personal photos with captions                                                | Enlarged on press     |
+| Extras     | Brick (more games later)                                                                   | Game screen           |
+| Settings   | Color, Screen, Clicker, Show controls                                                      | In place              |
+| Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions               |
 
 ## 3. Case study template
 
@@ -76,7 +76,7 @@ Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects
 - `cover` (relative path to an image) and `coverAlt`
 - `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools...)
 
-The body is Markdown. Headings (`##`) become sections that ◀◀ / ▶▶ jump between. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
+The body is Markdown. Headings (`##`) become sections. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
 
 ### A role
 

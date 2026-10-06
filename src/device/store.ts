@@ -31,11 +31,13 @@ export interface DeviceState {
   slide: Slide | null;
 
   locked: boolean;
+  /** Reading: an article is open as a full-window page. */
   zoomed: boolean;
+  /** The article on the reading page, and the list it came from (kept while the page closes). */
+  reading: { doc: DocRef; back: string } | null;
   /** Input is ignored while a zoom is mid-flight. */
   busy: boolean;
   /** The screen is blanked for a moment so a reflow never shows. */
-  redraw: boolean;
 
   color: string;
   dark: boolean;
@@ -73,8 +75,8 @@ export const useDevice = create<DeviceState>()(() => ({
   slide: null,
   locked: true,
   zoomed: false,
+  reading: null,
   busy: false,
-  redraw: false,
   color: load('color', 'silver'),
   dark: false,
   clicker: true,

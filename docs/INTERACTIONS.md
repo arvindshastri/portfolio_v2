@@ -5,20 +5,20 @@ How the device behaves. This is the source of truth for controls, states, transi
 ## 1. Principles
 
 1. **Physical metaphors map to navigation.** Spin = scroll and select, press = open, MENU = back. Once someone touches it, they know how it works.
-2. **The small screen is for browsing; the big screen is for reading.** Opening long content zooms into the screen and reflows it.
+2. **The small screen is for browsing; the page is for reading.** Opening long content grows the screen into a full-window page.
 3. **Feedback on every input:** a click sound, a press scale, the wheel rocking under the finger, and vibration on supported phones.
 4. **Nothing interrupts.** No recurring notifications, no idle relock, no auto-play.
 
 ## 2. Controls
 
-| Input                  | Device                                                               | Keyboard             | Result                                                                                                                                                |
-| ---------------------- | -------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                                                                    |
-| Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                                                                 |
-| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                                                              |
-| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace` | Back; while zoomed, zoom out and return to the list                                                                                                   |
-| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                                                                        |
-| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. While reading: previous/next section heading. Elsewhere: same as a one-step spin |
+| Input                  | Device                                                               | Keyboard             | Result                                                                                                  |
+| ---------------------- | -------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                      |
+| Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                   |
+| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                |
+| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace` | Back; while reading, close the page and return to the list                                              |
+| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                          |
+| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. Elsewhere: same as a one-step spin |
 
 - **Spin resolution:** one step every 18 degrees of rotation. Mouse wheel over the device: one notch (|deltaY| ≥ 50) is exactly one step; trackpads accumulate 40px per step, at most one step per 70ms.
 - **Selection:** the highlight bar slides to the new row (150ms); only the row classes and the preview change, the list is not re-rendered.
@@ -33,13 +33,13 @@ How the device behaves. This is the source of truth for controls, states, transi
 ```
 Lock screen (press center)
 └── Menu
-    ├── Projects        list → press: zoom into case study
+    ├── Projects        list → press: open the case study
     │   ├── Trac Commuter
     │   ├── Trac Driver
     │   ├── Orderly
     │   └── StudyFinder
-    ├── Experience      list → press: zoom into the role
-    ├── About           press: zoom into the About article
+    ├── Experience      list → press: open the role
+    ├── About           press: open the About article
     ├── Photos          cover flow → press: enlarge the photo
     ├── Music           playlist → press: play the track and open Now Playing
     ├── Extras
@@ -74,25 +74,20 @@ While locked, the center button presses itself every 3.4s and a ring pings out o
 
 Push: the new screen slides in from the right while the previous one shifts 35% left, then hides. Pop is the exact mirror. Both use one function (Web Animations, 340ms ease-out-expo), so forward and back have identical speed and feel; a timed fallback finishes a slide that is still running after its duration (throttled tabs), and starting a slide cancels any older slide on the same screens, so a stale slide can never reassert itself.
 
-### Open (zoom into content)
+### Open (reading page)
 
-1. The screen blanks (opacity 0, 140ms).
-2. While blank, the content screen is pushed without a slide, the screen container is re-laid-out at its zoomed size (scaled back down so it looks unchanged), and the camera starts pushing in (800ms).
-3. The screen reveals at about 440ms, already in its final layout.
-4. The device wheel fades out, the docked dial rises from the bottom center (600ms), and the page chrome (name, links, swatches, hint, `?`) fades out. Zooming out reverses it.
+1. Pressing center on a project, role or About pushes the article without a slide and opens the **reading page**: a full-window page in the screen's colors.
+2. The page grows out of the device's screen: it starts clipped to the screen's exact outline (position, size, rounded corners; the device's tilt is dropped for the measurement) and the clip opens to the whole window (620ms ease-out-expo). The page chrome (name, links, swatches, hint, `?`) fades out underneath.
+3. While the page is still opening, its content cascades in, already laid out at its final size: the bar fades in (from 200ms), then the article's header parts (kicker, title, lead, facts) and the blocks below each fade and rise 18px, 50ms apart (560ms each, from 220ms; the first nine). Text never visibly reflows.
 
-No small preview is ever shown before zooming, and text never visibly reflows.
+### Reading
 
-**Zoom framing:** the screen is centered in the area between 16px from the top and the top of the docked dial (dial size + 46px from the bottom), scaled to fill 94% of the width or all of that height, whichever is smaller. The content layer is laid out at exactly the zoomed screen size, with the device's fit scale accounted for, so it fills the glass edge to edge on any viewport.
-
-### Reading while zoomed
-
-- Native scroll over the article (trackpad, touch, mouse wheel).
-- The mouse wheel or trackpad **anywhere else on the page** also scrolls the article (eased).
-- The docked dial is a full, smaller wheel. Spinning it scrolls 6px per degree with easing and a soft click every 15 degrees; letting go keeps momentum that decays smoothly.
-- ◀◀ / ▶▶ on the dial jump to the previous/next section heading. The dial's center button pages down (80% of the screen). ▶ ❚❚ plays or pauses music.
-- `↑`/`↓` scroll 110px per press. All of these share one eased scroller, so they feel the same.
-- MENU, `Esc`, or clicking the dimmed area around the device closes: blank, zoom out, pop back to the list, reveal.
+- A 52px bar on top (56px on wide pages): `‹ Projects` (the list it came from, in the accent color) on the left, the title centered. Nothing on the right.
+- The article scrolls natively (touch, trackpad, mouse wheel, scrollbar). The mouse wheel over the bar scrolls it too.
+- `↑`/`↓` scroll 110px per press and `Space`/`Enter` page down (80% of the page), all eased.
+- No wheel or dial while reading (the docked dial was removed on 2026-10-06).
+- Closing: the back button, `Esc`/`Backspace`, or the browser's back button. The list returns in the screen underneath, the content settles back (10px down, 98.5% scale) and fades (220ms) as the page shrinks back into the screen (520ms, from 70ms); over the last part (from 290ms, 300ms) the page dissolves into the list, so the list fades in instead of appearing when the page goes, then the page chrome is back.
+- Every reading page has a history entry, so the browser's back button and Android's back gesture close it instead of leaving the site. Only projects change the address (`/projects/<name>/`).
 
 ### Enlarged photo
 
@@ -107,7 +102,7 @@ Spinning moves the existing covers to their new positions (500ms ease-out-expo):
 
 ### Name button
 
-Clicking the name top-left returns to the main menu from anywhere (zooming out first, closing an enlarged photo, unlocking if locked).
+Clicking the name top-left returns to the main menu from anywhere (closing the reading page first, closing an enlarged photo, unlocking if locked).
 
 ### Guide
 
@@ -128,7 +123,7 @@ Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-throu
 ## 5. Audio
 
 - Nothing plays and no audio context is created until the first touch of the device (browser autoplay rules).
-- **Clicker:** a 4ms white-noise burst through a 2.4kHz high-pass filter. Volume scales by action (1 for steps, 2 for selects, 0.5 for continuous dial scrolling). Toggle in Settings.
+- **Clicker:** a 4ms white-noise burst through a 2.4kHz high-pass filter. Volume scales by action (1 for steps, 2 for selects). Toggle in Settings.
 - **Music:** tracks with a `src` play from audio files through the same output and visualizer. Tracks with a `song` are lo-fi generated in the browser: a 4-bar-section form (intro, verses, a B progression, a drumless breakdown, an outro, about 100 to 110 seconds), swing, melodies written per section from a seed (a motif, its variation, an answer, a resolution), drum fills into new sections, a mix lowpass that opens in the intro and closes for the breakdown and outro, and a texture bed (rain, vinyl crackle or tape hiss). When a song ends, the next one starts. Music continues while browsing; the status bar shows ▶ or ❚❚. When a file track ends, the next track starts.
 - **Volume:** spinning on Now Playing shows a volume bar for about 1.1 seconds.
 
@@ -153,10 +148,9 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 
 - The device scales to fit: `min(1, (vw - 24) / 380, (vh - 210) / 604)`.
 - Touch drag on the wheel works like a pointer drag; vibration fires on supported phones (Android Chrome; iOS Safari has no vibration API).
-- When zoomed, the screen fills the width and stretches down into the device body (up to 266 device px, over 800ms with the zoom) so it fills the space above the dial, and the device body grows with it so the dial still sits on the device; the 156px dial sits under the thumb, fully visible. Zooming out shrinks it back.
+- Reading is a full-window page on phones too, so articles get the whole screen.
 - Articles use narrow reading sizes on phones (15.5px body, 30px titles).
 - The guide callouts don't fit beside the device under 820px; `?` shows the same labels as a sheet at the bottom instead (tap it or touch the device to dismiss).
-- Known limit: the screen is roughly square, so on a tall phone the zoomed article uses about 330px of height. See ROADMAP.
 
 ## 9. Accessibility
 

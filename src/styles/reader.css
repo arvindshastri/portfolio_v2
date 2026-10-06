@@ -1,0 +1,76 @@
+/* Reading: a full-window page grown out of the device's screen (see engine/reading.ts). */
+.reader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-reader);
+  background: var(--scr);
+  color: var(--scrInk);
+}
+.rin {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* the article's narrow and editorial sizes follow the page's width */
+  container-type: inline-size;
+}
+.rbar {
+  flex: none;
+  height: 52px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 9%, transparent);
+  font: 500 15px var(--font-ui);
+}
+.rbar .back {
+  justify-self: start;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 10px 8px 4px;
+  border-radius: 10px;
+  color: var(--kick);
+  font: inherit;
+  transition: background 0.15s;
+}
+.rbar .back:hover {
+  background: color-mix(in srgb, currentColor 9%, transparent);
+}
+.rbar .back svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2;
+}
+.rbar .rtitle {
+  font-weight: 600;
+  max-width: 50vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reader .read {
+  flex: 1;
+  min-height: 0;
+  /* a real page: show the scrollbar (thin), unlike the device's screen */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, currentColor 25%, transparent) transparent;
+}
+.reader .read::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+.reader .read::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: color-mix(in srgb, currentColor 25%, transparent);
+}
+@container (min-width:560px) {
+  .rbar {
+    height: 56px;
+    padding: 0 20px;
+  }
+}

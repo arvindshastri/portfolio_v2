@@ -1,12 +1,13 @@
 import { useLayoutEffect, useState } from 'react';
 import * as actions from './actions';
-import { Device, Dial } from './components/Device';
+import { Device } from './components/Device';
 import { Legend } from './components/Guide';
 import { Corner, EnlargedPhoto, Hint, Links, Name, Veil } from './components/Page';
+import { Reader } from './components/Reader';
 import { runDevHooks } from './devHooks';
 import { attachGlobalInput } from './engine/input';
 import { playIntro, skipIntro } from './engine/intro';
-import { fitDevice } from './engine/zoom';
+import { fitDevice } from './engine/fit';
 import { projectsMenu, rootMenu } from './menu';
 import { reducedMotion } from './refs';
 import { load, save } from './storage';
@@ -73,7 +74,7 @@ export default function Pocket({ content, initialProject }: Props) {
       <Links />
       <Veil />
       <Device />
-      <Dial />
+      <Reader />
       <Legend />
       <EnlargedPhoto />
       <Hint />

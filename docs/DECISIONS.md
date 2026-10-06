@@ -51,14 +51,13 @@ Goals that came out of that:
 ### Controls and reading
 
 - **Center button unlocks.** No hold switch: it adds friction before the real content.
-- **Press = open (zoom into the screen).** No READ button. Hold-to-peek was removed on 2026-10-06: it made the controls harder to learn and duplicated opening.
-- **Screen redraw** on zoom in and out (blank, reflow, reveal) so text never visibly reflows and no small preview flashes.
-- While zoomed, a **smaller full wheel docks at the bottom center**, fully visible with all four labels (round 8: the half-hidden dial looked awkward and was hard to spin). No mini wheel at the side, no top hint.
-- **No ◀◀ / ▶▶ "next project"** while reading. While reading they jump between section headings; elsewhere they skip tracks and photos.
-- **Scrolling while zoomed** works from anywhere on the page (mouse wheel/trackpad), not only over the article. The dial scroll is eased and keeps momentum.
-- The zoomed article fills the screen glass exactly (fixed in round 8: it used to be laid out too small when the device was scaled down to fit the window).
+- **Press = open.** No READ button. Hold-to-peek was removed on 2026-10-06: it made the controls harder to learn and duplicated opening.
+- **Reading is a full-window page** (2026-10-06, replacing the camera zoom into the screen): the screen grows into a page that looks like a regular website, with a `‹ Projects` bar on top, native scrolling, and no wheel. Text never visibly reflows: the article fades in at its final size. Arvind felt the zoom with a docked dial was more complex and less intuitive than a plain page.
+- ~~While zoomed, a smaller full wheel docks at the bottom center~~ (removed 2026-10-06 with the reading page), fully visible with all four labels (round 8: the half-hidden dial looked awkward and was hard to spin). No mini wheel at the side, no top hint.
+- **No ◀◀ / ▶▶ "next project".** They skip tracks and photos. (While reading there is no wheel; a Contents list near the top of each article does section jumps.)
+- **Reading pages close** with the bar's back button, `Esc`, or the browser's back button; every reading page has a history entry so back never leaves the site.
 - Case studies stay **long-form**.
-- Photos and Contact do **not** zoom. Photos enlarge on press; Contact is a small on-device list.
+- Photos and Contact do **not** open a reading page. Photos enlarge on press; Contact is a small on-device list.
 - At the end of a list, the screen content **rubber-bands once**: the list (with its highlight) or the row of covers stretches a little past the edge and eases back. No repeated shaking, no sound. The whole device used to nudge up 2px; it read as a bug and was replaced on 2026-10-06 (a highlight squash with a dull thud was tried first and rejected as too weak).
 
 ### Status bar and notifications
@@ -89,7 +88,6 @@ Goals that came out of that:
 - **Menu order:** Projects (renamed from Work), Experience, About, Photos, Music, Extras, Settings, Contact.
 - **Previews:** main menu = a big Lucide icon alone, no title or eyebrow, on a soft color pool with a reflection. No icon animation (round 14). Use library icons, don't hand-draw.
 - **Icons, not text symbols** (2026-10-06): the wheel's transport marks, the status-bar play state, row chevrons and link markers are Lucide icons. Text glyphs like ▶ ❚❚ ↗ aren't in Geist, so phones drew them from mismatched fallback fonts. LinkedIn, GitHub and Résumé share one open-link icon; Copy email gets the chevron. Also icons: the playing track (AudioLines, was ♪), the guide's skip label (the wheel's own marks), article list bullets (Lucide arrow-right as a CSS mask in the accent color, was →) and "Open in Figma" (the same open-link icon).
-- **Wheel ↔ dial:** the simple fade-out / rise-in. The flying hand-off was reverted (round 14).
 - **Light/dark screen switch is instant** across the whole screen (round 14: a partial transition read as a flicker). Second level (projects, jobs) keeps the mono eyebrow. Images never drift or zoom. Arvind will specify each preview's content.
 - **Entrance:** name, links and `?` arrive together with the screen power-on; swatches keep their stagger.
 - **Copy confirmation** appears once: on the device when copied from the device, on the page when copied from the page.
@@ -99,7 +97,6 @@ Goals that came out of that:
 - Fonts: Geist (interface and reading), Geist Mono (labels). Literata was the reading font until 2026-10-02; Arvind felt a serif went against the device, and picked all-Geist over Mona Sans, Schibsted Grotesk, IBM Plex Sans and Atkinson Hyperlegible.
 - No end line on articles ("press MENU to go back" removed 2026-10-02): MENU is labeled, the guide explains it, and back/Esc work.
 - Figma prototypes are live embeds again, like the old portfolio (2026-10-02), loaded only when scrolled near; the link-out card felt like a placeholder.
-- Phones get a taller screen while reading: the zoomed screen stretches into the device body (2026-10-03).
 - The lock screen uses a theme-colored gradient wallpaper instead of a photo (2026-10-02).
 
 ### Features
@@ -115,7 +112,7 @@ Goals that came out of that:
 - **Astro + React + TypeScript**, chosen so each case study is its own file and its own page (`/projects/<name>/`), while the device stays one React component. Zustand for shared state; plain CSS with the theme tokens (no Tailwind); no animation library.
 - Case studies are **MDX** with a small set of article components. Content was brought over from the old portfolio as drafts.
 - Only projects get URLs. About and each role are their own files but open inside the device.
-- A direct project link plays the entrance, skips the lock screen and opens straight into the case study. The address bar follows the device, and the browser's back button zooms out.
+- A direct project link plays the entrance, skips the lock screen and opens straight into the case study. The address bar follows the device, and the browser's back button closes the reading page.
 - The prototype stays in the repo as the design reference.
 
 ## 4. Things to never re-pitch

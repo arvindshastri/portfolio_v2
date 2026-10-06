@@ -138,30 +138,6 @@ export function WheelLabels() {
   );
 }
 
-/** The docked dial: a smaller wheel under the zoomed screen while reading. */
-export function Dial() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => attachWheel(ref.current!, false), []);
-  return (
-    <div
-      className="dial"
-      ref={(el) => {
-        ref.current = el;
-        refs.dial = el;
-      }}
-    >
-      <span className="glow" />
-      <WheelLabels />
-      <button
-        className="center"
-        aria-label="Page down"
-        onPointerDown={(e) => e.stopPropagation()}
-        onClick={() => actions.select()}
-      />
-    </div>
-  );
-}
-
 /**
  * What you see through the secret Clear finish: the board under a tinted, see-through shell.
  * It shifts a few pixels against the device's tilt, so it reads as sitting deeper inside.
