@@ -11,14 +11,15 @@ How the device behaves. This is the source of truth for controls, states, transi
 
 ## 2. Controls
 
-| Input                  | Device                                                               | Keyboard             | Result                                                                                                  |
-| ---------------------- | -------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
-| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                      |
-| Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                   |
-| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                |
-| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace` | Back; while reading, close the page and return to the list                                              |
-| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                          |
-| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. Elsewhere: same as a one-step spin |
+| Input                  | Device                                                               | Keyboard             | Result                                                                                                                                                                                                                   |
+| ---------------------- | -------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                                                                                                                                       |
+| Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                                                                                                                                    |
+| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                                                                                                                                 |
+| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace` | Back; while reading, close the page and return to the list                                                                                                                                                               |
+| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                                                                                                                                           |
+| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. Elsewhere: same as a one-step spin                                                                                                                  |
+| Tap the screen         | Tap or click a row, a cover or the lock screen                       | (none)               | A row: the highlight moves to it, then it opens or acts, as if spun to and pressed (140ms between). Photos: a side cover comes to the middle; the middle one enlarges; a horizontal swipe steps. The lock screen unlocks |
 
 - **Spin resolution:** one step every 18 degrees of rotation. Mouse wheel over the device: one notch (|deltaY| ≥ 50) is exactly one step; trackpads accumulate 40px per step, at most one step per 70ms.
 - **Selection:** the highlight bar slides to the new row (150ms); only the row classes and the preview change, the list is not re-rendered.
@@ -104,7 +105,7 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 
 ### Photos (cover flow)
 
-Spinning moves the existing covers to their new positions (500ms ease-out-expo): the center cover swings flat and forward, neighbors rotate 64 degrees and dim. Nothing is re-rendered, so every step animates. The caption shows the title and "3 of 8".
+Spinning moves the existing covers to their new positions (500ms ease-out-expo): the center cover swings flat and forward, neighbors rotate 64 degrees and dim. Nothing is re-rendered, so every step animates. The caption shows the title and "3 of 8". Covers can also be tapped (a side cover comes to the middle, the middle one enlarges) and swiped (more than 30px sideways steps once). Taps act on click, not on release, so the click can't land on the backdrop of the photo it opens.
 
 ### Name button
 

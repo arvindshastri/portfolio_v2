@@ -59,6 +59,7 @@ Goals that came out of that:
 - **One width in articles** (2026-10-06): every block (text, cover, galleries, cards, prototypes) sits in the 680px column. Wider blocks and an edge-to-edge cover read as inconsistent.
 - **The wheel only cancels scrolling over the device** (2026-10-06): a cancelable wheel listener on the whole window made trackpad scrolling on reading pages feel off in Edge; the window listener is passive.
 - **Article images enlarge on tap** (2026-10-06), in the same view as Photos, at their largest size: design screenshots need detail, and every block now sits in the 680px column.
+- **The screen is touchable** (2026-10-06): rows, covers and the lock screen respond to taps and clicks, so the wheel is the fun way to move around but never the only one. Friends couldn't work out spin-and-press.
 - **Reading pages close** with the bar's back button, `Esc`, or the browser's back button; every reading page has a history entry so back never leaves the site.
 - Case studies stay **long-form**.
 - Photos and Contact do **not** open a reading page. Photos enlarge on press; Contact is a small on-device list.

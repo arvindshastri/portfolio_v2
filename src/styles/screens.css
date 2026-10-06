@@ -35,6 +35,10 @@
   white-space: nowrap;
   transition: color 0.1s;
 }
+/* rows can be tapped or clicked */
+.list .it {
+  cursor: pointer;
+}
 .list .it > span {
   flex: 1;
   min-width: 0;
@@ -407,7 +411,11 @@
   background: linear-gradient(#202227, #0d0e10);
   overflow: hidden;
 }
+.cf {
+  touch-action: pan-y;
+}
 .cf .it {
+  cursor: pointer;
   position: absolute;
   left: 50%;
   top: 18%;

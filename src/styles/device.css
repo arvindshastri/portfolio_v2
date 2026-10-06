@@ -368,6 +368,9 @@ body.dark .lcd::after {
   opacity: 0.9;
   margin-top: 4px;
 }
+.lock:not(.open) {
+  cursor: pointer;
+}
 .lock.open {
   transform: translateY(-100%);
   opacity: 0.6;

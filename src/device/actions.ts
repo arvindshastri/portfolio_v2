@@ -165,6 +165,38 @@ export function step(d: 1 | -1) {
   }
 }
 
+/**
+ * Tapping or clicking a row on the screen: the highlight moves to it, then it opens, exactly as
+ * if it had been spun to and the center pressed. The short pause lets the highlight land first.
+ */
+export function tapRow(index: number) {
+  const s = getState();
+  if (s.photo !== null) return closePhoto();
+  anyInput();
+  if (s.locked) return unlock();
+  if (s.busy) return;
+  const f = top();
+  if (f.node.type !== 'list' || index === f.sel) return select();
+  patchFrame(f.id, { sel: index, edge: false });
+  click();
+  later('tap', reducedMotion() ? 0 : 140, () => {
+    if (top().id === f.id) select();
+  });
+}
+
+/** Photos: tapping a side cover brings it to the middle; tapping the middle one enlarges it. */
+export function tapCover(index: number) {
+  const s = getState();
+  if (s.photo !== null) return closePhoto();
+  anyInput();
+  if (s.locked || s.busy) return;
+  const f = top();
+  if (f.node.type !== 'cf') return;
+  if (index === f.sel) return enlargePhoto(index);
+  patchFrame(f.id, { sel: index, edge: false });
+  click();
+}
+
 /** The center button. */
 export function select() {
   const s = getState();

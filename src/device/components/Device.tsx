@@ -63,7 +63,8 @@ function LockScreen() {
   const locked = useDevice((s) => s.locked);
   const now = useDevice((s) => s.now);
   return (
-    <div className={`lock${locked ? '' : ' open'}`} ref={bind('lock')}>
+    // tapping the lock screen unlocks it, like pressing the center
+    <div className={`lock${locked ? '' : ' open'}`} ref={bind('lock')} onClick={actions.unlock}>
       <div className="clk">{clock(now)}</div>
       <div className="dt">
         {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}

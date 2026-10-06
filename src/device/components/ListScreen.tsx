@@ -1,5 +1,6 @@
 import { AudioLines, ChevronRight, ExternalLink } from 'lucide-react';
 import { useLayoutEffect, useRef } from 'react';
+import * as actions from '../actions';
 import { useDevice } from '../store';
 import type { Frame, Item, ScreenNode } from '../types';
 import { Preview } from './Preview';
@@ -34,7 +35,7 @@ export function ListScreen({ frame, node }: { frame: Frame; node: ListNode }) {
       <div ref={listRef} className={`list${hasPreview ? '' : ' full'}`}>
         <div className="hl" style={{ '--i': frame.sel } as React.CSSProperties} />
         {node.items.map((item, i) => (
-          <Row key={item.label} item={item} on={i === frame.sel} />
+          <Row key={item.label} item={item} on={i === frame.sel} index={i} />
         ))}
       </div>
       {hasPreview && <div className="prev">{spec && <Preview spec={spec} />}</div>}
@@ -42,13 +43,17 @@ export function ListScreen({ frame, node }: { frame: Frame; node: ListNode }) {
   );
 }
 
-function Row({ item, on }: { item: Item; on: boolean }) {
+function Row({ item, on, index }: { item: Item; on: boolean; index: number }) {
   const classes = ['it', on && 'on', item.leaf && 'leaf'];
   // rows that open a screen get the chevron; leaves get their mark, or show their value instead
   const mark = item.leaf ? item.mark : 'chevron';
   const Mark = mark === 'link' ? ExternalLink : mark === 'chevron' ? ChevronRight : null;
   return (
-    <div className={classes.filter(Boolean).join(' ')} data-v={item.value?.() ?? ''}>
+    <div
+      className={classes.filter(Boolean).join(' ')}
+      data-v={item.value?.() ?? ''}
+      onClick={() => actions.tapRow(index)}
+    >
       <span>
         <em>{item.label}</em>
       </span>

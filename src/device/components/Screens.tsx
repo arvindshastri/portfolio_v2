@@ -135,8 +135,30 @@ function NowPlaying() {
 /** Photos: the covers move to their new positions (CSS transitions), nothing re-mounts. */
 function CoverFlow({ sel }: { sel: number }) {
   const photos = actions.getContent().photos;
+  // a horizontal swipe moves between covers; a tap lands on the cover under the finger. Taps
+  // act on click (not on release), so the click can't land on the backdrop of the photo it opens.
+  const swipe = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
   return (
-    <div className="cf">
+    <div
+      className="cf"
+      onPointerDown={(e) => (swipe.current = { x: e.clientX, y: e.clientY, swiped: false })}
+      onPointerUp={(e) => {
+        const start = swipe.current;
+        if (!start) return;
+        const dx = e.clientX - start.x;
+        if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(e.clientY - start.y)) {
+          start.swiped = true;
+          actions.step(dx < 0 ? 1 : -1);
+        }
+      }}
+      onClick={(e) => {
+        const swiped = swipe.current?.swiped;
+        swipe.current = null;
+        if (swiped) return;
+        const cover = (e.target as Element).closest<HTMLElement>('[data-i]');
+        if (cover) actions.tapCover(Number(cover.dataset.i));
+      }}
+    >
       {photos.map((p, i) => {
         const o = i - sel;
         const a = Math.abs(o);
@@ -148,7 +170,7 @@ function CoverFlow({ sel }: { sel: number }) {
           filter: `brightness(${o === 0 ? 1 : 0.72})`,
         };
         return (
-          <div className="it" style={style} key={p.thumb}>
+          <div className="it" style={style} key={p.thumb} data-i={i}>
             <img
               src={p.thumb}
               alt={p.caption}
