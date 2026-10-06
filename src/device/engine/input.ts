@@ -40,7 +40,8 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
 
   // reading: the article scrolls natively; the wheel over the bar scrolls it too
   const onWheel = (e: WheelEvent) => {
-    if (!getState().zoomed) return;
+    const s = getState();
+    if (!s.zoomed || s.photo !== null) return;
     if ((e.target as Element).closest('.read')) return reader.stopScroll();
     reader.scrollBy(e.deltaY * (e.deltaMode === 1 ? 16 : 1));
   };

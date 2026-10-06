@@ -276,7 +276,7 @@ Editorial and calm; the content is the hero.
 
 ### Enlarged Photo
 
-- Takes the photo's own shape, up to 92% of the width and 84% of the height (1100 by 900px max), 26px radius, framed by an 8px bezel ring, on black with the caption over a bottom gradient. Scales from 0.35 to 1 over 380ms. It opens at once on the cover flow's thumbnail and the full photo fades in over it (300ms) once loaded.
+- Takes the photo's own shape, up to 92% of the width and 84% of the height (1100 by 900px max), 26px radius, framed by an 8px bezel ring, on black with the caption over a bottom gradient. Scales from 0.35 to 1 over 380ms. It opens at once on the image already loaded (the cover flow's thumbnail, or the article's own image) and the full size fades in over it (300ms) once loaded. Photos and article images share it.
 
 ### Page Chrome
 

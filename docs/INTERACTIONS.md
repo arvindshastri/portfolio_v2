@@ -86,17 +86,21 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 - **Contents** (articles with 3 or more `##` sections): a numbered list just before the first section, one column on phones and two columns read top to bottom on wider pages. Choosing a section eases the page there (heading 24px from the top) and moves focus to it.
 - Once the inline Contents has scrolled away, the bar's right side shows the current section (`04 Design process ⌄`; `04/07 ⌄` on phones). It opens the Contents as a menu; `Esc` or a tap outside closes the menu without closing the page. The current section is the last heading above 30% of the page height.
 - The article scrolls natively (touch, trackpad, mouse wheel, scrollbar). The mouse wheel over the bar scrolls it too.
+- **Images enlarge:** tapping an image in an article (not one inside a link) opens it in the enlarged view (see below), at its largest size (the 1600px file instead of the 640px one on the page), with its figure caption. The cursor is `zoom-in` over them.
 - `↑`/`↓` scroll 110px per press and `Space`/`Enter` page down (80% of the page), all eased.
 - No wheel or dial while reading (the docked dial was removed on 2026-10-06).
 - Closing: the back button, `Esc`/`Backspace`, or the browser's back button. The list returns in the screen underneath, the content settles back (10px down, 98.5% scale) and fades (220ms) as the page shrinks back into the screen (520ms, from 70ms); over the last part (from 290ms, 300ms) the page dissolves into the list, so the list fades in instead of appearing when the page goes, then the page chrome is back.
 - Every reading page has a history entry, so the browser's back button and Android's back gesture close it instead of leaving the site. Only projects change the address (`/projects/<name>/`).
 
-### Enlarged photo
+### Enlarged image
+
+- The same view serves Photos and images in articles.
 
 - In Photos, pressing the center enlarges the current photo over a dimmed page (scales up from 0.35, 380ms). The next input of any kind closes it, as does clicking the dimmed page.
 - The panel takes the photo's own aspect ratio (up to 92% of the width and 84% of the height), so the whole photo always shows.
 - It opens at once on the cover flow's thumbnail, which is already loaded and the same shape, and the full photo fades in over it once decoded. Each photo gets its own image elements, so a previously enlarged photo can never show in place of the new one.
 - There is no hold-to-peek anywhere (removed 2026-10-06).
+- While reading, an enlarged image gets its own history entry: the browser's back button or Android's back gesture closes the image, not the page. Back with an image open only ever closes the image.
 
 ### Photos (cover flow)
 

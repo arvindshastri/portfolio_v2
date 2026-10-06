@@ -260,8 +260,12 @@ function Article({
       ref={el}
       dangerouslySetInnerHTML={{ __html: html }}
       onClick={(e) => {
-        const id = (e.target as Element).closest<HTMLElement>('[data-section]')?.dataset.section;
-        if (id) goTo(id);
+        const target = e.target as Element;
+        const id = target.closest<HTMLElement>('[data-section]')?.dataset.section;
+        if (id) return goTo(id);
+        // images enlarge (not ones inside links, which go where they point)
+        if (target instanceof HTMLImageElement && !target.closest('a'))
+          actions.enlargeImage(target);
       }}
     />
   );

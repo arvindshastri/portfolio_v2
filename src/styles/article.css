@@ -524,6 +524,14 @@ body.dark .read .checks b {
   }
 }
 
+/* images enlarge when tapped */
+.reader .read img {
+  cursor: zoom-in;
+}
+.reader .read a img {
+  cursor: pointer;
+}
+
 /* Contents: a numbered list of the sections, just before the first one */
 .read .contents {
   margin-block: 30px 6px;

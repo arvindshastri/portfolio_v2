@@ -85,20 +85,20 @@ export function Veil() {
 }
 
 /**
- * A photo enlarged over the page: press the center in Photos; the next input of any kind closes
- * it. It opens at once on the cover flow's thumbnail (already loaded, same shape) and the full
- * photo fades in over it once decoded. Each photo gets its own elements: the view used to swap
+ * An image enlarged over the page: a photo (press the center in Photos) or an image in an
+ * article (tap it). The next input of any kind closes it. It opens at once on the image that is
+ * already loaded (the cover flow's thumbnail, or the article's image), same shape, and the full
+ * size fades in over it once decoded. Each image gets its own elements: the view used to swap
  * one image's source in place, which showed the previous photo until the new one arrived.
  */
 export function EnlargedPhoto() {
-  const index = useDevice((s) => s.photo);
-  const photos = actions.getContent().photos;
-  // keep the last photo while the panel animates closed
-  const [shown, setShown] = useState(index);
-  if (index !== null && index !== shown) setShown(index);
+  const image = useDevice((s) => s.photo);
+  // keep the last image while the panel animates closed
+  const [shown, setShown] = useState(image);
+  if (image !== null && image !== shown) setShown(image);
   const panel = useRef<HTMLDivElement>(null);
 
-  // the panel takes the photo's own shape, so the whole photo always shows
+  // the panel takes the image's own shape, so the whole image always shows
   useLayoutEffect(() => {
     const el = panel.current;
     const img = el?.querySelector<HTMLImageElement>('img.lo');
@@ -120,23 +120,22 @@ export function EnlargedPhoto() {
     else img.onload = fit;
   }, [shown]);
 
-  const photo = shown === null ? null : photos[shown]!;
   return (
-    <div ref={panel} className={`enlarged${index !== null ? ' on' : ''}`}>
-      {photo && (
-        <div className="ph" key={photo.full}>
-          <img className="lo" src={photo.thumb} alt="" />
+    <div ref={panel} className={`enlarged${image !== null ? ' on' : ''}`}>
+      {shown && (
+        <div className="ph" key={shown.full}>
+          <img className="lo" src={shown.thumb} alt="" />
           <img
             className="hi"
-            src={photo.full}
-            alt={photo.caption}
+            src={shown.full}
+            alt={shown.alt}
             // already cached: show it at once; otherwise fade it in over the thumbnail
             ref={(img) => {
               if (img?.complete && img.naturalWidth) img.classList.add('in', 'now');
             }}
             onLoad={(e) => e.currentTarget.classList.add('in')}
           />
-          <span>{photo.caption}</span>
+          {shown.caption && <span>{shown.caption}</span>}
         </div>
       )}
     </div>

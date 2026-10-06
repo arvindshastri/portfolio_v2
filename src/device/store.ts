@@ -16,6 +16,14 @@ export interface Toast {
   text: string;
 }
 
+/** An enlarged image: shown at once from `thumb` (already loaded), then `full` once decoded. */
+export interface Enlarged {
+  thumb: string;
+  full: string;
+  alt: string;
+  caption: string;
+}
+
 /** A screen transition in progress: the stack renders it, then reports back when it lands. */
 export interface Slide {
   seq: number;
@@ -45,8 +53,8 @@ export interface DeviceState {
   /** The secret Clear finish has been unlocked. */
   secret: boolean;
 
-  /** The photo enlarged over the page (by index), until the next input. */
-  photo: number | null;
+  /** The image enlarged over the page (a photo, or an image in an article), until the next input. */
+  photo: Enlarged | null;
   guide: boolean;
 
   deviceToast: Toast | null;

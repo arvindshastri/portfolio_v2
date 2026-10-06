@@ -9,7 +9,7 @@ import { settle } from './engine/slide';
 import { shrink } from './engine/reading';
 import { frameEls, reducedMotion, refs } from './refs';
 import { save } from './storage';
-import { getState, newFrame, patchFrame, setState, top, type Toast } from './store';
+import { getState, newFrame, patchFrame, setState, top, type Enlarged, type Toast } from './store';
 import type { DocRef, Frame, ScreenNode } from './types';
 
 /*
@@ -290,6 +290,8 @@ function urlReset() {
 
 /** Browser back/forward. */
 export function onHistory(state: { doc?: string; reading?: boolean } | null) {
+  // back with an image enlarged only closes the image (its entry sits on top of the page's)
+  if (getState().photo !== null) return hidePhoto();
   if (state?.doc) {
     const project = getContent().projects.find((p) => p.slug === state.doc);
     if (project && !getState().zoomed) openDoc(projectDoc(project.slug, project.title));
@@ -307,15 +309,40 @@ export const projectDoc = (slug: string, title: string): DocRef => ({
 
 /* ===================== photos: press to enlarge ===================== */
 
-/** Enlarges a photo over the page (see EnlargedPhoto); the next input of any kind closes it. */
-export function enlargePhoto(index: number) {
-  setState({ photo: index });
+/** Enlarges an image over the page (see EnlargedPhoto); the next input of any kind closes it. */
+function enlarge(image: Enlarged) {
+  setState({ photo: image });
   bodyClass('photo-open', true);
   click(2);
   vibe(12);
+  // while reading, the back button (or Android's back gesture) closes the image, not the page
+  if (getState().zoomed) history.pushState({ ...history.state, image: true }, '', location.href);
+}
+
+/** Photos: the photo at `index`. */
+export function enlargePhoto(index: number) {
+  const p = getContent().photos[index]!;
+  enlarge({ thumb: p.thumb, full: p.full, alt: p.caption, caption: p.caption });
+}
+
+/** An image in an article: shown from what's on the page, then its largest size. */
+export function enlargeImage(img: HTMLImageElement) {
+  const sizes = (img.srcset || '')
+    .split(',')
+    .map((c) => c.trim().split(/\s+/))
+    .filter(([url]) => url)
+    .map(([url, w]) => ({ url: url!, w: parseInt(w ?? '0') }));
+  const largest = sizes.sort((a, b) => b.w - a.w)[0]?.url ?? img.currentSrc ?? img.src;
+  const caption = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() ?? '';
+  enlarge({ thumb: img.currentSrc || img.src, full: largest, alt: img.alt, caption });
 }
 
 export function closePhoto() {
+  if (history.state?.image) return history.back(); // the history handler closes it
+  hidePhoto();
+}
+
+function hidePhoto() {
   setState({ photo: null });
   bodyClass('photo-open', false);
 }
