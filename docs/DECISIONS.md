@@ -57,6 +57,7 @@ Goals that came out of that:
 - **No ◀◀ / ▶▶ "next project".** They skip tracks and photos. (While reading there is no wheel; a Contents list near the top of each article does section jumps.)
 - **Contents** (2026-10-06, brought back from the old case studies): a numbered list before the first section, plus the current section in the reading bar, which opens the list as a menu. A sticky side rail was tried and dropped: the case studies' wide blocks (cards, galleries) ran over it.
 - **One width in articles** (2026-10-06): every block (text, cover, galleries, cards, prototypes) sits in the 680px column. Wider blocks and an edge-to-edge cover read as inconsistent.
+- **The wheel only cancels scrolling over the device** (2026-10-06): a cancelable wheel listener on the whole window made trackpad scrolling on reading pages feel off in Edge; the window listener is passive.
 - **Reading pages close** with the bar's back button, `Esc`, or the browser's back button; every reading page has a history entry so back never leaves the site.
 - Case studies stay **long-form**.
 - Photos and Contact do **not** open a reading page. Photos enlarge on press; Contact is a small on-device list.

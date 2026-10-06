@@ -10,19 +10,15 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
   let wheelAcc = 0;
   let lastWheel = 0;
 
-  const onWheel = (e: WheelEvent) => {
+  // The wheel turns into menu steps only over the device, so only the device's listener may
+  // cancel scrolling. A cancelable listener on the whole window made the browser run every
+  // scroll event through this code first, which made trackpad scrolling in a reading page feel
+  // jumpy (Edge on Windows); the window listener below is passive.
+  const onDeviceWheel = (e: WheelEvent) => {
     const s = getState();
-    if (s.photo !== null) return;
-    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : 1);
-    // reading: scrolling anywhere scrolls the article (natively when over it)
-    if (s.zoomed) {
-      if ((e.target as Element).closest('.read')) return reader.stopScroll();
-      e.preventDefault();
-      reader.scrollBy(dy);
-      return;
-    }
-    if (!(e.target as Element).closest('.dev')) return;
+    if (s.photo !== null || s.zoomed) return;
     e.preventDefault();
+    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : 1);
     const now = performance.now();
     // a mouse notch moves exactly one item
     if (Math.abs(dy) >= 50) {
@@ -40,6 +36,13 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
       lastWheel = now;
       wheelAcc = 0;
     }
+  };
+
+  // reading: the article scrolls natively; the wheel over the bar scrolls it too
+  const onWheel = (e: WheelEvent) => {
+    if (!getState().zoomed) return;
+    if ((e.target as Element).closest('.read')) return reader.stopScroll();
+    reader.scrollBy(e.deltaY * (e.deltaMode === 1 ? 16 : 1));
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -90,13 +93,16 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
   const onResize = () => fitDevice();
   const onPopState = (e: PopStateEvent) => actions.onHistory(e.state);
 
-  addEventListener('wheel', onWheel, { passive: false });
+  const dev = refs.dev;
+  dev?.addEventListener('wheel', onDeviceWheel, { passive: false });
+  addEventListener('wheel', onWheel, { passive: true });
   addEventListener('keydown', onKeyDown);
   addEventListener('pointermove', onPointerMove);
   addEventListener('pointerdown', onPointerDownCapture, true);
   addEventListener('resize', onResize);
   addEventListener('popstate', onPopState);
   return () => {
+    dev?.removeEventListener('wheel', onDeviceWheel);
     removeEventListener('wheel', onWheel);
     removeEventListener('keydown', onKeyDown);
     removeEventListener('pointermove', onPointerMove);
