@@ -216,6 +216,8 @@ function Article({
       heads.forEach((h, i) => {
         if (h && headingTop(read, h) <= line) active = i;
       });
+      // a short last section never reaches the line, so the bottom of the page counts as it
+      if (read.scrollTop + read.clientHeight >= read.scrollHeight - 4) active = heads.length - 1;
       const past = !!nav && nav.getBoundingClientRect().bottom < read.getBoundingClientRect().top;
       onProgress({ active, past });
     };
