@@ -1,6 +1,6 @@
 # Arvind Shastri · Portfolio
 
-My portfolio, built as one object: an original click-wheel music device that holds everything. Spin the wheel to browse, press the center to open a project (the camera zooms into the screen and the case study reflows into a full article), hold the center to peek, and pick a device color that re-themes the whole page. There's music, photos and a small Brick game inside.
+My portfolio, built as one object: an original click-wheel music device that holds everything. Spin the wheel to browse, press the center to open a project (the camera zooms into the screen and the case study reflows into a full article), and pick a device color that re-themes the whole page. There's music, photos and a small Brick game inside.
 
 Live at [arvindshastri.com](https://arvindshastri.com).
 

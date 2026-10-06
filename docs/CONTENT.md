@@ -16,18 +16,18 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 
 ## 2. Screen map and content
 
-| Screen     | Content                                                                                    | Opens as                      |
-| ---------- | ------------------------------------------------------------------------------------------ | ----------------------------- |
-| Lock       | Static photo (`nyc.jpg`), time, date                                                       | Press to unlock               |
-| Menu       | Projects, Experience, About, Photos, Music, Extras, Settings, Contact, each with a preview | List                          |
-| Projects   | Trac Commuter, Trac Driver, Orderly, StudyFinder                                           | Zoomed article (hold to peek) |
-| About      | Intro, design skills, engineering skills, portrait                                         | Zoomed article                |
-| Experience | Trac, Ericsson, CGI, Arbol                                                                 | Zoomed article per role       |
-| Music      | Playlist of tracks                                                                         | Now Playing                   |
-| Photos     | Cover flow of personal photos with captions                                                | Peek                          |
-| Extras     | Brick (more games later)                                                                   | Game screen                   |
-| Settings   | Color, Screen, Clicker, Show controls                                                      | In place                      |
-| Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions                       |
+| Screen     | Content                                                                                    | Opens as                |
+| ---------- | ------------------------------------------------------------------------------------------ | ----------------------- |
+| Lock       | Static photo (`nyc.jpg`), time, date                                                       | Press to unlock         |
+| Menu       | Projects, Experience, About, Photos, Music, Extras, Settings, Contact, each with a preview | List                    |
+| Projects   | Trac Commuter, Trac Driver, Orderly, StudyFinder                                           | Zoomed article          |
+| About      | Intro, design skills, engineering skills, portrait                                         | Zoomed article          |
+| Experience | Trac, Ericsson, CGI, Arbol                                                                 | Zoomed article per role |
+| Music      | Playlist of tracks                                                                         | Now Playing             |
+| Photos     | Cover flow of personal photos with captions                                                | Enlarged on press       |
+| Extras     | Brick (more games later)                                                                   | Game screen             |
+| Settings   | Color, Screen, Clicker, Show controls                                                      | In place                |
+| Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions                 |
 
 ## 3. Case study template
 
@@ -63,7 +63,7 @@ Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()
 - Short paragraphs. Leads are one or two sentences.
 - No em dashes. Use commas, colons, parentheses or two sentences.
 - No filler verbs (elevate, seamless, unleash, revolutionize).
-- Instructions on the page are lowercase mono fragments: "spin to scroll · press the center to open · hold to peek".
+- Instructions on the page are lowercase mono fragments: "spin to scroll · press the center to open".
 
 ## 5. How to add things
 
@@ -84,7 +84,7 @@ Add `src/content/experience/<company>.md` with `company`, `role`, `period`, `yea
 
 ### A photo
 
-Put the image in `src/assets/photos/`, import it in `src/data/photos.ts` and add `{ id, image, caption }`. Thumbnails for cover flow and the full-size peek are generated automatically.
+Put the image in `src/assets/photos/`, import it in `src/data/photos.ts` and add `{ id, image, caption }`. Thumbnails for cover flow and the full-size enlarged photo are generated automatically.
 
 ### A music track
 

@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 import * as actions from './actions';
 import { Device, Dial } from './components/Device';
 import { Legend } from './components/Guide';
-import { Corner, Hint, Links, Name, Peek, Veil } from './components/Page';
+import { Corner, EnlargedPhoto, Hint, Links, Name, Veil } from './components/Page';
 import { runDevHooks } from './devHooks';
 import { attachGlobalInput } from './engine/input';
 import { playIntro, skipIntro } from './engine/intro';
@@ -75,7 +75,7 @@ export default function Pocket({ content, initialProject }: Props) {
       <Device />
       <Dial />
       <Legend />
-      <Peek />
+      <EnlargedPhoto />
       <Hint />
       <Corner />
     </>

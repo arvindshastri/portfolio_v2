@@ -1,4 +1,4 @@
-/* The room around the device: name, links, swatches, guide, peek, dialogs. */
+/* The room around the device: name, links, swatches, guide, enlarged photo, dialogs. */
 /* ===== the room: lit from above the device, falling off to the corners ===== */
 .room {
   position: fixed;
@@ -297,7 +297,7 @@ body.guide .callouts {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-/* peek + veil */
+/* veil + enlarged photo */
 .veil {
   position: fixed;
   inset: 0;
@@ -312,13 +312,13 @@ body.zoomed .veil {
   pointer-events: auto;
   z-index: 5;
 }
-body.peeking .veil {
+body.photo-open .veil {
   opacity: 1;
   z-index: 35;
 }
-.peek {
+.enlarged {
   position: fixed;
-  z-index: var(--z-peek);
+  z-index: var(--z-photo);
   left: 50%;
   top: 50%;
   width: min(880px, 92vw);
@@ -328,8 +328,7 @@ body.peeking .veil {
   pointer-events: none;
   border-radius: 26px;
   overflow: hidden;
-  background: var(--scr, #fbfbfa);
-  color: var(--scrInk, #18191b);
+  background: #0b0b0c;
   box-shadow:
     0 0 0 8px #0d0e10,
     0 40px 80px -30px rgba(0, 0, 0, 0.55);
@@ -337,30 +336,34 @@ body.peeking .veil {
     transform 0.38s var(--ease),
     opacity 0.25s;
 }
-.peek.on {
+.enlarged.on {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
-.peek .lcdin {
-  position: absolute;
-  inset: 0;
-  width: auto;
-  height: auto;
-}
-.peek.photo {
-  background: #0b0b0c;
-}
-.peek .ph {
+.enlarged .ph {
   position: absolute;
   inset: 0;
 }
-.peek .ph img {
+.enlarged .ph img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   max-width: none;
   object-fit: contain;
 }
-.peek .ph span {
+/* the full photo fades in over the thumbnail once it has loaded */
+.enlarged .ph .hi {
+  opacity: 0;
+  transition: opacity 0.3s var(--quart);
+}
+.enlarged .ph .hi.in {
+  opacity: 1;
+}
+.enlarged .ph .hi.now {
+  transition: none;
+}
+.enlarged .ph span {
   position: absolute;
   bottom: 0;
   left: 0;

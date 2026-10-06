@@ -162,7 +162,7 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 - **Graphite Ink** (oklch(0.21 0.01 250)): page text and the name.
 - **Slate Mute** (oklch(0.47 0.012 250)): secondary page text (role line, hints, callout descriptions). Passes 4.5:1 on the page.
 - **Screen** (`scrL`/`inkL` light, `scrD`/`inkD` dark): the LCD, tinted very slightly toward each theme's hue. The theme picks light or dark; Settings → Screen can flip it until the next color change.
-- **Wheel Ink** (`wink`): the wheel labels, and also the center button's hold ring and focus ring, so they match the device's material instead of a fixed blue.
+- **Wheel Ink** (`wink`): the wheel labels, and also the center button's focus ring, so they match the device's material instead of a fixed blue.
 - **Wheel Sheen** (`wglow`): a 5 to 7% white (dark wheels) or tinted (light wheels) highlight under the pointer. Never the accent.
 - **Bezel Black** (#060607): the glass frame around the screen.
 
@@ -188,7 +188,7 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 - **Article Headline** (Geist 600, clamp(26px, 3.6cqi, 34px), 1.15, -0.025em): section headings inside articles.
 - **Article Lead** (Geist 400, clamp(19px, 2.4cqi, 23px), 1.5): the one-paragraph intro under a title.
 - **Article Body** (Geist 400, 18px, 1.7): reading text. Column capped at 680px.
-- **Narrow article sizes** (screen under 560px wide, i.e. phones and small peeks): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62 (narrow headings 600). Articles only ever appear zoomed or in a peek, so these are real reading sizes, never miniature ones.
+- **Narrow article sizes** (screen under 560px wide, i.e. phones): title 30px, lead 16.5px, headings 21px, body 15.5px/1.62 (narrow headings 600). Articles only ever appear zoomed, so these are real reading sizes, never miniature ones.
 - **Lock Clock** (Geist 300, 66px, 1, -0.04em, tabular numerals): the lock screen time.
 - **UI List** (Geist 500, 14.5px): menu rows on the device.
 - **UI Status** (Geist 600, 11.5px): the status bar; 14px once zoomed.
@@ -217,7 +217,7 @@ The page is flat; only the device has depth, and it has it the way a real object
 - **Wheel recess** (`0 0 0 1px rgba(0,0,0,.2), 0 1.5px 0 1px var(--edge)`): the wheel sits in a shallow well.
 - **Floor** (300 by 40px ellipse, theme `--floor` color, `filter: blur(18px)`): grounds the device on the surface. Hidden while zoomed.
 - **Screen glass** (linear-gradient 150deg from rgba(255,255,255,.2) to transparent at 38%): a reflection that shifts with the device tilt.
-- **Peek panel** (`box-shadow: 0 0 0 8px #0d0e10, 0 40px 80px -30px rgba(0,0,0,.55)`): the magnified screen, framed like the bezel.
+- **Enlarged photo** (`box-shadow: 0 0 0 8px #0d0e10, 0 40px 80px -30px rgba(0,0,0,.55)`): the photo panel, framed like the bezel.
 
 ### Named Rules
 
@@ -234,7 +234,7 @@ Tactile, precise and quiet: an object first, a UI second.
 - **Body:** 360 by 604px, 46px corner radius. Anodized aluminum in every color: a gradient between the theme's two shell tones, faint grain, a 1px machined edge highlight. The secret **Clear** finish is a teal-tinted, see-through shell with a polished rim and sharper gloss. Through it you see the board: the amber flex cable from the screen, chips with pin-1 dots and tiny parts, gold traces, screws, the wheel's copper sensor rings, the battery behind a smoky see-through wheel, and a status LED breathing in the accent color. The board drifts a few pixels against the device's tilt, so it reads as sitting deeper than the shell. Dark screen; no grain.
 - **Screen:** inset 13px, 310px tall glass frame (32px radius, bezel black, 7px padding) holding the 25px-radius LCD. Content lays out in a container (`container-type: inline-size`) so it can reflow when zoomed.
 - **Wheel:** 222px diameter, centered 346px from the top. Labels: MENU (top) in Geist 650 11px (10px on the docked dial), tracked 0.1em; the transport marks ◀◀ (left), ▶▶ (right) and ▶ ❚❚ (bottom) are Lucide `Play` and `Pause` icons, filled, at 12px (11px on the docked dial), with each skip mark made of two nested play triangles (rewind mirrored). All in the theme's wheel ink. All four sit at the same inset from the rim, measured to the drawn ink (about 17.5px on the wheel, 14px on the dial), and are optically centered; MENU gets 0.1em of left padding to cancel the tracking after its last letter. Never text glyphs: Geist lacks them, so phones drew them from mismatched fallback fonts (a heavy, oversized pause; an emoji play). A faint sheen (`wglow`) follows the pointer. Pressing the ring rocks the wheel 3deg toward the finger (perspective 600px) until it's released or starts spinning. Spinning registers one step every 18 degrees.
-- **Center button:** 82px, the shell material. Scales to 0.96 and its shadow turns inward when pressed. Holding it draws a ring in the wheel ink over 320ms, then peeks.
+- **Center button:** 82px, the shell material. Scales to 0.96 and its shadow turns inward when pressed. There is no hold action.
 - **Docked dial:** when zoomed, the device wheel fades out and a smaller copy (176px, 156px on phones) rises into view at the bottom center (600ms ease-out-expo), 16px from the edge, with all four labels and a 64px center button. The zoom framing reserves room for it. (A version where the wheel flew into the dock was tried and reverted: the size change read as a restyle.)
 - **Zoomed status bar:** at any zoom, side padding is 1.15 times the zoomed screen's corner radius, so the title and time never touch the rounded corners.
 
@@ -271,9 +271,9 @@ Editorial and calm; the content is the hero.
 - **Tag groups:** a role's tools and skills, or the About toolkit (four groups in a 2×2 grid; stacked on phones).
 - **Prototypes:** live Figma embeds in a 16:10 frame (920px max, 14px radius, 7% accent tint with an 18% ring), mono caption with an "Open in Figma" link followed by the Lucide `ExternalLink` icon (inline SVG). The iframe loads only when the frame scrolls within 400px of view; until then, in peeks and in the text version, it's a link out.
 
-### Peek Panel
+### Enlarged Photo
 
-- Up to 880 by 720px, 26px radius, framed by an 8px bezel ring. Scales from 0.35 to 1 over 380ms. Project peeks show the article; photo peeks show the image on black with a caption.
+- Takes the photo's own shape, up to 92% of the width and 84% of the height (1100 by 900px max), 26px radius, framed by an 8px bezel ring, on black with the caption over a bottom gradient. Scales from 0.35 to 1 over 380ms. It opens at once on the cover flow's thumbnail and the full photo fades in over it (300ms) once loaded.
 
 ### Page Chrome
 

@@ -12,7 +12,7 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
 
   const onWheel = (e: WheelEvent) => {
     const s = getState();
-    if (s.peek) return;
+    if (s.photo !== null) return;
     const dy = e.deltaY * (e.deltaMode === 1 ? 16 : 1);
     // reading: scrolling anywhere scrolls the article (natively when over it)
     if (s.zoomed) {
@@ -67,14 +67,8 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
       case ' ':
         if (e.repeat) return;
         e.preventDefault();
-        if (actions.peekTarget()) actions.openPeek();
-        else actions.select();
+        return actions.select();
     }
-  };
-
-  const onKeyUp = (e: KeyboardEvent) => {
-    const s = getState();
-    if (e.key === ' ' && s.peek && !s.sticky) actions.closePeek();
   };
 
   // the device leans toward a mouse, but holds still while you use it
@@ -93,7 +87,6 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
   const onPointerDownCapture = (e: PointerEvent) => {
     if ((e.target as Element).closest('.read')) reader.stopScroll();
   };
-  const onPointerUp = () => actions.pointerReleased();
   const onResize = () => {
     if (getState().zoomed) actions.relayout();
     else fitDevice();
@@ -102,19 +95,15 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
 
   addEventListener('wheel', onWheel, { passive: false });
   addEventListener('keydown', onKeyDown);
-  addEventListener('keyup', onKeyUp);
   addEventListener('pointermove', onPointerMove);
   addEventListener('pointerdown', onPointerDownCapture, true);
-  addEventListener('pointerup', onPointerUp);
   addEventListener('resize', onResize);
   addEventListener('popstate', onPopState);
   return () => {
     removeEventListener('wheel', onWheel);
     removeEventListener('keydown', onKeyDown);
-    removeEventListener('keyup', onKeyUp);
     removeEventListener('pointermove', onPointerMove);
     removeEventListener('pointerdown', onPointerDownCapture, true);
-    removeEventListener('pointerup', onPointerUp);
     removeEventListener('resize', onResize);
     removeEventListener('popstate', onPopState);
   };

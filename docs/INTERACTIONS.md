@@ -4,22 +4,21 @@ How the device behaves. This is the source of truth for controls, states, transi
 
 ## 1. Principles
 
-1. **Physical metaphors map to navigation.** Spin = scroll and select, press = open, hold = peek, MENU = back. Once someone touches it, they know how it works.
+1. **Physical metaphors map to navigation.** Spin = scroll and select, press = open, MENU = back. Once someone touches it, they know how it works.
 2. **The small screen is for browsing; the big screen is for reading.** Opening long content zooms into the screen and reflows it.
 3. **Feedback on every input:** a click sound, a press scale, the wheel rocking under the finger, and vibration on supported phones.
 4. **Nothing interrupts.** No recurring notifications, no idle relock, no auto-play.
 
 ## 2. Controls
 
-| Input                  | Device                                                               | Keyboard                                     | Result                                                                                                                                                |
-| ---------------------- | -------------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                                          | Next item / scroll down / volume up / paddle right                                                                                                    |
-| Spin counter-clockwise | Drag the other way                                                   | `↑`                                          | Previous item / scroll up / volume down / paddle left                                                                                                 |
-| Press center           | Click/tap the center button                                          | `Enter` (or `Space` on non-peekable screens) | Unlock, open, select, play/pause, launch the Brick ball                                                                                               |
-| Hold center (320ms)    | Press and hold                                                       | Hold `Space`                                 | Peek at the selected project or photo while held                                                                                                      |
-| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace`                         | Back; while zoomed, zoom out and return to the list                                                                                                   |
-| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)                                       | Play/pause music from anywhere                                                                                                                        |
-| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`                                    | On Now Playing: previous/next track. In Photos: previous/next photo. While reading: previous/next section heading. Elsewhere: same as a one-step spin |
+| Input                  | Device                                                               | Keyboard             | Result                                                                                                                                                |
+| ---------------------- | -------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                                                                    |
+| Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                                                                 |
+| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                                                              |
+| MENU                   | Tap the top of the ring                                              | `Esc` or `Backspace` | Back; while zoomed, zoom out and return to the list                                                                                                   |
+| ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                                                                        |
+| ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. While reading: previous/next section heading. Elsewhere: same as a one-step spin |
 
 - **Spin resolution:** one step every 18 degrees of rotation. Mouse wheel over the device: one notch (|deltaY| ≥ 50) is exactly one step; trackpads accumulate 40px per step, at most one step per 70ms.
 - **Selection:** the highlight bar slides to the new row (150ms); only the row classes and the preview change, the list is not re-rendered.
@@ -34,14 +33,14 @@ How the device behaves. This is the source of truth for controls, states, transi
 ```
 Lock screen (press center)
 └── Menu
-    ├── Projects        list → press: zoom into case study · hold: peek
+    ├── Projects        list → press: zoom into case study
     │   ├── Trac Commuter
     │   ├── Trac Driver
     │   ├── Orderly
     │   └── StudyFinder
-    ├── Experience      list → press: zoom into the role · hold: peek
+    ├── Experience      list → press: zoom into the role
     ├── About           press: zoom into the About article
-    ├── Photos          cover flow → press: sticky peek · hold: peek while held
+    ├── Photos          cover flow → press: enlarge the photo
     ├── Music           playlist → press: play the track and open Now Playing
     ├── Extras
     │   └── Brick       spin = paddle (continuous), center = launch
@@ -95,11 +94,12 @@ No small preview is ever shown before zooming, and text never visibly reflows.
 - `↑`/`↓` scroll 110px per press. All of these share one eased scroller, so they feel the same.
 - MENU, `Esc`, or clicking the dimmed area around the device closes: blank, zoom out, pop back to the list, reveal.
 
-### Peek
+### Enlarged photo
 
-- Hold the center for 320ms on a peekable row (projects, roles) or in Photos. A ring fills around the button while holding.
-- The peek panel scales up from 0.35 (380ms) over a dimmed page. Release to close.
-- Photos: a single press opens a sticky peek; the next input of any kind closes it. The photo panel takes the photo's own aspect ratio (up to 92% of the width and 84% of the height), so the whole photo always shows.
+- In Photos, pressing the center enlarges the current photo over a dimmed page (scales up from 0.35, 380ms). The next input of any kind closes it, as does clicking the dimmed page.
+- The panel takes the photo's own aspect ratio (up to 92% of the width and 84% of the height), so the whole photo always shows.
+- It opens at once on the cover flow's thumbnail, which is already loaded and the same shape, and the full photo fades in over it once decoded. Each photo gets its own image elements, so a previously enlarged photo can never show in place of the new one.
+- There is no hold-to-peek anywhere (removed 2026-10-06).
 
 ### Photos (cover flow)
 
@@ -107,7 +107,7 @@ Spinning moves the existing covers to their new positions (500ms ease-out-expo):
 
 ### Name button
 
-Clicking the name top-left returns to the main menu from anywhere (zooming out first, closing any peek, unlocking if locked).
+Clicking the name top-left returns to the main menu from anywhere (zooming out first, closing an enlarged photo, unlocking if locked).
 
 ### Guide
 
@@ -161,7 +161,7 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 ## 9. Accessibility
 
 - Full keyboard control (see Controls). Visible focus rings in the theme accent.
-- The center button has an accessible label ("Select. Hold to peek."). Swatches are a labeled radio group.
+- The center button has an accessible label ("Select"). Swatches are a labeled radio group.
 - A screen-reader-only "Text version of this site" button opens a plain dialog with all content.
 - `prefers-reduced-motion`: transitions and animations collapse to near-instant; the entrance is skipped.
 - Target WCAG 2.2 AA contrast for page text in every theme.
@@ -170,14 +170,14 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 
 URL parameters in the prototype, for screenshots and testing:
 
-| Param                        | Effect                                                                                      |
-| ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `?color=graphite`            | Start with a device color                                                                   |
-| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` peek, `1`/`-1` step, `toast` show the unlock toast |
-| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                         |
-| `?guide=1`                   | Show the guide pinned                                                                       |
-| `?dark=1`                    | Dark screen                                                                                 |
-| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                           |
-| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                      |
+| Param                        | Effect                                                                                                               |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `?color=graphite`            | Start with a device color                                                                                            |
+| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` enlarge the photo (in Photos), `1`/`-1` step, `toast` show the unlock toast |
+| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                                                  |
+| `?guide=1`                   | Show the guide pinned                                                                                                |
+| `?dark=1`                    | Dark screen                                                                                                          |
+| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                                                    |
+| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                                               |
 
 These only run in development (`npm run dev`); production builds don't include them. `?scroll=1200` also scrolls an open article.

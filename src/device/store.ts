@@ -16,8 +16,6 @@ export interface Toast {
   text: string;
 }
 
-export type Peek = null | { kind: 'doc'; doc: DocRef } | { kind: 'photo'; index: number };
-
 /** A screen transition in progress: the stack renders it, then reports back when it lands. */
 export interface Slide {
   seq: number;
@@ -45,9 +43,8 @@ export interface DeviceState {
   /** The secret Clear finish has been unlocked. */
   secret: boolean;
 
-  peek: Peek;
-  /** A peek opened by a press stays until the next input (holds close on release). */
-  sticky: boolean;
+  /** The photo enlarged over the page (by index), until the next input. */
+  photo: number | null;
   guide: boolean;
 
   deviceToast: Toast | null;
@@ -82,8 +79,7 @@ export const useDevice = create<DeviceState>()(() => ({
   dark: false,
   clicker: true,
   secret: load('secret', load('clear', false)),
-  peek: null,
-  sticky: false,
+  photo: null,
   guide: false,
   deviceToast: null,
   pageToast: null,

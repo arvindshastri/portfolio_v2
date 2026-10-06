@@ -63,7 +63,7 @@ const CALLOUTS: Callout[] = [
     fy: 0.99,
     side: 'r',
     label: 'Center',
-    text: 'press to open, hold to peek',
+    text: 'press to open',
   },
   {
     target: () => refs.wheel?.querySelector('.b'),

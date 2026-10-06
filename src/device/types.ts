@@ -27,7 +27,7 @@ export interface DeviceContent {
 }
 
 /**
- * A long-form page the device can open (zoom into) or peek at. `key` matches a
+ * A long-form page the device can open (zoom into). `key` matches a
  * <template data-article> rendered by the page; `slug` is set for projects, which have URLs.
  */
 export interface DocRef {

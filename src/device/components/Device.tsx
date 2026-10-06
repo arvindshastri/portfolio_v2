@@ -1,6 +1,7 @@
 import { Pause, Play } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import * as actions from '../actions';
+import { ensureAudio } from '../engine/audio';
 import { attachWheel } from '../engine/wheel';
 import { bind, refs } from '../refs';
 import { useDevice } from '../store';
@@ -108,15 +109,12 @@ function Wheel() {
       <button
         className="center"
         ref={bind('center')}
-        aria-label="Select. Hold to peek."
+        aria-label="Select"
         onPointerDown={(e) => {
           e.stopPropagation();
-          e.currentTarget.classList.add('held');
-          actions.centerDown();
+          ensureAudio();
         }}
-        onPointerUp={(e) => e.currentTarget.classList.remove('held')}
-        onPointerLeave={(e) => e.currentTarget.classList.remove('held')}
-        onClick={actions.centerClick}
+        onClick={actions.select}
       />
     </div>
   );

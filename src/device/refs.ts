@@ -19,8 +19,7 @@ export type RefName =
   | 'links'
   | 'corner'
   | 'foot'
-  | 'swatches'
-  | 'peek';
+  | 'swatches';
 
 export const refs: Partial<Record<RefName, HTMLElement | null>> = {};
 

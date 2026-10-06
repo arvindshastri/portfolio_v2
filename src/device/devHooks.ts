@@ -1,7 +1,7 @@
 import * as actions from './actions';
 import * as brick from './engine/brick';
 import { readEl } from './engine/reader';
-import { setState } from './store';
+import { getState, setState } from './store';
 
 /**
  * URL parameters for checking states in development (never shipped: only called when
@@ -12,7 +12,7 @@ import { setState } from './store';
  *   ?dark=1              dark screen
  *   ?notrans=1           no transitions or animations (headless screenshots)
  *   ?guide=1             show the controls guide
- *   ?go=s,1,1,p          unlock, then: s select, p peek, 1 / -1 step, toast (the unlock toast)
+ *   ?go=s,1,1,p          unlock, then: s select, p enlarge the photo (in Photos), 1 / -1 step, toast (the unlock toast)
  *   ?brick=over|won      show Brick's end card (with a go sequence that opens Brick)
  *   ?scroll=1200         scroll the open article (with a go sequence that opens one)
  */
@@ -32,7 +32,7 @@ export function runDevHooks(): boolean {
     actions.unlock();
     for (const a of go.split(',')) {
       if (a === 's') actions.select();
-      else if (a === 'p') actions.openPeek();
+      else if (a === 'p') actions.enlargePhoto(getState().stack.at(-1)!.sel);
       else if (a === 'toast') actions.announceUnlock();
       else actions.step(Number(a) as 1 | -1);
     }

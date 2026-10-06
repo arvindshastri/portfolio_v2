@@ -43,7 +43,7 @@ export function push(node: ScreenNode): Frame {
 
 export function pop() {
   const s = getState();
-  if (s.sticky) return closePeek();
+  if (s.photo !== null) return closePhoto();
   if (s.busy) return;
   if (s.zoomed) return closeDoc();
   // already at the main menu: nowhere to go back to
@@ -84,7 +84,7 @@ function popNow() {
 /** Back to the main menu from anywhere (the name in the top-left corner). */
 export function home() {
   const s = getState();
-  if (s.sticky) closePeek();
+  if (s.photo !== null) closePhoto();
   if (s.locked) return unlock();
   if (s.zoomed) {
     closeDoc();
@@ -131,7 +131,7 @@ function anyInput() {
 /** One step of the wheel (or an arrow key, or a mouse-wheel notch). */
 export function step(d: 1 | -1) {
   const s = getState();
-  if (s.sticky) return closePeek();
+  if (s.photo !== null) return closePhoto();
   anyInput();
   if (!s.locked) {
     spun = true;
@@ -168,7 +168,7 @@ export function step(d: 1 | -1) {
 /** The center button. */
 export function select() {
   const s = getState();
-  if (s.sticky) return closePeek();
+  if (s.photo !== null) return closePhoto();
   anyInput();
   if (s.locked) return unlock();
   if (s.busy) return;
@@ -181,7 +181,7 @@ export function select() {
     return;
   }
   if (n.type === 'brick') return brick.press();
-  if (n.type === 'cf') return openPeek(true);
+  if (n.type === 'cf') return enlargePhoto(f.sel);
   if (n.type !== 'list') return;
   const item = n.items[f.sel]!;
   if (item.doc) return openDoc(item.doc);
@@ -325,61 +325,19 @@ export const projectDoc = (slug: string, title: string): DocRef => ({
   slug,
 });
 
-/* ===================== peek: hold the center ===================== */
+/* ===================== photos: press to enlarge ===================== */
 
-export function peekTarget() {
-  const s = getState();
-  if (s.locked) return null;
-  const f = top();
-  if (f.node.type === 'cf') return { kind: 'photo' as const, index: f.sel };
-  if (f.node.type !== 'list') return null;
-  const item = f.node.items[f.sel]!;
-  return item.doc ? { kind: 'doc' as const, doc: item.doc } : null;
-}
-
-export function openPeek(sticky = false) {
-  const target = peekTarget();
-  if (!target) return;
-  setState({ peek: target, sticky });
-  bodyClass('peeking', true);
+/** Enlarges a photo over the page (see EnlargedPhoto); the next input of any kind closes it. */
+export function enlargePhoto(index: number) {
+  setState({ photo: index });
+  bodyClass('photo-open', true);
   click(2);
   vibe(12);
 }
 
-export function closePeek() {
-  setState({ peek: null, sticky: false });
-  bodyClass('peeking', false);
-}
-
-let holdTimer = 0;
-let held = false;
-
-/** Center button pressed: hold for 320ms to peek. */
-export function centerDown() {
-  ensureAudio();
-  held = false;
-  holdTimer = window.setTimeout(() => {
-    if (peekTarget()) {
-      held = true;
-      openPeek();
-    }
-  }, 320);
-}
-
-/** Any pointer released: a held peek closes. */
-export function pointerReleased() {
-  clearTimeout(holdTimer);
-  const s = getState();
-  if (s.peek && !s.sticky) closePeek();
-}
-
-export function centerClick() {
-  if (held) {
-    held = false;
-    return;
-  }
-  if (getState().sticky) return closePeek();
-  select();
+export function closePhoto() {
+  setState({ photo: null });
+  bodyClass('photo-open', false);
 }
 
 /* ===================== lock screen, hints, toasts ===================== */

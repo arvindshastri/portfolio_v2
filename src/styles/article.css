@@ -1,6 +1,6 @@
-/* Long-form reading. Narrow sizes for phones and peeks, the editorial layout once the screen is zoomed past 560px. */
+/* Long-form reading. Narrow sizes for phones, the editorial layout once the screen is zoomed past 560px. */
 /* long-form reading: compact on a phone-sized screen, a real article once zoomed */
-/* articles only ever appear zoomed or in a peek, so the narrow (phone) sizes are still real reading sizes */
+/* articles only ever appear zoomed, so the narrow (phone) sizes are still real reading sizes */
 .read {
   position: relative;
   width: 100%;
@@ -206,7 +206,7 @@ body.dark .read .checks b {
   margin: 0;
   opacity: 0.75;
 }
-/* a live Figma prototype; the frame links out until the iframe loads (and in peeks) */
+/* a live Figma prototype; the frame links out until the iframe loads */
 .read .proto .frame {
   position: relative;
   aspect-ratio: 16 / 10;

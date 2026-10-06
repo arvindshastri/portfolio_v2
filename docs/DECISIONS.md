@@ -51,14 +51,14 @@ Goals that came out of that:
 ### Controls and reading
 
 - **Center button unlocks.** No hold switch: it adds friction before the real content.
-- **Press = open (zoom into the screen); hold = peek.** No READ button.
+- **Press = open (zoom into the screen).** No READ button. Hold-to-peek was removed on 2026-10-06: it made the controls harder to learn and duplicated opening.
 - **Screen redraw** on zoom in and out (blank, reflow, reveal) so text never visibly reflows and no small preview flashes.
 - While zoomed, a **smaller full wheel docks at the bottom center**, fully visible with all four labels (round 8: the half-hidden dial looked awkward and was hard to spin). No mini wheel at the side, no top hint.
 - **No ◀◀ / ▶▶ "next project"** while reading. While reading they jump between section headings; elsewhere they skip tracks and photos.
 - **Scrolling while zoomed** works from anywhere on the page (mouse wheel/trackpad), not only over the article. The dial scroll is eased and keeps momentum.
 - The zoomed article fills the screen glass exactly (fixed in round 8: it used to be laid out too small when the device was scaled down to fit the window).
 - Case studies stay **long-form**.
-- Photos and Contact do **not** zoom. Photos peek; Contact is a small on-device list.
+- Photos and Contact do **not** zoom. Photos enlarge on press; Contact is a small on-device list.
 - At the end of a list, the screen content **rubber-bands once**: the list (with its highlight) or the row of covers stretches a little past the edge and eases back. No repeated shaking, no sound. The whole device used to nudge up 2px; it read as a bug and was replaced on 2026-10-06 (a highlight squash with a dull thud was tried first and rejected as too weak).
 
 ### Status bar and notifications
@@ -76,14 +76,14 @@ Goals that came out of that:
 - No giant background name, no content-colored glow.
 - Name and "designer + engineer" top-left stays. Résumé and Contact links stay outside the device.
 - **Menu split 47/53** (list/preview; round 9: 40/60 made too many titles scroll). The marquee runs once each way, not on a loop. The chevron only shows on the highlighted row; the highlight slides between rows.
-- **Wheel hover** is a faint sheen in the wheel's own material, not an accent-blue glow. The center hold ring uses the wheel ink, not blue.
+- **Wheel hover** is a faint sheen in the wheel's own material, not an accent-blue glow. The center focus ring uses the wheel ink, not blue.
 - **Physical details (subtle):** recessed screen with a lit lower lip, backlight falloff at the screen edges, wheel recess, the wheel rocks toward the finger, a tight contact shadow.
 - The device tilt holds still while you use the wheel (round 8: it moved while spinning).
 - Spec-style callouts as a first-visit guide plus a `?` button. Callouts are positioned from the live device so they always point at the right control. On phones `?` shows a legend sheet.
 - **No unlock text by default** (round 9): the center button nudges itself on the lock screen; text appears only after 12 seconds. A ring highlight teaches spinning.
 - **Previews are designed**, never bare cropped photos (round 9).
 - **Mouse wheel:** one notch = one item.
-- **Photo peek** always shows the whole photo. **Cover flow** animates between photos.
+- **The enlarged photo** always shows the whole photo, and never shows the previously enlarged one (it opens on the thumbnail, then fades in the full photo). **Cover flow** animates between photos.
 - **Room:** a soft studio light falloff only. The placard was tried and removed (round 10); still no glows, no giant name.
 - **Name block:** name = home button, plus the role line. The "now building" status line was tried and removed (round 10).
 - **Menu order:** Projects (renamed from Work), Experience, About, Photos, Music, Extras, Settings, Contact.
@@ -93,7 +93,7 @@ Goals that came out of that:
 - **Light/dark screen switch is instant** across the whole screen (round 14: a partial transition read as a flicker). Second level (projects, jobs) keeps the mono eyebrow. Images never drift or zoom. Arvind will specify each preview's content.
 - **Entrance:** name, links and `?` arrive together with the screen power-on; swatches keep their stagger.
 - **Copy confirmation** appears once: on the device when copied from the device, on the page when copied from the page.
-- **Photo peek caption:** title only.
+- **Enlarged photo caption:** title only.
 - **No contextual hint line.** The only line under the device is "press the center to unlock" on the lock screen (round 8: the per-screen hint duplicated the guide).
 - Lock screen: one static photo with time and date. No screensaver, no note, no idle relock.
 - Fonts: Geist (interface and reading), Geist Mono (labels). Literata was the reading font until 2026-10-02; Arvind felt a serif went against the device, and picked all-Geist over Mona Sans, Schibsted Grotesk, IBM Plex Sans and Atkinson Hyperlegible.

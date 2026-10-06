@@ -73,7 +73,7 @@ export function Corner() {
   );
 }
 
-/** Dims the page while reading or peeking; clicking it backs out. */
+/** Dims the page while reading or looking at a photo; clicking it backs out. */
 export function Veil() {
   return (
     <div
@@ -81,28 +81,31 @@ export function Veil() {
       onClick={() => {
         const s = useDevice.getState();
         if (s.zoomed) actions.pop();
-        else if (s.sticky) actions.closePeek();
+        else if (s.photo !== null) actions.closePhoto();
       }}
     />
   );
 }
 
-/** Hold the center: a magnified look at a project or photo without opening it. */
-export function Peek() {
-  const peek = useDevice((s) => s.peek);
+/**
+ * A photo enlarged over the page: press the center in Photos; the next input of any kind closes
+ * it. It opens at once on the cover flow's thumbnail (already loaded, same shape) and the full
+ * photo fades in over it once decoded. Each photo gets its own elements: the view used to swap
+ * one image's source in place, which showed the previous photo until the new one arrived.
+ */
+export function EnlargedPhoto() {
+  const index = useDevice((s) => s.photo);
   const photos = actions.getContent().photos;
-  // keep the last content while the panel animates closed
-  const [shown, setShown] = useState(peek);
-  if (peek && peek !== shown) setShown(peek);
+  // keep the last photo while the panel animates closed
+  const [shown, setShown] = useState(index);
+  if (index !== null && index !== shown) setShown(index);
   const panel = useRef<HTMLDivElement>(null);
 
-  // a photo peek takes the photo's own shape, so the whole photo always shows
+  // the panel takes the photo's own shape, so the whole photo always shows
   useLayoutEffect(() => {
     const el = panel.current;
-    if (!el) return;
-    el.style.width = el.style.height = '';
-    if (shown?.kind !== 'photo') return;
-    const img = el.querySelector('img')!;
+    const img = el?.querySelector<HTMLImageElement>('img.lo');
+    if (!el || !img) return;
     const fit = () => {
       const ratio = img.naturalWidth / img.naturalHeight || 1;
       const maxW = Math.min(innerWidth * 0.92, 1100);
@@ -120,27 +123,23 @@ export function Peek() {
     else img.onload = fit;
   }, [shown]);
 
+  const photo = shown === null ? null : photos[shown]!;
   return (
-    <div
-      ref={panel}
-      className={`peek${peek ? ' on' : ''}${shown?.kind === 'photo' ? ' photo' : ''}`}
-    >
-      {shown?.kind === 'photo' && (
-        <div className="ph">
-          <img src={photos[shown.index]!.full} alt={photos[shown.index]!.caption} />
-          <span>{photos[shown.index]!.caption}</span>
-        </div>
-      )}
-      {shown?.kind === 'doc' && (
-        <div className="lcdin">
-          <div className="screens" style={{ flex: 1 }}>
-            <div className="scr">
-              <div
-                className="read"
-                dangerouslySetInnerHTML={{ __html: articleHtml(shown.doc.key) }}
-              />
-            </div>
-          </div>
+    <div ref={panel} className={`enlarged${index !== null ? ' on' : ''}`}>
+      {photo && (
+        <div className="ph" key={photo.full}>
+          <img className="lo" src={photo.thumb} alt="" />
+          <img
+            className="hi"
+            src={photo.full}
+            alt={photo.caption}
+            // already cached: show it at once; otherwise fade it in over the thumbnail
+            ref={(img) => {
+              if (img?.complete && img.naturalWidth) img.classList.add('in', 'now');
+            }}
+            onLoad={(e) => e.currentTarget.classList.add('in')}
+          />
+          <span>{photo.caption}</span>
         </div>
       )}
     </div>
