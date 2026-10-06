@@ -61,7 +61,7 @@ Order, using ease-out-expo, all skippable by any key or pointer input:
 2. Device rises 70px, scales from 0.94 and unblurs from 10px (1100ms, starts at 180ms); the floor shadow grows in.
 3. The screen powers on: black, a brief flicker, then the lock screen with a short brightness flash (1500ms, starts at 400ms).
 4. As the screen powers on (1150ms), the name, the links and `?` fade and unblur in together (800ms). Swatches stagger in 55ms apart from 1250ms.
-5. On a visitor's first visit only, the controls guide appears at about 1500ms.
+5. On a visitor's first visit only, and only on a wide screen with a mouse or trackpad (over 820px and a fine pointer), the controls guide appears at about 1500ms. Phones and tablets never get it automatically; `?` opens it anywhere.
 
 Every entrance animation uses `fill: backwards` on already-visible content, so if animations never run the page is still complete. Reduced motion skips the entrance entirely.
 
@@ -117,7 +117,7 @@ Clicking the name top-left returns to the main menu from anywhere (closing the r
 
 ### Guide
 
-Shown on the first visit and via `?`. Leader lines draw in with a 70ms stagger. The next interaction of any kind fades it out.
+Shown on the first visit (wide screens with a mouse or trackpad only) and via `?`. Leader lines draw in with a 70ms stagger. The next interaction of any kind fades it out.
 
 ### Theme change
 

@@ -83,7 +83,7 @@ Goals that came out of that:
 - **Wheel hover** is a faint sheen in the wheel's own material, not an accent-blue glow. The center focus ring uses the wheel ink, not blue.
 - **Physical details (subtle):** recessed screen with a lit lower lip, backlight falloff at the screen edges, wheel recess, the wheel rocks toward the finger, a tight contact shadow.
 - The device tilt holds still while you use the wheel (round 8: it moved while spinning).
-- Spec-style callouts as a first-visit guide plus a `?` button. Callouts are positioned from the live device so they always point at the right control. On phones `?` shows a legend sheet.
+- Spec-style callouts as a first-visit guide plus a `?` button. The guide only shows itself on wide screens with a mouse or trackpad (2026-10-06): on phones it covered the device as a sheet, and a friend's first question was how to get rid of it. Callouts are positioned from the live device so they always point at the right control. On phones `?` shows a legend sheet.
 - **No unlock text by default** (round 9): the center button nudges itself on the lock screen; text appears only after 12 seconds. A ring highlight teaches spinning.
 - **Previews are designed**, never bare cropped photos (round 9).
 - **Mouse wheel:** one notch = one item.
