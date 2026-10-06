@@ -36,7 +36,7 @@ Every project article uses the same building blocks, in roughly this order. Not 
 | Block      | Markup                                                         | Purpose                                                                                          |
 | ---------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | Header     | `<header class="hero">` with `.kick`, `h1`, `.lead`, `dl.meta` | Kicker ("Case study · 2025"), title, a 1–2 sentence lead, then Role / Platform / Tools / Partner |
-| Cover      | `<figure class="bleed">`                                       | Edge-to-edge cover image                                                                         |
+| Cover      | `<figure class="bleed">`                                       | Cover image, at the text column's width                                                          |
 | Stats      | `<div class="stats">` with 3 × `b` + `span`                    | Three real numbers. Never invent numbers                                                         |
 | Section    | `h2` + `p`                                                     | The story: problem, research, design, testing, build, reflection                                 |
 | Pull quote | `<blockquote class="pull">…<cite>`                             | One striking finding with its source                                                             |

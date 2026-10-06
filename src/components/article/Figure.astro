@@ -6,16 +6,15 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   caption?: string;
-  /** bleed: full width of the screen. panel: on a tinted panel. */
+  /** bleed: the larger image set (for the cover). panel: on a tinted panel. */
   variant?: 'bleed' | 'panel';
   loading?: 'eager' | 'lazy';
 }
 const { src, alt, caption, variant, loading = 'eager' } = Astro.props;
-// Articles are laid out at their real on-screen size when the device zooms, so these widths are honest.
+// Every block sits in the 680px text column; the larger files are there for high-density screens.
 // Eager: articles live in <template>s, so their images only load once someone opens the article.
 const widths = variant === 'bleed' ? [800, 1400, 2000] : [640, 1000, 1600];
-const sizes =
-  variant === 'bleed' ? '100vw' : '(min-width: 1100px) 1000px, (min-width: 760px) 680px, 100vw';
+const sizes = '(min-width: 760px) 680px, 100vw';
 ---
 
 <figure class={variant}>

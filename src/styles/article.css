@@ -342,16 +342,14 @@ body.dark .read .checks b {
     font-size: 15px;
     margin-top: 4px;
   }
+  /* everything shares the text column, the cover too (it used to run edge to edge) */
   .read .bleed {
-    max-width: none;
-    margin: 48px 0 0;
+    margin-top: 40px;
   }
-  .read .bleed img {
-    border-radius: 0;
-    aspect-ratio: 16/8;
-    object-fit: cover;
-  }
+  /* a portrait (About) stays a calm landscape crop at column width */
   .read .bleed.portrait img {
+    aspect-ratio: 4/3;
+    object-fit: cover;
     object-position: 50% 22%;
   }
   .read .stats {
@@ -392,7 +390,6 @@ body.dark .read .checks b {
     margin-bottom: 14px;
   }
   .read .pull {
-    max-width: min(820px, calc(100% - var(--g) * 2));
     font-size: clamp(24px, 3.4cqi, 32px);
     line-height: 1.38;
     padding: 40px 48px;
@@ -406,7 +403,6 @@ body.dark .read .checks b {
     margin-top: 16px;
   }
   .read .split {
-    max-width: min(920px, calc(100% - var(--g) * 2));
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: clamp(28px, 5cqi, 64px);
@@ -426,7 +422,6 @@ body.dark .read .checks b {
     min-width: 84px;
   }
   .read .gallery {
-    max-width: min(1000px, calc(100% - var(--g) * 2));
     grid-template-columns: 1fr;
     gap: 30px;
     margin-top: 28px;
@@ -440,7 +435,6 @@ body.dark .read .checks b {
     margin-top: 10px;
   }
   .read .duo {
-    max-width: min(920px, calc(100% - var(--g) * 2));
     grid-template-columns: 1fr 1fr;
     gap: 18px;
     margin-top: 28px;
@@ -457,7 +451,6 @@ body.dark .read .checks b {
     font-size: 16.5px;
   }
   .read .panel {
-    max-width: min(1000px, calc(100% - var(--g) * 2));
     padding: clamp(18px, 3cqi, 36px);
     border-radius: 16px;
     margin-top: 40px;
@@ -474,7 +467,6 @@ body.dark .read .checks b {
     margin-top: 40px;
   }
   .read .proto {
-    max-width: min(920px, calc(100% - var(--g) * 2));
   }
   .read .proto .frame {
     border-radius: 14px;
@@ -518,7 +510,6 @@ body.dark .read .checks b {
     margin-top: 20px;
   }
   .read .philosophy {
-    max-width: min(820px, calc(100% - var(--g) * 2));
     margin-top: 56px;
     margin-bottom: 16px;
     padding: 44px 48px;

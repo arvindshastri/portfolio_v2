@@ -261,7 +261,7 @@ Tactile, precise and quiet: an object first, a UI second.
 
 Editorial and calm; the content is the hero.
 
-- **Column:** 680px max, centered, with fluid gutters clamp(28px, 8cqi, 96px). Wider blocks: pull quote 820px, two-column split and cards 920px, galleries and image panels 1000px, cover image full bleed.
+- **Column:** 680px max, centered, with fluid gutters clamp(28px, 8cqi, 96px). **Every block shares this one width** (2026-10-06): pull quotes, splits, cards, galleries, image panels, prototypes and the cover all sit in the 680px column, so the page reads as one calm column. Images can be enlarged for detail.
 - **Header:** accent-colored mono kicker, Article Display title, Article Lead, then a four-column meta row (Role, Platform, Tools, Partner) between hairlines.
 - **Stats:** three or four large Geist 600 numbers (tabular) with mono captions, closed by a hairline (four shrink slightly; 2×2 on phones).
 - **Pull quote:** centered Geist 500 (upright) on a 9% accent tint, 16px radius, with a mono citation.

@@ -33,7 +33,7 @@ const { Content: AboutContent } = await render(about);
         src={entry.data.cover}
         alt={entry.data.coverAlt}
         widths={[800, 1400, 2000]}
-        sizes="100vw"
+        sizes="(min-width: 760px) 680px, 100vw"
         loading="eager"
       />
     </figure>
@@ -62,7 +62,7 @@ const { Content: AboutContent } = await render(about);
         src={about.data.image}
         alt={about.data.imageAlt ?? ''}
         widths={[800, 1400, 2000]}
-        sizes="100vw"
+        sizes="(min-width: 760px) 680px, 100vw"
         loading="eager"
       />
     </figure>
