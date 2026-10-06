@@ -107,18 +107,22 @@ function hitEnd(f: Frame, d: 1 | -1) {
   if (reducedMotion()) return;
   const screen = frameEls.get(f.id);
   const list = screen?.querySelector<HTMLElement>('.list');
-  // the highlight moves down a list, but the covers move left as you go forward
-  const targets = list ? [list] : [...(screen?.querySelectorAll<HTMLElement>('.cf .it') ?? [])];
-  const shift = list ? `0 ${d * 6}px` : `${-d * 10}px 0`;
-  for (const el of targets)
+  const band = (el: HTMLElement, rest: Keyframe, out: Keyframe) =>
     el.animate(
       [
-        { translate: '0 0', easing: 'cubic-bezier(.3,.7,.4,1)' },
-        { translate: shift, offset: 0.3, easing: 'cubic-bezier(.25,1,.5,1)' },
-        { translate: '0 0' },
+        { ...rest, easing: 'cubic-bezier(.3,.7,.4,1)' },
+        { ...out, offset: 0.3, easing: 'cubic-bezier(.25,1,.5,1)' },
+        rest,
       ],
       { duration: 420 },
     );
+  // the highlight moves down a list. The list moves by plain `transform` and has no layer of its
+  // own otherwise: on phones, a list kept on its own layer could stop being drawn after its screen
+  // had been hidden behind another one, and the rubber band was the moment it vanished.
+  if (list) return void band(list, { transform: 'none' }, { transform: `translateY(${d * 6}px)` });
+  // the covers move left as you go forward (`translate`, so it adds to each cover's own transform)
+  for (const el of screen?.querySelectorAll<HTMLElement>('.cf .it') ?? [])
+    band(el, { translate: '0 0' }, { translate: `${-d * 10}px 0` });
 }
 
 /* ===================== input ===================== */

@@ -5,7 +5,6 @@
   overflow: hidden;
   padding: 4px 6px;
   position: relative;
-  transform: translateZ(0);
 }
 .list.full {
   flex-basis: 100%;
