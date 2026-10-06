@@ -1,7 +1,7 @@
 /* What the screen shows: menu lists and previews, Now Playing, cover flow, Brick. */
 /* list screens */
 .list {
-  flex: 0 0 47%;
+  flex: 0 0 45%;
   overflow: hidden;
   padding: 4px 6px;
   position: relative;

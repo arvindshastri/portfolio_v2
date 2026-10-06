@@ -79,7 +79,7 @@ Goals that came out of that:
 - **Clear** (see-through shell, dark screen) is the secret fifth finish, unlocked by clearing Brick (round 12; Cobalt was a temporary stand-in).
 - No giant background name, no content-colored glow.
 - Name and "designer + engineer" top-left stays. Résumé and Contact links stay outside the device.
-- **Menu split 47/53** (list/preview; round 9: 40/60 made too many titles scroll). The marquee runs once each way, not on a loop. The chevron only shows on the highlighted row; the highlight slides between rows.
+- **Menu split 45/55** (list/preview; round 9: 40/60 made too many titles scroll; 47/53 until 2026-10-06, when Arvind wanted bigger previews. At 45% only "Trac Commuter" overflows, and it scrolls). The marquee runs once each way, not on a loop. The chevron only shows on the highlighted row; the highlight slides between rows.
 - **Wheel hover** is a faint sheen in the wheel's own material, not an accent-blue glow. The center focus ring uses the wheel ink, not blue.
 - **Physical details (subtle):** recessed screen with a lit lower lip, backlight falloff at the screen edges, wheel recess, the wheel rocks toward the finger, a tight contact shadow.
 - The device tilt holds still while you use the wheel (round 8: it moved while spinning).
