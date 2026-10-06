@@ -8,19 +8,21 @@ interface Props {
   label: string;
 }
 const { href, label } = Astro.props;
+// Lucide external-link (ISC), the same open-link icon as the device's Contact rows
+const ext = `<svg class="ext" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>`;
 const embed = `${href.replace('https://www.figma.com/', 'https://embed.figma.com/')}&embed-host=share`;
 ---
 
 <figure class="proto">
   <div class="frame" data-embed={embed} data-title={label}>
     <a href={href} target="_blank" rel="noopener">
-      Open in Figma ↗
+      Open in Figma <Fragment set:html={ext} />
     </a>
   </div>
   <figcaption>
     <span>{label}</span>
     <a href={href} target="_blank" rel="noopener">
-      Open in Figma ↗
+      Open in Figma <Fragment set:html={ext} />
     </a>
   </figcaption>
 </figure>

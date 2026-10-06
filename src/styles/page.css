@@ -454,3 +454,14 @@ dialog.plain .close {
     animation: none !important;
   }
 }
+
+/* the skip callout's label is icons: they keep the label's ink and sit on its baseline */
+.co b .marks,
+.legend b .marks {
+  display: inline-flex;
+  gap: 0.45em;
+  color: inherit;
+  opacity: 1;
+  font-size: 0.95em;
+  vertical-align: -0.1em;
+}

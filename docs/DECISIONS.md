@@ -75,7 +75,7 @@ Goals that came out of that:
 - **Clear** (see-through shell, dark screen) is the secret fifth finish, unlocked by clearing Brick (round 12; Cobalt was a temporary stand-in).
 - No giant background name, no content-colored glow.
 - Name and "designer + engineer" top-left stays. Résumé and Contact links stay outside the device.
-- **Menu split 47/53** (list/preview; round 9: 40/60 made too many titles scroll). The marquee runs once each way, not on a loop. The `›` chevron only shows on the highlighted row; the highlight slides between rows.
+- **Menu split 47/53** (list/preview; round 9: 40/60 made too many titles scroll). The marquee runs once each way, not on a loop. The chevron only shows on the highlighted row; the highlight slides between rows.
 - **Wheel hover** is a faint sheen in the wheel's own material, not an accent-blue glow. The center hold ring uses the wheel ink, not blue.
 - **Physical details (subtle):** recessed screen with a lit lower lip, backlight falloff at the screen edges, wheel recess, the wheel rocks toward the finger, a tight contact shadow.
 - The device tilt holds still while you use the wheel (round 8: it moved while spinning).
@@ -88,6 +88,7 @@ Goals that came out of that:
 - **Name block:** name = home button, plus the role line. The "now building" status line was tried and removed (round 10).
 - **Menu order:** Projects (renamed from Work), Experience, About, Photos, Music, Extras, Settings, Contact.
 - **Previews:** main menu = a big Lucide icon alone, no title or eyebrow, on a soft color pool with a reflection. No icon animation (round 14). Use library icons, don't hand-draw.
+- **Icons, not text symbols** (2026-10-06): the wheel's transport marks, the status-bar play state, row chevrons and link markers are Lucide icons. Text glyphs like ▶ ❚❚ ↗ aren't in Geist, so phones drew them from mismatched fallback fonts. LinkedIn, GitHub and Résumé share one open-link icon; Copy email gets the chevron. Also icons: the playing track (AudioLines, was ♪), the guide's skip label (the wheel's own marks), article list bullets (Lucide arrow-right as a CSS mask in the accent color, was →) and "Open in Figma" (the same open-link icon).
 - **Wheel ↔ dial:** the simple fade-out / rise-in. The flying hand-off was reverted (round 14).
 - **Light/dark screen switch is instant** across the whole screen (round 14: a partial transition read as a flicker). Second level (projects, jobs) keeps the mono eyebrow. Images never drift or zoom. Arvind will specify each preview's content.
 - **Entrance:** name, links and `?` arrive together with the screen power-on; swatches keep their stagger.

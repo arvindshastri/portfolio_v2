@@ -180,10 +180,16 @@ body.dark .read .checks b {
   margin-bottom: 6px;
 }
 .read ul:not(.checks) li::before {
-  content: '→';
+  content: '';
   position: absolute;
   left: 0;
-  color: var(--kick);
+  top: 0.32em;
+  width: 0.9em;
+  height: 0.9em;
+  background: var(--kick);
+  /* Lucide arrow-right (ISC) */
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E")
+    center / contain no-repeat;
 }
 .read ul:not(.checks) {
   margin-block: 4px 14px;
@@ -525,4 +531,12 @@ body.dark .read .checks b {
   .read .philosophy .body {
     font-size: 18px;
   }
+}
+
+/* the open-link icon after "Open in Figma" (in articles and the text version) */
+svg.ext {
+  width: 0.85em;
+  height: 0.85em;
+  margin-left: 0.15em;
+  vertical-align: -0.08em;
 }

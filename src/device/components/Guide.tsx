@@ -1,7 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import * as actions from '../actions';
 import { reducedMotion, refs } from '../refs';
 import { useDevice } from '../store';
+import { Skip } from './Icons';
 
 /**
  * The controls guide: labeled callouts pointing at the device (first visit, and via ?).
@@ -14,7 +15,7 @@ interface Callout {
   fx: number;
   fy: number;
   side: 'l' | 'r';
-  label: string;
+  label: ReactNode;
   text: string;
 }
 
@@ -48,7 +49,12 @@ const CALLOUTS: Callout[] = [
     fx: 0.5,
     fy: -0.1,
     side: 'r',
-    label: '◀◀ ▶▶',
+    label: (
+      <span className="marks">
+        <Skip back />
+        <Skip />
+      </span>
+    ),
     text: 'skip tracks, photos, sections',
   },
   {
@@ -140,7 +146,7 @@ export function Callouts() {
         const line = <i style={{ width: p.width }} />;
         return (
           <div
-            key={c.label}
+            key={c.text}
             className={`co ${c.side}`}
             style={{ '--x': `${p.x}px`, top: p.y } as React.CSSProperties}
           >
@@ -166,7 +172,7 @@ export function Legend() {
   return (
     <div className="legend" aria-live="polite" onClick={() => actions.showGuide(false)}>
       {CALLOUTS.map((c) => (
-        <div key={c.label}>
+        <div key={c.text}>
           <b>{c.label}</b>
           <span>{c.text}</span>
         </div>

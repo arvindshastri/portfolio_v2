@@ -44,43 +44,40 @@
 .list .it.on {
   color: #fff;
 }
-.list .it::after {
-  content: '›';
-  font-size: 16px;
+.list .it .mk {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.4;
   opacity: 0;
   transform: translateX(-3px);
   transition:
     opacity 0.15s,
     transform 0.25s var(--ease);
 }
-.list .it.on::after {
+.list .it .mk.link {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.2;
+}
+.list .it.on .mk {
   opacity: 0.9;
   transform: none;
 }
+/* leaves without a mark show their value (Silver, On) on every row */
 .list .it.leaf::after {
   content: attr(data-v);
   font-size: 12.5px;
   opacity: 0.55;
-  transform: none;
-}
-.list .it.leaf.mark::after {
-  opacity: 0;
-  transform: translateX(-3px);
-}
-.list .it.leaf.mark.on::after {
-  opacity: 0.9;
-  transform: none;
-}
-.list .it.leaf[data-v='↗']::after {
-  font-size: 17px;
-  line-height: 1;
 }
 .list .it.leaf.on::after {
   opacity: 0.9;
 }
-.list .it.now > span::after {
-  content: ' ♪';
-  font-size: 11px;
+.list .it .playing {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.4;
   opacity: 0.7;
 }
 /* long names scroll on the highlighted row, like the real thing */

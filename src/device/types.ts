@@ -62,10 +62,13 @@ export interface Item {
   preview?: PreviewSpec | (() => PreviewSpec);
   /** Rows that act in place (settings, links) show a value instead of a chevron. */
   leaf?: boolean;
-  /** The value is an action marker (↗, PDF) that only shows on the highlighted row. */
-  mark?: boolean;
+  /**
+   * An icon on the highlighted row of a leaf: `link` opens something in a new tab, `chevron`
+   * does something in place (copy email). Rows that open a screen always get the chevron.
+   */
+  mark?: 'link' | 'chevron';
   value?: () => string;
-  /** Shows a ♪ while true (the playing track). */
+  /** Shows a sound icon while true (the playing track). */
   now?: () => boolean;
   go?: () => ScreenNode;
   act?: () => void;

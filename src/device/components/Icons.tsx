@@ -10,6 +10,7 @@ import {
   User,
   type LucideProps,
 } from 'lucide-react';
+import { Play } from 'lucide-react';
 import type { ComponentType } from 'react';
 import type { IconName } from '../types';
 
@@ -50,6 +51,29 @@ const Github = brand(
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </>,
 );
+
+/*
+ * Transport marks (play, pause, skip) are Lucide icons, filled and sized in em so they follow
+ * the font size around them. They used to be text (▶ ❚❚ ◀◀), which Geist doesn't have, so every
+ * phone drew them from a different fallback font: a heavy, oversized pause on some, an emoji
+ * play button on others.
+ */
+export const mark: LucideProps = {
+  size: '1em',
+  fill: 'currentColor',
+  strokeWidth: 1.5,
+  'aria-hidden': true,
+};
+
+/** ◀◀ or ▶▶: two of the play triangle nested together, so every transport mark is one shape. */
+export function Skip({ back = false }: { back?: boolean }) {
+  return (
+    <span className={`skip${back ? ' back' : ''}`}>
+      <Play {...mark} />
+      <Play {...mark} />
+    </span>
+  );
+}
 
 export const ICONS: Record<IconName, ComponentType<LucideProps>> = {
   projects: Layers,

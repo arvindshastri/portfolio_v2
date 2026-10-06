@@ -1,9 +1,11 @@
+import { Pause, Play } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import * as actions from '../actions';
 import { attachWheel } from '../engine/wheel';
 import { bind, refs } from '../refs';
 import { useDevice } from '../store';
 import { Callouts } from './Guide';
+import { mark, Skip } from './Icons';
 import { Screens } from './Screens';
 import { Swatches } from './Swatches';
 import { Toast } from './Toast';
@@ -49,7 +51,7 @@ function StatusBar() {
   const { on, started } = useDevice((s) => s.music);
   return (
     <div className="status">
-      <span className="play">{on ? '▶' : started ? '❚❚' : ''}</span>
+      <span className="play">{on ? <Play {...mark} /> : started ? <Pause {...mark} /> : null}</span>
       <span className="ttl">{title}</span>
       <span className="tm">{clock(now)}</span>
     </div>
@@ -124,9 +126,16 @@ export function WheelLabels() {
   return (
     <>
       <span className="lbl t">MENU</span>
-      <span className="lbl l">◀◀</span>
-      <span className="lbl r">▶▶</span>
-      <span className="lbl b">▶ ❚❚</span>
+      <span className="lbl l">
+        <Skip back />
+      </span>
+      <span className="lbl r">
+        <Skip />
+      </span>
+      <span className="lbl b">
+        <Play {...mark} />
+        <Pause {...mark} />
+      </span>
     </>
   );
 }

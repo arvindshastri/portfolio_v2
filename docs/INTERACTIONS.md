@@ -46,10 +46,10 @@ Lock screen (press center)
     ├── Extras
     │   └── Brick       spin = paddle (continuous), center = launch
     ├── Settings        Color · Screen (Light/Dark) · Clicker (On/Off) · Show controls
-    └── Contact         Copy email · LinkedIn ↗ · GitHub ↗ · Résumé (PDF)
+    └── Contact         Copy email · LinkedIn · GitHub · Résumé (each opens in a new tab)
 ```
 
-The highlighted row shows `›` if it opens something. Leaf rows always show their value (On, Off, PDF, ↗). Long labels truncate; the highlighted one scrolls to reveal the rest.
+The highlighted row shows a chevron icon if it opens something or acts in place (Copy email), and an open-link icon if it opens a new tab (LinkedIn, GitHub, Résumé). Settings rows always show their value (On, Off, Light, Dark). Long labels truncate; the highlighted one scrolls to reveal the rest.
 
 ## 4. States and transitions
 

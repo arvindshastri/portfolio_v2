@@ -313,6 +313,7 @@ body.dark .lcd::after {
   z-index: 6;
 }
 .status .play {
+  display: flex;
   font-size: 9px;
   opacity: 0.75;
 }
@@ -438,23 +439,46 @@ body.zoomed .status {
 }
 .lbl {
   position: absolute;
-  font: 650 10.5px var(--font-ui);
+  font: 650 11px var(--font-ui);
   letter-spacing: 0.1em;
   color: var(--wink);
   pointer-events: none;
 }
 .wheel .t,
 .dial .t {
-  top: 15px;
+  top: 14.3px;
   left: 50%;
   transform: translateX(-50%);
+  /* tracking adds space after the last letter too; matching it on the left centers the word */
+  padding-left: 0.1em;
 }
 .wheel .b,
 .dial .b {
-  bottom: 13px;
+  bottom: 17.2px;
   left: 50%;
   transform: translateX(-50%);
-  letter-spacing: -0.05em;
+}
+/* the transport marks: icons a little larger than the MENU text, so they read at the same weight */
+.lbl:not(.t) {
+  display: flex;
+  font-size: 12px;
+}
+.dial .lbl:not(.t) {
+  font-size: 11px;
+}
+/* the two triangles of a skip mark nest into each other; rewind is fast-forward mirrored */
+.skip {
+  display: inline-flex;
+}
+.skip svg + svg {
+  margin-left: -0.32em;
+}
+/* mirror the whole mark, so rewind is exactly fast-forward reversed */
+.skip.back {
+  scale: -1 1;
+}
+.lbl.b svg + svg {
+  margin-left: 0.05em;
 }
 .wheel .l,
 .dial .l {
@@ -649,13 +673,13 @@ body.zoomed .dial {
   pointer-events: auto;
 }
 .dial .lbl {
-  font-size: 9.5px;
+  font-size: 10px;
 }
 .dial .t {
-  top: 12px;
+  top: 11.4px;
 }
 .dial .b {
-  bottom: 10px;
+  bottom: 13.4px;
 }
 .dial .l {
   left: 13px;

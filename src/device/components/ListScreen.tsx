@@ -1,3 +1,4 @@
+import { AudioLines, ChevronRight, ExternalLink } from 'lucide-react';
 import { useLayoutEffect, useRef } from 'react';
 import { useDevice } from '../store';
 import type { Frame, Item, ScreenNode } from '../types';
@@ -42,18 +43,17 @@ export function ListScreen({ frame, node }: { frame: Frame; node: ListNode }) {
 }
 
 function Row({ item, on }: { item: Item; on: boolean }) {
-  const classes = [
-    'it',
-    on && 'on',
-    item.leaf && 'leaf',
-    item.mark && 'mark',
-    item.now?.() && 'now',
-  ];
+  const classes = ['it', on && 'on', item.leaf && 'leaf'];
+  // rows that open a screen get the chevron; leaves get their mark, or show their value instead
+  const mark = item.leaf ? item.mark : 'chevron';
+  const Mark = mark === 'link' ? ExternalLink : mark === 'chevron' ? ChevronRight : null;
   return (
     <div className={classes.filter(Boolean).join(' ')} data-v={item.value?.() ?? ''}>
       <span>
         <em>{item.label}</em>
       </span>
+      {item.now?.() && <AudioLines className="playing" aria-label="playing" />}
+      {Mark && <Mark className={`mk ${mark}`} aria-hidden />}
     </div>
   );
 }

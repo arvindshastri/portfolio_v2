@@ -132,15 +132,14 @@ function contactMenu(): ScreenNode {
       {
         label: 'Email',
         leaf: true,
-        value: () => '',
+        mark: 'chevron',
         preview: { kind: 'icon', icon: 'mail', title: 'Copy email', sub: SITE.email },
         act: () => actions.copyEmail(true),
       },
       {
         label: 'LinkedIn',
         leaf: true,
-        mark: true,
-        value: () => '↗',
+        mark: 'link',
         preview: {
           kind: 'icon',
           icon: 'linkedin',
@@ -152,16 +151,14 @@ function contactMenu(): ScreenNode {
       {
         label: 'GitHub',
         leaf: true,
-        mark: true,
-        value: () => '↗',
+        mark: 'link',
         preview: { kind: 'icon', icon: 'github', title: 'Open GitHub', sub: '/arvindshastri' },
         act: () => openTab(SITE.github),
       },
       {
         label: 'Résumé',
         leaf: true,
-        mark: true,
-        value: () => '↓',
+        mark: 'link',
         preview: { kind: 'icon', icon: 'resume', title: 'View Résumé', sub: 'As PDF' },
         act: () => openTab(SITE.resume),
       },
