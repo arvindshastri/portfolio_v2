@@ -116,3 +116,10 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 - [ ] Photo captions (confirm "Logic", "McMaster", "Campus", "Doctor Strange").
 - [ ] Artists are the real Pixabay creators; two titles are made up (Paper Lanterns by Leberch, Glasshouse by Monume), Once in Paris by Pumpupthemind is real; rename them in `src/data/tracks.ts` if you like.
 - [ ] Résumé PDF: confirm it's current.
+
+## Search and link previews
+
+- The site description (`SITE.description` in `src/data/site.ts`) is what Google shows under the name and what link previews show under the title. Project pages use their own lead and cover.
+- `public/og.png` (1200 × 630) is the home page's link-preview image: the site itself in Silver, with the name large on the left. It's a screenshot, so retake it if the device or the name block changes.
+- Icons: `favicon.ico` (16, 32, 48px, which Google's search results use), `favicon.svg`, `icon-192.png`, `icon-512.png` and `apple-touch-icon.png` (180px on the Silver page tone, since iOS drops transparency), all from the device favicon.
+- Every page carries a schema.org `Person` (name, role, McMaster, LinkedIn, GitHub) so search engines know whose site it is.

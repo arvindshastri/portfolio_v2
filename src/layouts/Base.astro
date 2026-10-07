@@ -18,7 +18,20 @@ interface Props {
   /** Project pages open unlocked, straight into the case study. */
   locked?: boolean;
 }
-const { title, description = SITE.description, image, locked = true } = Astro.props;
+const { title, description = SITE.description, locked = true } = Astro.props;
+const image = Astro.props.image ?? new URL(SITE.image, Astro.site).href;
+const imageAlt = Astro.props.image ? (title ?? SITE.name) : SITE.imageAlt;
+// who this site is about, for search engines
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  url: Astro.site?.href,
+  image: new URL(SITE.image, Astro.site).href,
+  jobTitle: 'Product designer and software engineer',
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'McMaster University' },
+  sameAs: [SITE.linkedin, SITE.github],
+};
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const themes = THEMES.map(({ id, screen, secret, finish, tokens }) => ({
@@ -38,13 +51,25 @@ const themes = THEMES.map(({ id, screen, secret, finish, tokens }) => ({
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {image && <meta property="og:image" content={image} />}
-    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {!Astro.props.image && (
+      <>
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body class={locked ? 'locked' : undefined}>
     <!-- apply the saved device color before the first paint, so returning visitors don't see a flash of Silver -->
