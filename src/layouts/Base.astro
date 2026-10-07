@@ -54,10 +54,11 @@ const themes = THEMES.map(({ id, screen, secret, finish, tokens }) => ({
           const v = localStorage.getItem('pocket-' + k);
           return v == null ? d : JSON.parse(v);
         };
-        const unlocked = read('secret', read('clear', false));
+        const unlocked = { brick: read('secret', read('clear', false)), stack: read('red', false) };
         const t =
-          themes.find((x) => x.id === read('color', 'silver') && (!x.secret || unlocked)) ||
-          themes[0];
+          themes.find(
+            (x) => x.id === read('color', 'silver') && (!x.secret || unlocked[x.secret]),
+          ) || themes[0];
         const b = document.body;
         b.dataset.finish = t.finish || 'modern';
         if (t.screen === 'dark') b.classList.add('dark');

@@ -122,6 +122,8 @@ Goals that came out of that:
 - A direct project link plays the entrance, skips the lock screen and opens straight into the case study. The address bar follows the device, and the browser's back button steps back through the case study, Projects and the main menu.
 - The prototype stays in the repo as the design reference.
 
+- **Extras (2026-10-06):** Stack is the second game (stacking 30 high unlocks the secret Red finish, a (PRODUCT)RED throwback; 50 was too hard; its page is a dark stage because a light pink page looked like Rose Gold). No unlock toasts: the redesigned end card (big number, a pill with the new finish's chip) and the chip popping in under the device carry it. Secret finishes show as locked chips with how to earn them, instead of vague "for a surprise" taglines: center only, so it plays the same on phones and laptops, and it's understood in a second. Safecracker (spin the wheel like a combination dial, feel for the heavier click) was liked but parked, since it only really works with a phone's vibration. Non-game Extras (How this was made, Now, Shelf) were proposed and not yet chosen.
+
 ## 4. Things to never re-pitch
 
 - Regenerate-the-site-in-any-style (Restyle).
@@ -130,7 +132,7 @@ Goals that came out of that:
 - Grow or Rotate reading modes, a READ button.
 - Content-colored background glows; a giant name behind the device.
 - Recurring or out-of-device notifications.
-- A Classic (glossy) finish; Clear as a public option; more than five device colors.
+- A Classic (glossy) finish; Clear or Red as a public option; more than four public device colors (secret, earned colors are the exception: Clear from Brick and Red from Stack, added 2026-10-06 at Arvind's request).
 - A per-screen instruction line under the device.
 
 ## 5. How Arvind likes to work

@@ -202,7 +202,7 @@ function CoverFlow({ sel }: { sel: number }) {
 function BrickScreen() {
   const canvas = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    brick.start(canvas.current!, actions.unlockSecret);
+    brick.start(canvas.current!, () => actions.unlockSecret('brick'));
     return brick.stop;
   }, []);
   return <canvas ref={canvas} className="brick" width={656} height={560} />;
@@ -212,7 +212,7 @@ function BrickScreen() {
 function StackScreen() {
   const canvas = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    stack.start(canvas.current!);
+    stack.start(canvas.current!, () => actions.unlockSecret('stack'));
     return stack.stop;
   }, []);
   return (

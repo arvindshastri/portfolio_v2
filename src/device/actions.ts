@@ -1,6 +1,6 @@
 import { SITE } from '@/data/site';
 import { TRACKS } from '@/data/tracks';
-import { applyThemeTokens, THEMES, themeById } from '@/data/themes';
+import { applyThemeTokens, THEMES, themeById, type Game } from '@/data/themes';
 import { click, vibe } from './engine/audio';
 import * as brick from './engine/brick';
 import * as stack from './engine/stack';
@@ -481,13 +481,6 @@ function deviceToast(toast: Toast, ms = 1800) {
   later('deviceToast', ms, () => setState({ deviceToast: null }));
 }
 
-/** The one-time reward for clearing Brick. */
-export function announceUnlock() {
-  deviceToast({ icon: 'unlocked', text: 'Clear finish unlocked' }, 3600);
-  click(1);
-  vibe(8);
-}
-
 function showVolume() {
   setState({ volumeShown: true });
   later('vol', 1100, () => setState({ volumeShown: false }));
@@ -515,7 +508,7 @@ export function copyEmail(onDevice: boolean) {
 export function setColor(id: string) {
   const s = getState();
   let theme = themeById(id);
-  if (theme.secret && !s.secret) theme = THEMES[0]!;
+  if (theme.secret && !s.unlocked[theme.secret]) theme = THEMES[0]!;
   setState({ color: theme.id });
   save('color', theme.id);
   applyThemeTokens(theme);
@@ -527,7 +520,8 @@ export function setDark(on: boolean) {
   bodyClass('dark', on);
 }
 
-export const availableThemes = () => THEMES.filter((t) => !t.secret || getState().secret);
+export const availableThemes = () =>
+  THEMES.filter((t) => !t.secret || getState().unlocked[t.secret]);
 
 export function nextColor() {
   const list = availableThemes();
@@ -535,12 +529,12 @@ export function nextColor() {
   setColor(list[(i + 1) % list.length]!.id);
 }
 
-/** Clearing Brick unlocks the Clear finish. Returns true the first time. */
-export function unlockSecret() {
-  if (getState().secret) return false;
-  setState({ secret: true });
-  save('secret', true);
-  announceUnlock();
+/** Clearing Brick unlocks Clear; stacking 30 high unlocks Red. Returns true the first time. */
+export function unlockSecret(game: Game) {
+  const { unlocked } = getState();
+  if (unlocked[game]) return false;
+  setState({ unlocked: { ...unlocked, [game]: true } });
+  save(game === 'brick' ? 'secret' : 'red', true);
   return true;
 }
 

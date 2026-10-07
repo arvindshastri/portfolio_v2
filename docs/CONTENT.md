@@ -25,7 +25,7 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 | Experience | Trac, Ericsson, CGI, Arbol                                                                 | Reading page per role |
 | Music      | Playlist of tracks                                                                         | Now Playing           |
 | Photos     | Cover flow of personal photos with captions                                                | Enlarged on press     |
-| Extras     | Brick (more games later)                                                                   | Game screen           |
+| Extras     | Brick, Stack                                                                               | Game screen           |
 | Settings   | Color, Screen, Clicker, Show controls                                                      | In place              |
 | Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions               |
 

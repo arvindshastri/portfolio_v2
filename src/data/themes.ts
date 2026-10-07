@@ -1,7 +1,8 @@
 /**
  * Device colors. Each one is a complete theme: picking a color re-themes the whole page, the
  * device's materials and the screen. `screen` is the display the device ships with.
- * `secret` themes stay hidden until unlocked (clear every brick in Brick).
+ * `secret` themes stay hidden until earned in a game: Clear by clearing Brick, Red by stacking
+ * 30 high in Stack. The value names the game.
  */
 export type ThemeTokens = Record<
   | 'page'
@@ -29,12 +30,15 @@ export type ThemeTokens = Record<
   string
 >;
 
+/** The games that unlock a secret finish. */
+export type Game = 'brick' | 'stack';
+
 export interface Theme {
   id: string;
   name: string;
   screen: 'light' | 'dark';
   swatch: string;
-  secret?: boolean;
+  secret?: Game;
   finish?: 'clear';
   tokens: ThemeTokens;
 }
@@ -160,7 +164,7 @@ export const THEMES: Theme[] = [
     id: 'clear',
     name: 'Clear',
     screen: 'dark',
-    secret: true,
+    secret: 'brick',
     finish: 'clear',
     swatch: 'conic-gradient(#9fe3c9,#c9a24a,#9fe3c9)',
     tokens: {
@@ -185,6 +189,38 @@ export const THEMES: Theme[] = [
       inkL: 'oklch(0.22 0.02 190)',
       scrD: 'oklch(0.15 0.012 190)',
       inkD: 'oklch(0.94 0.01 190)',
+    },
+  },
+  {
+    // anodized red with a white wheel, like the special-edition red players, shot on a dark
+    // stage so it never reads as Rose Gold's pale pink room
+    id: 'red',
+    name: 'Red',
+    screen: 'light',
+    secret: 'stack',
+    swatch: '#c42232',
+    tokens: {
+      page: 'oklch(0.19 0.035 18)',
+      ink: 'oklch(0.95 0.012 20)',
+      mute: 'oklch(0.75 0.04 20)',
+      accent: 'oklch(0.72 0.17 25)',
+      sel: 'oklch(0.55 0.2 25)',
+      wall: 'oklch(0.55 0.2 25)',
+      wall2: '#08090e',
+      shell: 'oklch(0.57 0.2 25)',
+      shell2: 'oklch(0.44 0.17 24)',
+      wheel: 'oklch(0.985 0.004 20)',
+      wheel2: 'oklch(0.92 0.012 20)',
+      wink: 'oklch(0.5 0.14 25)',
+      btn: 'oklch(0.56 0.2 25)',
+      btn2: 'oklch(0.44 0.17 24)',
+      edge: 'rgba(255,255,255,.45)',
+      floor: 'rgba(0,0,0,.6)',
+      wglow: 'rgba(90,10,20,.05)',
+      scrL: 'oklch(0.985 0.003 20)',
+      inkL: 'oklch(0.22 0.02 20)',
+      scrD: 'oklch(0.16 0.012 20)',
+      inkD: 'oklch(0.94 0.008 20)',
     },
   },
 ];

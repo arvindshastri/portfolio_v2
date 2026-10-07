@@ -140,7 +140,7 @@ This system explicitly rejects generic AI-generated portfolios (centered hero ov
 
 A tinted-neutral room per device color, each with a single accent; the device itself carries the saturated color.
 
-Every device color is a complete theme, and every public color is the same modern, anodized device. The one exception is the secret Clear finish. Each theme also decides whether the device ships with a light or a dark screen. The frontmatter lists the default Silver theme; the full set lives in `src/data/themes.ts`. All theme values are authored in OKLCH.
+Every device color is a complete theme, and every public color is the same modern, anodized device. The one exception is the secret Clear finish. Red, the other secret color, is the standard anodized body in red with a white wheel, set on a dark red-black stage so it never reads as Rose Gold's pale room. Until earned, each secret color shows as a dashed locked chip. Each theme also decides whether the device ships with a light or a dark screen. The frontmatter lists the default Silver theme; the full set lives in `src/data/themes.ts`. All theme values are authored in OKLCH.
 
 | Theme                                      | Screen | Page                   | Ink                   | Accent               | Screen selection     |
 | ------------------------------------------ | ------ | ---------------------- | --------------------- | -------------------- | -------------------- |
@@ -149,6 +149,7 @@ Every device color is a complete theme, and every public color is the same moder
 | Sky                                        | Light  | oklch(0.95 0.016 235)  | oklch(0.24 0.03 245)  | oklch(0.52 0.14 245) | oklch(0.55 0.14 245) |
 | Rose Gold (always last)                    | Light  | oklch(0.95 0.014 25)   | oklch(0.26 0.03 30)   | oklch(0.55 0.12 30)  | oklch(0.56 0.12 32)  |
 | Clear (secret, unlocked by clearing Brick) | Dark   | oklch(0.2 0.02 190)    | oklch(0.95 0.01 190)  | oklch(0.8 0.12 175)  | oklch(0.52 0.11 185) |
+| Red (secret, stack 30 high in Stack)       | Light  | oklch(0.19 0.035 18)   | oklch(0.95 0.012 20)  | oklch(0.72 0.17 25)  | oklch(0.55 0.2 25)   |
 
 Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, Rose Gold) pair a dark or white wheel with their shell; Graphite, the one dark body, uses a dark wheel and the dark screen. Rose Gold is a copper-pink metal (shell hue 36 to 42) on a pink-white room (hue 25), which keeps it out of the cream band.
 
@@ -246,7 +247,7 @@ Tactile, precise and quiet: an object first, a UI second.
 
 - **Rows:** 32px tall, Geist 500 14.5px. Markers are Lucide icons, never text glyphs, and appear only on the highlighted row (they fade and slide in): `ChevronRight` (15px, 2.4 stroke) on rows that open a screen and on Copy email; `ExternalLink` (13px, 2.2 stroke) on LinkedIn, GitHub and Résumé, which open in a new tab. Settings rows always show their value (On, Off, Light, Dark) at 55% opacity, 90% when highlighted. The playing track shows a Lucide `AudioLines` icon (13px, 70%) after its name. Long labels truncate with an ellipsis; on the highlighted row they scroll across once and back after a 1.4s pause, then rest.
 - **Selected:** one highlight bar (9px radius, the theme's selection color, white text) that slides between rows in 150ms (ease-out-quart).
-- **Preview pane:** the right 55% of list screens (the list takes 45%), 12px radius, on a tinted panel (`scrInk` at 5% over `scr`). **Main menu:** one big line icon on its own (1.5px stroke in the selection color, up to 118px), no title, no eyebrow, over a soft pool of the selection color (13%) with a faint cover-flow reflection beneath. Icons are static (no draw-in or idle motion; tried and removed) and come from **Lucide** (lucide.dev, ISC), inlined, 1.6px stroke. Icons: layers (Projects), briefcase (Experience), person (About), photo (Photos), note (Music), game pad (Extras), sliders (Settings), envelope (Contact). **Second level:** projects show their cover, a mono eyebrow (year, platform) in the selection color, title and pitch; jobs show the same eyebrow (years), role and summary; tracks show album art with title and artist directly beneath, centered as one group; Contact rows use Lucide icons (mail, LinkedIn, GitHub, file-text); the ↗ marker is 17px; Brick shows a mini game board. Images never drift or zoom. Arvind will specify final preview content.
+- **Preview pane:** the right 55% of list screens (the list takes 45%), 12px radius, on a tinted panel (`scrInk` at 5% over `scr`). **Main menu:** one big line icon on its own (1.5px stroke in the selection color, up to 118px), no title, no eyebrow, over a soft pool of the selection color (13%) with a faint cover-flow reflection beneath. Icons are static (no draw-in or idle motion; tried and removed) and come from **Lucide** (lucide.dev, ISC), inlined, 1.6px stroke. Icons: layers (Projects), briefcase (Experience), person (About), photo (Photos), note (Music), game pad (Extras), sliders (Settings), envelope (Contact). **Second level:** projects show their cover, a mono eyebrow (year, platform) in the selection color, title and pitch; jobs show the same eyebrow (years), role and summary; tracks show album art with title and artist directly beneath, centered as one group; Contact rows use Lucide icons (mail, LinkedIn, GitHub, file-text); the ↗ marker is 17px; Brick shows a mini game board; Stack shows a mini tower with the next block sliding in. Images never drift or zoom. Arvind will specify final preview content.
 - **Screen transitions:** new screens slide in from the right over 340ms (ease-out-expo); the previous screen parallaxes 35% left, then hides.
 
 ### Lock Screen
@@ -312,7 +313,7 @@ Editorial and calm; the content is the hero.
 - **Don't** put notifications, toasts or banners outside the device for device events.
 - **Don't** shake the device repeatedly. One 2px nudge the first time a list end is reached.
 - **Don't** show a small preview before opening, or let text visibly reflow while the page grows.
-- **Don't** add public finishes other than the modern anodized body (no glossy classic). Clear stays secret. Don't use the accent for the wheel's hover sheen.
+- **Don't** add public finishes other than the modern anodized body (no glossy classic). Clear and Red stay secret. Don't use the accent for the wheel's hover sheen.
 - **Don't** let the device tilt follow the pointer while it's on the wheel or dragging; the object holds still while you use it.
 - **Don't** use bounce or elastic easing, side-stripe borders, gradient text, glassmorphism as decoration, or decorative grid backgrounds.
 - **Don't** use em dashes in visible copy.

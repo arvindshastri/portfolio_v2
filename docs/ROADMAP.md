@@ -10,7 +10,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
 - [x] Reading is a full-window page grown out of the screen, with a back bar and no dial (2026-10-06).
-- [ ] A second game for Extras, playable with only wheel + center (ideas to brainstorm first).
+- [x] A second game for Extras: Stack (center only).
 - [ ] Confirm Sky as the third color.
 - [ ] Fill every placeholder in [CONTENT.md §7](CONTENT.md#7-open-placeholders-must-be-replaced-before-launch).
 

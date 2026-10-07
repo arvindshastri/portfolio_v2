@@ -1,8 +1,8 @@
-import { CircleCheck, LockOpen } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import { useRef } from 'react';
 import type { Toast as ToastData } from '../store';
 
-const ICON = { copied: CircleCheck, unlocked: LockOpen };
+const ICON = { copied: CircleCheck };
 
 /** A short message with an icon. It keeps showing its last message while it fades out. */
 export function Toast({ toast, className }: { toast: ToastData | null; className: string }) {

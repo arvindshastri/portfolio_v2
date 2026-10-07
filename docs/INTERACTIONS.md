@@ -15,7 +15,7 @@ How the device behaves. This is the source of truth for controls, states, transi
 | ---------------------- | -------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Spin clockwise         | Drag around the wheel ring, or mouse/trackpad scroll over the device | `↓`                  | Next item / scroll down / volume up / paddle right                                                                                                                                                                       |
 | Spin counter-clockwise | Drag the other way                                                   | `↑`                  | Previous item / scroll up / volume down / paddle left                                                                                                                                                                    |
-| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball                                                                                                                                                 |
+| Press center           | Click/tap the center button                                          | `Enter` or `Space`   | Unlock, open, select, enlarge a photo, play/pause, launch the Brick ball, drop a Stack block                                                                                                                             |
 | MENU                   | Tap the top of the ring, or `‹ Menu` in the status bar               | `Esc` or `Backspace` | Back; while reading, close the page and return to the list                                                                                                                                                               |
 | ▶ ❚❚                   | Tap the bottom of the ring                                           | (none)               | Play/pause music from anywhere                                                                                                                                                                                           |
 | ◀◀ / ▶▶                | Tap the left/right of the ring                                       | `←` / `→`            | On Now Playing: previous/next track. In Photos: previous/next photo. Elsewhere: same as a one-step spin                                                                                                                  |
@@ -44,7 +44,8 @@ Lock screen (press center)
     ├── Photos          cover flow → press: enlarge the photo
     ├── Music           playlist → press: play the track and open Now Playing
     ├── Extras
-    │   └── Brick       spin = paddle (continuous), center = launch
+    │   ├── Brick       spin = paddle (continuous), center = launch
+    │   └── Stack       center (or a tap on the screen) = drop
     ├── Settings        Color · Screen (Light/Dark) · Clicker (On/Off) · Show controls
     └── Contact         Copy email · LinkedIn · GitHub · Résumé (each opens in a new tab)
 ```
@@ -123,13 +124,25 @@ Shown via `?` only. Leader lines draw in with a 70ms stagger. The next interacti
 
 Picking a swatch (or Settings → Color) re-themes the page in about 900ms: background, ink, accent, device materials and on-screen selection. The choice persists. Picking a swatch also shows the finish's name under the row for 1.5s (fade, 300ms); hovering one with a mouse shows its name while hovered.
 
+### Locked finishes
+
+The secret finishes sit at the end of the color chips from the start, as empty dashed chips with a small lock (Lucide `lock`), so visitors can see there's more to earn. Hovering one shows how to earn it as a tooltip; tapping or clicking one shows the same line in a dark pill (like the "Copied" toast) 10px above the chips for 2.6s ("Clear every brick in Brick to unlock", "Stack 30 high in Stack to unlock"). Once earned, the chip becomes the finish's real swatch.
+
+### Stack
+
+Center-only, so it works the same on a phone and a laptop; tapping the screen also drops. Before the first drop the screen says how to play: "Land each block on the tower. Anything hanging over gets cut off." and "press the center or tap to drop". A block slides across the top of the tower, bouncing between the screen's edges, starting from alternate sides and a little faster each time (3.6 board px per step, +0.18 per block, up to 9). Each press drops it: whatever hangs over the block below is cut off and falls away, fading, so blocks get narrower. A drop within 6 board px of the block below snaps into place, keeps its width and flashes a ring (with a heavier click). Missing the tower, or a drop that would leave less than 18 board px (9 on screen), ends the game: the whole block falls. Reaching 30 high unlocks the secret Red finish the first time (no toast: the game carries on, the Red chip pops in under the device, and the end card shows it). The Extras preview says "Build a tower as tall as you can." (Brick's says "Break every brick on the board."); the locked chips explain the rewards, so the taglines don't. Height top-left, best top-right (saved as `pocket-stackBest`), the same header as Brick. The view scrolls up once the tower passes the upper part of the screen. End card (see below): "Toppled" or "New best", the height, "best N" unless it is one; presses in the first 700ms after toppling are ignored so a flurry can't skip the card. The wheel does nothing here.
+
 ### Brick
 
-Spinning moves the paddle continuously (4.2 canvas px per degree, eased toward the target each frame), not in fixed steps; arrow keys and mouse-wheel notches move it 46px. Center launches the ball. Three balls (dots top-left), score top-right out of 40. Bricks are drawn in the theme's selection color, fading by row; a hit brick pops and fades over 220ms. Modes: ready (ball on the paddle, "press the center to launch"), play, over, won. Losing a ball returns it to the paddle. Losing all three, or clearing the board, dims the board under an end card ("Game over" with bricks cleared, or "Cleared" with the unlock line the first time) and "press the center to reset". The first press resets to a fresh ready board; the next press launches.
+Spinning moves the paddle continuously (4.2 canvas px per degree, eased toward the target each frame), not in fixed steps; arrow keys and mouse-wheel notches move it 46px. Center launches the ball. Three balls (dots top-left), score top-right out of 40. Bricks are drawn in the theme's selection color, fading by row; a hit brick pops and fades over 220ms. Modes: ready (ball on the paddle, "press the center to launch"; before the first launch of a game, "Spin the wheel to steer the paddle." above it), play, over, won. Losing a ball returns it to the paddle. Losing all three, or clearing the board, covers the board with the end card ("Game over" or "Cleared", the bricks cleared out of 40). The first press resets to a fresh ready board; the next press launches.
 
 ### Secret finish unlock
 
-Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-through shell with the dark screen), and shows a toast at the bottom of the screen, "Clear finish unlocked" with an open-lock icon, for about 3.5 seconds. Clearing Brick again shows the end card ("All 40 bricks") with no new reward.
+Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-through shell with the dark screen), and the new chip pops in under the device (it scales up from nothing past full size, and a ring spreads from it, about 1.1s). There is no toast; the end card shows the unlock. Clearing Brick again shows the end card with no new reward.
+
+### End cards
+
+Brick and Stack share one end card (`engine/endcard.ts`), drawn over the board, which fades out over 260ms: a small title ("Game over", "Cleared", "Toppled", "New best") at 60% ink, the result as a big 132px number in the selection color, what it counts under it ("of 40 bricks", "blocks high"), then either a pill with the finish's chip and "Clear finish unlocked" / "Red finish unlocked" (the first time only) or a quiet mono line ("best 22"), and "press the center to play again" at the foot. Each part rises 10px and fades in on its own beat (0, 60, 140, 220ms; 320ms each, ease-out). Reduced motion shows it at once.
 
 ## 5. Audio
 
@@ -149,10 +162,12 @@ Clearing all 40 bricks saves the unlock, adds a fifth swatch (Clear: a see-throu
 
 Stored in `localStorage` with the `pocket-` prefix; every read and write is wrapped so the site works when storage is blocked.
 
-| Key                | Meaning                                                                            |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `pocket-color`     | Selected device color id                                                           |
-| `pocket-secret`    | Whether the secret color is unlocked (the old `pocket-clear` key is still honored) |
+| Key                | Meaning                                                                 |
+| ------------------ | ----------------------------------------------------------------------- |
+| `pocket-stackBest` | Stack's best height                                                     |
+| `pocket-color`     | Selected device color id                                                |
+| `pocket-secret`    | Whether Clear is unlocked (the old `pocket-clear` key is still honored) |
+| `pocket-red`       | Whether Red is unlocked (stacked 30 high)                               |
 
 ## 8. Mobile
 
@@ -174,14 +189,14 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 
 URL parameters in the prototype, for screenshots and testing:
 
-| Param                        | Effect                                                                                                               |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `?color=graphite`            | Start with a device color                                                                                            |
-| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` enlarge the photo (in Photos), `1`/`-1` step, `toast` show the unlock toast |
-| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                                                  |
-| `?guide=1`                   | Show the guide pinned                                                                                                |
-| `?dark=1`                    | Dark screen                                                                                                          |
-| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                                                    |
-| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                                               |
+| Param                        | Effect                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `?color=graphite`            | Start with a device color                                                             |
+| `?go=s,s,1,p`                | Unlock, then a sequence: `s` select, `p` enlarge the photo (in Photos), `1`/`-1` step |
+| `?notrans=1`                 | Disable all transitions (headless screenshots stall on transitions)                   |
+| `?guide=1`                   | Show the guide pinned                                                                 |
+| `?dark=1`                    | Dark screen                                                                           |
+| `?brick=over` / `?brick=won` | Show Brick's end card (use with a `go` sequence that opens Brick)                     |
+| `?unlock=1`                  | Unlock the secret finish (preview with `&color=clear`)                                |
 
 These only run in development (`npm run dev`); production builds don't include them. `?scroll=1200` also scrolls an open article.

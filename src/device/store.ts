@@ -1,3 +1,4 @@
+import type { Game } from '@/data/themes';
 import { create } from 'zustand';
 import type { DocRef, Frame, ScreenNode } from './types';
 import { load } from './storage';
@@ -12,7 +13,7 @@ export interface MusicState {
 
 /** A short message: on the device screen, or by the page links. */
 export interface Toast {
-  icon: 'copied' | 'unlocked';
+  icon: 'copied';
   text: string;
 }
 
@@ -50,8 +51,8 @@ export interface DeviceState {
   color: string;
   dark: boolean;
   clicker: boolean;
-  /** The secret Clear finish has been unlocked. */
-  secret: boolean;
+  /** Which games' secret finishes have been earned (Brick: Clear, Stack: Red). */
+  unlocked: Record<Game, boolean>;
 
   /** The image enlarged over the page (a photo, or an image in an article), until the next input. */
   photo: Enlarged | null;
@@ -88,7 +89,7 @@ export const useDevice = create<DeviceState>()(() => ({
   color: load('color', 'silver'),
   dark: false,
   clicker: true,
-  secret: load('secret', load('clear', false)),
+  unlocked: { brick: load('secret', load('clear', false)), stack: load('red', false) },
   photo: null,
   guide: false,
   deviceToast: null,

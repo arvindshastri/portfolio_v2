@@ -37,6 +37,8 @@ const TOP = 200;
 const SNAP = 6;
 /** Anything narrower than this left on the tower counts as a miss (it would be hard to see). */
 const MIN = 18;
+/** The height that earns the Red finish. */
+export const GOAL = 30;
 /** The base block's width. */
 const BASE = 320;
 
@@ -53,10 +55,13 @@ export const game = {
   best: 0,
   newBest: false,
   overAt: 0,
+  /** This game earned the Red finish for the first time. */
+  unlockedNow: false,
 };
 
 let raf = 0;
 let canvas: HTMLCanvasElement | null = null;
+let onGoal: () => boolean = () => false;
 
 const score = () => game.tower.length - 1;
 /** The board y of a block's top edge by its height in the tower (0 is the base). */
@@ -68,6 +73,7 @@ export function reset() {
   game.camera = game.cameraTarget = 0;
   game.mode = 'ready';
   game.newBest = false;
+  game.unlockedNow = false;
   game.best = load('stackBest', 0);
   next();
 }
@@ -104,6 +110,7 @@ function drop() {
     game.tower.push({ x: top.x, w: top.w, perfectAt: now });
     click(2);
     vibe(14);
+    reached();
     return next();
   }
   const left = Math.max(s.x, top.x);
@@ -119,7 +126,13 @@ function drop() {
   game.tower.push({ x: left, w: right - left, perfectAt: 0 });
   click(1.5);
   vibe(6);
+  reached();
   next();
+}
+
+/** Reaching the goal height unlocks Red (its toast shows right away; the game carries on). */
+function reached() {
+  if (score() === GOAL && onGoal()) game.unlockedNow = true;
 }
 
 function end() {
@@ -134,8 +147,10 @@ function end() {
   vibe(20);
 }
 
-export function start(el: HTMLCanvasElement) {
+/** `goal` unlocks the reward and reports whether it was new. */
+export function start(el: HTMLCanvasElement, goal: () => boolean) {
   canvas = el;
+  onGoal = goal;
   reset();
   cancelAnimationFrame(raf);
   let last = performance.now();
@@ -257,6 +272,7 @@ function draw() {
       value: String(score()),
       unit: score() === 1 ? 'block high' : 'blocks high',
       note: game.newBest ? undefined : `best ${game.best}`,
+      unlocked: game.unlockedNow ? 'red' : undefined,
       at: game.overAt,
     });
   x.globalAlpha = 1;
