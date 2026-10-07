@@ -21,7 +21,6 @@ import type { DocRef, Frame, ScreenNode } from './types';
 const bodyClass = (name: string, on: boolean) => document.body.classList.toggle(name, on);
 
 let slideSeq = 0;
-let spun = false;
 const timers: Record<string, number> = {};
 const later = (name: string, ms: number, fn: () => void) => {
   clearTimeout(timers[name]);
@@ -149,10 +148,6 @@ export function step(d: 1 | -1) {
   const s = getState();
   if (s.photo !== null) return closePhoto();
   anyInput();
-  if (!s.locked) {
-    spun = true;
-    refs.wheel?.classList.remove('teach');
-  }
   if (s.locked || s.busy) return;
   const f = top();
   const n = f.node;
@@ -464,23 +459,12 @@ export function unlock() {
   bodyClass('locked', false);
   click(2);
   vibe(15);
-  teachSpin();
 }
 
-/** After unlocking, if the wheel hasn't been spun, a highlight runs around the ring. */
-function teachSpin() {
-  for (const t of [2600, 11000])
-    setTimeout(() => {
-      const w = refs.wheel;
-      if (spun || getState().zoomed || !w) return;
-      w.classList.remove('teach');
-      void w.offsetWidth;
-      w.classList.add('teach');
-    }, t);
-}
-
-/** The lock screen nudges the center button; only if that doesn't land does text appear. */
-/** If the visitor is still on the lock screen after a few seconds, a notification says how to unlock. */
+/**
+ * If the visitor is still on the lock screen after a few seconds, a notification says how to
+ * unlock.
+ */
 export function scheduleHint() {
   setTimeout(() => setState({ hintLate: true }), reducedMotion() ? 3000 : 8000);
 }

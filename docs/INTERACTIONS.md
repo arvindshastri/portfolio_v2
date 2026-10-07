@@ -61,7 +61,7 @@ Order, using ease-out-expo, all skippable by any key or pointer input:
 2. Device rises 70px, scales from 0.94 and unblurs from 10px (1100ms, starts at 180ms); the floor shadow grows in.
 3. The screen powers on: black, a brief flicker, then the lock screen with a short brightness flash (1500ms, starts at 400ms).
 4. As the screen powers on (1150ms), the name, the links and `?` fade and unblur in together (800ms). Swatches stagger in 55ms apart from 1250ms.
-5. On a visitor's first visit only, and only on a wide screen with a mouse or trackpad (over 820px and a fine pointer), the controls guide appears at about 1500ms. Phones and tablets never get it automatically; `?` opens it anywhere.
+5. The controls guide never appears by itself; `?` opens it anywhere.
 
 Every entrance animation uses `fill: backwards` on already-visible content, so if animations never run the page is still complete. Reduced motion skips the entrance entirely.
 
@@ -69,7 +69,7 @@ Every entrance animation uses `fill: backwards` on already-visible content, so i
 
 Press center (or click the name). The lock screen slides up (700ms).
 
-While locked, the center button presses itself every 3.4s and a ring pings out of it. Tapping the lock screen also unlocks. If the visitor hasn't unlocked after 8 seconds (3 under reduced motion), a phone-style notification drops in under the date, "Press the center or tap here to unlock. Spin the wheel to scroll." It stays until unlock. It replaced the "press the center to unlock" line under the device, which visitors didn't look at. After unlocking, if the wheel hasn't been spun, a highlight runs around the ring at 2.6s and 11s; any spin stops it.
+While locked, the center button presses itself every 3s and a ring pings out of it. Tapping the lock screen also unlocks. If the visitor hasn't unlocked after 8 seconds (3 under reduced motion), a phone-style notification drops in under the date, "Press the center or tap here to unlock. Spin the wheel to scroll.". It stays until unlock. It replaced the "press the center to unlock" line under the device, which visitors didn't look at.
 
 ### Menu screens
 
@@ -117,7 +117,7 @@ Clicking the name top-left returns to the main menu from anywhere (closing the r
 
 ### Guide
 
-Shown on the first visit (wide screens with a mouse or trackpad only) and via `?`. Leader lines draw in with a 70ms stagger. The next interaction of any kind fades it out.
+Shown via `?` only. Leader lines draw in with a 70ms stagger. The next interaction of any kind fades it out.
 
 ### Theme change
 
@@ -153,7 +153,6 @@ Stored in `localStorage` with the `pocket-` prefix; every read and write is wrap
 | ------------------ | ---------------------------------------------------------------------------------- |
 | `pocket-color`     | Selected device color id                                                           |
 | `pocket-secret`    | Whether the secret color is unlocked (the old `pocket-clear` key is still honored) |
-| `pocket-seenGuide` | Whether the first-visit guide has been shown                                       |
 
 ## 8. Mobile
 

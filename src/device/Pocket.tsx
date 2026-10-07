@@ -10,7 +10,6 @@ import { playIntro, skipIntro } from './engine/intro';
 import { fitDevice } from './engine/fit';
 import { projectsMenu, rootMenu } from './menu';
 import { reducedMotion } from './refs';
-import { load, save } from './storage';
 import { getState, newFrame, setState } from './store';
 import type { DeviceContent } from './types';
 
@@ -56,18 +55,6 @@ export default function Pocket({ content, initialProject }: Props) {
         () => actions.openDoc(actions.projectDoc(project.slug, project.title)),
         reducedMotion() ? 100 : 1300,
       );
-    } else if (
-      !skipEntrance &&
-      !load('seenGuide', false) &&
-      // the first-visit guide only shows itself beside the device, on a wide screen with a mouse
-      // or trackpad; on phones it covered the device as a sheet ("how do I get rid of this
-      // tutorial?"). The ? still opens it everywhere.
-      matchMedia('(min-width: 821px) and (pointer: fine)').matches
-    ) {
-      setTimeout(() => {
-        actions.showGuide(true);
-        save('seenGuide', true);
-      }, 1500);
     }
 
     return () => {

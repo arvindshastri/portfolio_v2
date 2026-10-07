@@ -141,7 +141,6 @@ function Wheel() {
       }}
     >
       <span className="glow" />
-      <span className="orb" />
       <WheelLabels />
       <button
         className="center"
