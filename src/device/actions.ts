@@ -3,6 +3,7 @@ import { TRACKS } from '@/data/tracks';
 import { applyThemeTokens, THEMES, themeById } from '@/data/themes';
 import { click, vibe } from './engine/audio';
 import * as brick from './engine/brick';
+import * as stack from './engine/stack';
 import * as music from './engine/music';
 import * as reader from './engine/reader';
 import { settle } from './engine/slide';
@@ -224,6 +225,7 @@ export function select() {
     return;
   }
   if (n.type === 'brick') return brick.press();
+  if (n.type === 'stack') return stack.press();
   if (n.type === 'cf') return enlargePhoto(f.sel);
   if (n.type !== 'list') return;
   const item = n.items[f.sel]!;

@@ -54,7 +54,8 @@ export type PreviewSpec =
   | { kind: 'project'; project: ProjectInfo }
   | { kind: 'job'; job: JobInfo }
   | { kind: 'album'; track: number }
-  | { kind: 'brick'; sub: string; kicker: string };
+  | { kind: 'brick'; sub: string }
+  | { kind: 'stack'; sub: string };
 
 /** One row of a list screen. */
 export interface Item {
@@ -80,7 +81,8 @@ export type ScreenNode =
   | { type: 'doc'; title: string; doc: DocRef }
   | { type: 'np'; title: string }
   | { type: 'cf'; title: string }
-  | { type: 'brick'; title: string };
+  | { type: 'brick'; title: string }
+  | { type: 'stack'; title: string };
 
 /** A screen on the navigation stack. */
 export interface Frame {

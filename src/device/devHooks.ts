@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import * as brick from './engine/brick';
+import * as stack from './engine/stack';
 import { readEl } from './engine/reader';
 import { getState, setState } from './store';
 
@@ -15,6 +16,7 @@ import { getState, setState } from './store';
  *   ?go=s,1,1,p          unlock, then: s select, p enlarge the photo (in Photos), 1 / -1 step, toast (the unlock toast)
  *   ?brick=over|won      show Brick's end card (with a go sequence that opens Brick)
  *   ?scroll=1200         scroll the open article (with a go sequence that opens one)
+ *   window.__stack       Stack's live state, for scripted tests
  */
 export function runDevHooks(): boolean {
   const q = new URLSearchParams(location.search);
@@ -37,6 +39,7 @@ export function runDevHooks(): boolean {
       else actions.step(Number(a) as 1 | -1);
     }
   }
+  (window as unknown as { __stack: typeof stack.game }).__stack = stack.game;
   const end = q.get('brick');
   if (end === 'over' || end === 'won') setTimeout(() => brick.showEnd(end), 100);
   const scroll = Number(q.get('scroll'));

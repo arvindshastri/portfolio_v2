@@ -3,6 +3,7 @@ import { TRACKS } from '@/data/tracks';
 import * as actions from '../actions';
 import { audioGraph } from '../engine/audio';
 import * as brick from '../engine/brick';
+import * as stack from '../engine/stack';
 import * as music from '../engine/music';
 import { slide } from '../engine/slide';
 import { frameEls } from '../refs';
@@ -56,6 +57,7 @@ function Screen({ frame }: { frame: Frame }) {
       {node.type === 'np' && <NowPlaying />}
       {node.type === 'cf' && <CoverFlow sel={frame.sel} />}
       {node.type === 'brick' && <BrickScreen />}
+      {node.type === 'stack' && <StackScreen />}
     </div>
   );
 }
@@ -204,4 +206,25 @@ function BrickScreen() {
     return brick.stop;
   }, []);
   return <canvas ref={canvas} className="brick" width={656} height={560} />;
+}
+
+/** Stack: the center drops a block, and so does tapping the screen. */
+function StackScreen() {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    stack.start(canvas.current!);
+    return stack.stop;
+  }, []);
+  return (
+    <canvas
+      ref={canvas}
+      className="brick"
+      width={656}
+      height={560}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        actions.select();
+      }}
+    />
+  );
 }

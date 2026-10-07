@@ -67,6 +67,24 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
           <PreviewText title="Brick" sub={spec.sub} />
         </div>
       );
+    case 'stack':
+      return (
+        <div className="pv pv-stack">
+          <div className="field">
+            <span className="slide" />
+            {[
+              [30, 34, 0.6],
+              [26, 40, 0.75],
+              [22, 50, 0.9],
+              [20, 60, 1],
+            ].map(([left, width, opacity]) => (
+              <i key={left} style={{ marginLeft: `${left}%`, width: `${width}%`, opacity }} />
+            ))}
+            <i className="base" />
+          </div>
+          <PreviewText title="Stack" sub={spec.sub} />
+        </div>
+      );
   }
 }
 

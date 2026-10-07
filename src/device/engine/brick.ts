@@ -1,4 +1,5 @@
 import { click, vibe } from './audio';
+import { drawEndCard } from './endcard';
 
 /**
  * Brick, steered by the wheel. The board is a 656×560 canvas (2× the screen).
@@ -35,8 +36,12 @@ const game = {
   mode: 'ready' as Mode,
   trail: [] as [number, number][],
   message: '',
+  /** No ball launched yet this game: the how-to line shows above the prompt. */
+  fresh: true,
   /** The win also unlocked the Clear finish for the first time. */
   unlockedNow: false,
+  /** When the game ended, for the end card's entrance. */
+  endAt: 0,
 };
 
 let raf = 0;
@@ -54,6 +59,7 @@ export function reset() {
   game.score = 0;
   game.lives = 3;
   game.mode = 'ready';
+  game.fresh = true;
   game.message = 'press the center to launch';
 }
 
@@ -67,6 +73,7 @@ export function press() {
   if (game.ball.stuck) {
     Object.assign(game.ball, { stuck: false, vx: (Math.random() - 0.5) * 7, vy: -8 });
     game.mode = 'play';
+    game.fresh = false;
     game.message = '';
     click(2);
   }
@@ -112,6 +119,7 @@ export function showEnd(mode: 'over' | 'won') {
   game.mode = mode;
   game.score = mode === 'won' ? 40 : 23;
   game.unlockedNow = true;
+  game.endAt = performance.now();
   game.message = '';
 }
 
@@ -148,6 +156,7 @@ function step() {
     vibe(20);
     if (game.lives <= 0) {
       game.mode = 'over';
+      game.endAt = performance.now();
       game.message = '';
       click(2);
     } else game.message = 'press the center to launch';
@@ -165,6 +174,7 @@ function step() {
   if (game.bricks.every((k) => k.hitAt)) {
     game.unlockedNow = onWin();
     game.mode = 'won';
+    game.endAt = performance.now();
     b.stuck = true;
     game.message = '';
     vibe(30);
@@ -233,6 +243,14 @@ function draw() {
   x.roundRect(game.paddle - 56, 500, 112, 12, 6);
   x.fill();
 
+  // before the first launch, how to play
+  if (game.fresh && game.mode === 'ready') {
+    x.globalAlpha = 0.8;
+    x.fillStyle = ink;
+    x.textAlign = 'center';
+    x.font = `500 23px ${UI}`;
+    x.fillText('Spin the wheel to steer the paddle.', W / 2, 370);
+  }
   if (game.message) {
     x.globalAlpha = 0.55;
     x.textAlign = 'center';
@@ -240,32 +258,15 @@ function draw() {
     x.fillText(game.message, W / 2, 410);
   }
 
-  // end-of-game card: the board dims, a title and the score, then how to continue
   if (game.mode === 'over' || game.mode === 'won') {
     const won = game.mode === 'won';
-    x.globalAlpha = 0.86;
-    x.fillStyle = css.getPropertyValue('--scr').trim();
-    x.fillRect(0, 70, W, 490);
-    x.globalAlpha = 1;
-    x.textAlign = 'center';
-    x.fillStyle = won ? sel : ink;
-    x.font = `600 46px ${UI}`;
-    x.fillText(won ? 'Cleared' : 'Game over', W / 2, 250);
-    x.fillStyle = ink;
-    x.globalAlpha = 0.7;
-    x.font = `500 22px ${UI}`;
-    x.fillText(
-      won
-        ? game.unlockedNow
-          ? 'You unlocked the Clear finish'
-          : 'All 40 bricks'
-        : `${game.score} of 40 bricks`,
-      W / 2,
-      300,
-    );
-    x.globalAlpha = 0.5;
-    x.font = `500 19px ${MONO}`;
-    x.fillText('press the center to reset', W / 2, 400);
+    drawEndCard(x, css, {
+      title: won ? 'Cleared' : 'Game over',
+      value: String(game.score),
+      unit: 'of 40 bricks',
+      unlocked: won && game.unlockedNow ? 'clear' : undefined,
+      at: game.endAt,
+    });
   }
   x.globalAlpha = 1;
 }

@@ -54,10 +54,17 @@ export function rootMenu(c: DeviceContent): ScreenNode {
               label: 'Brick',
               preview: {
                 kind: 'brick',
-                kicker: 'Spin to steer',
-                sub: 'Clear every brick for a surprise.',
+                sub: 'Break every brick on the board.',
               },
               go: () => ({ type: 'brick', title: 'Brick' }),
+            },
+            {
+              label: 'Stack',
+              preview: {
+                kind: 'stack',
+                sub: 'Build a tower as tall as you can.',
+              },
+              go: () => ({ type: 'stack', title: 'Stack' }),
             },
           ],
         }),
