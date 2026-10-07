@@ -480,8 +480,9 @@ function teachSpin() {
 }
 
 /** The lock screen nudges the center button; only if that doesn't land does text appear. */
+/** If the visitor is still on the lock screen after a few seconds, a notification says how to unlock. */
 export function scheduleHint() {
-  setTimeout(() => setState({ hintLate: true }), reducedMotion() ? 3000 : 12000);
+  setTimeout(() => setState({ hintLate: true }), reducedMotion() ? 3000 : 8000);
 }
 
 /** A toast at the bottom of the device screen. */

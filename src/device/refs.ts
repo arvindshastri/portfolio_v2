@@ -17,7 +17,6 @@ export type RefName =
   | 'name'
   | 'links'
   | 'corner'
-  | 'foot'
   | 'swatches'
   | 'reader';
 

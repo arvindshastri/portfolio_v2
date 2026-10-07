@@ -65,29 +65,12 @@ body.zoomed .name {
   transform: scaleX(1);
   transform-origin: left;
 }
-.foot {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 20px;
-  z-index: var(--z-chrome);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-  transition:
-    bottom 0.6s var(--ease),
-    opacity 0.4s;
-}
-.hint {
-  font: 500 12.5px var(--font-mono);
-  color: var(--mute);
-  transition: opacity 0.6s;
-}
 .corner {
   position: fixed;
-  right: 22px;
-  bottom: 16px;
+  /* in line with the color chips' row (fit.ts sets --chips-y), which sits as far from the
+     bottom as the name and the links are from the top */
+  right: 26px;
+  bottom: calc(var(--chips-y, 38px) - 14px);
   z-index: var(--z-chrome);
   display: flex;
   gap: 10px;
@@ -121,42 +104,58 @@ body.zoomed .swatches {
   opacity: 0;
   pointer-events: none;
 }
-body.zoomed .foot {
-  opacity: 0;
-}
 
+/* the device colors: chips in each finish's own shell material, in a row at the bottom of the
+   page (fit.ts places it; this is where it sits when the window is too short for that) */
 .swatches {
   position: absolute;
   left: 50%;
-  top: calc(100% + 34px);
+  top: calc(100% + 40px);
   transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
   transition: opacity 0.4s;
   pointer-events: auto;
 }
+.chips {
+  display: flex;
+  gap: 2px;
+}
+/* a 32px touch target around a 22px chip */
 .swatches button {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: 0;
+  background: none;
   cursor: pointer;
-  background: var(--c);
+  display: grid;
+  place-items: center;
+}
+.swatches button::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  /* the device's own lighting on a flat disc: the shell's gradient, the same diagonal sheen as
+     the body, a lit top edge, and the flat color under it all (Clear is see-through) */
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.3), transparent 45%),
+    linear-gradient(160deg, var(--s1), var(--s2)), var(--c);
   box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.15),
-    0 0 0 0 var(--ink);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 var(--e);
   transition:
     box-shadow 0.3s var(--ease),
     transform 0.3s var(--ease);
 }
-.swatches button:hover {
-  transform: scale(1.12);
+.swatches button:hover::before {
+  transform: scale(1.1);
 }
-.swatches button.on {
+.swatches button.on::before {
   box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.15),
-    0 0 0 2px var(--page),
-    0 0 0 3.5px var(--ink);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 var(--e),
+    0 0 0 2.5px var(--page),
+    0 0 0 3.5px color-mix(in oklch, var(--ink) 35%, transparent);
 }
 
 /* spec callouts (first visit, and via ?) */
@@ -428,14 +427,10 @@ dialog.plain .close {
     left: 18px;
   }
   .corner {
-    bottom: 12px;
-    right: 12px;
-  }
-  .foot {
-    bottom: 44px;
+    right: 18px;
   }
   .swatches {
-    top: calc(100% + 18px);
+    top: calc(100% + 24px);
   }
   /* sits above the corner buttons, so the ? that closes it stays visible */
   body.guide .legend {

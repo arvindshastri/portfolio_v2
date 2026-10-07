@@ -75,7 +75,6 @@ export function playIntro() {
       },
     ),
   );
-  a(refs.foot, [{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 1500 });
 }
 
 export function skipIntro() {

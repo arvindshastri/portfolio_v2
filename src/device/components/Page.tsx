@@ -41,17 +41,6 @@ export function Links() {
 }
 
 /** The only instruction on the page, and only if the visitor hasn't found the center button. */
-export function Hint() {
-  const show = useDevice((s) => s.locked && s.hintLate);
-  return (
-    <div className="foot" ref={bind('foot')}>
-      <span className="hint" style={{ opacity: show ? 1 : 0 }}>
-        press the center to unlock
-      </span>
-    </div>
-  );
-}
-
 export function Corner() {
   return (
     <div className="corner" ref={bind('corner')}>

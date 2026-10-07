@@ -55,7 +55,7 @@ const CALLOUTS: Callout[] = [
         <Skip />
       </span>
     ),
-    text: 'skip tracks, photos, sections',
+    text: 'skip tracks and photos',
   },
   {
     target: () => refs.center,

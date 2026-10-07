@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 import * as actions from './actions';
 import { Device } from './components/Device';
 import { Legend } from './components/Guide';
-import { Corner, EnlargedPhoto, Hint, Links, Name, Veil } from './components/Page';
+import { Corner, EnlargedPhoto, Links, Name, Veil } from './components/Page';
 import { Reader } from './components/Reader';
 import { runDevHooks } from './devHooks';
 import { attachGlobalInput } from './engine/input';
@@ -85,7 +85,6 @@ export default function Pocket({ content, initialProject }: Props) {
       <Reader />
       <Legend />
       <EnlargedPhoto />
-      <Hint />
       <Corner />
     </>
   );

@@ -1,5 +1,6 @@
-import { ChevronLeft, Pause, Play } from 'lucide-react';
+import { ChevronLeft, CircleDot, Pause, Play } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { SITE } from '@/data/site';
 import * as actions from '../actions';
 import { ensureAudio } from '../engine/audio';
 import { attachWheel } from '../engine/wheel';
@@ -81,6 +82,8 @@ function StatusBar() {
 function LockScreen() {
   const locked = useDevice((s) => s.locked);
   const now = useDevice((s) => s.now);
+  // the visitor hasn't unlocked for a few seconds: one notification says how
+  const note = useDevice((s) => s.hintLate);
   return (
     // tapping the lock screen unlocks it, like pressing the center
     <div className={`lock${locked ? '' : ' open'}`} ref={bind('lock')} onClick={actions.unlock}>
@@ -88,6 +91,20 @@ function LockScreen() {
       <div className="dt">
         {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
       </div>
+      {note && (
+        <div className="lnote" role="status">
+          <span className="ic" aria-hidden>
+            <CircleDot />
+          </span>
+          <div>
+            <div className="lhead">
+              <b>{SITE.name}</b>
+              <span>now</span>
+            </div>
+            <p>Press the center or tap here to unlock. Spin the wheel to scroll.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

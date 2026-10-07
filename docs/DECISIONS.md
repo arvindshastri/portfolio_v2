@@ -84,7 +84,7 @@ Goals that came out of that:
 - **Physical details (subtle):** recessed screen with a lit lower lip, backlight falloff at the screen edges, wheel recess, the wheel rocks toward the finger, a tight contact shadow.
 - The device tilt holds still while you use the wheel (round 8: it moved while spinning).
 - Spec-style callouts as a first-visit guide plus a `?` button. The guide only shows itself on wide screens with a mouse or trackpad (2026-10-06): on phones it covered the device as a sheet, and a friend's first question was how to get rid of it. Callouts are positioned from the live device so they always point at the right control. On phones `?` shows a legend sheet.
-- **No unlock text by default** (round 9): the center button nudges itself on the lock screen; text appears only after 12 seconds. A ring highlight teaches spinning.
+- **No unlock text under the device.** The center button nudges itself on the lock screen, and after 8 seconds a single notification on the lock screen says how to unlock and that the wheel spins (2026-10-06; it was a line under the device after 12 seconds, which people didn't see: they look at the screen). A ring highlight teaches spinning (under review: it read as a loading spinner).
 - **Previews are designed**, never bare cropped photos (round 9).
 - **Mouse wheel:** one notch = one item.
 - **The enlarged photo** always shows the whole photo, and never shows the previously enlarged one (it opens on the thumbnail, then fades in the full photo). **Cover flow** animates between photos.
@@ -94,11 +94,12 @@ Goals that came out of that:
 - **Previews:** main menu = a big Lucide icon alone, no title or eyebrow, on a soft color pool with a reflection. No icon animation (round 14). Use library icons, don't hand-draw.
 - **Icons, not text symbols** (2026-10-06): the wheel's transport marks, the status-bar play state, row chevrons and link markers are Lucide icons. Text glyphs like ▶ ❚❚ ↗ aren't in Geist, so phones drew them from mismatched fallback fonts. LinkedIn, GitHub and Résumé share one open-link icon; Copy email gets the chevron. Also icons: the playing track (AudioLines, was ♪), the guide's skip label (the wheel's own marks), article list bullets (Lucide arrow-right as a CSS mask in the accent color, was →) and "Open in Figma" (the same open-link icon).
 - **Light/dark screen switch is instant** across the whole screen (round 14: a partial transition read as a flicker). Second level (projects, jobs) keeps the mono eyebrow. Images never drift or zoom. Arvind will specify each preview's content.
+- **Swatches are material chips** (2026-10-06): each a flat disc in its finish's own shell material and lighting, not a flat color dot; the name shows only for a moment after picking (or on hover), never at rest. Glossy, sphere-like chips were tried and read as marbles against the matte device. The `?` mirrors the name and links' corner insets on desktop and lines up with the chips on phones. The unlock hint sits under the chips, sharing the name's spot (it used to collide with it). The selected chip has a soft, faded ring (chosen over a full ink ring, a size change, a dot and a self-colored ring). On phones the row sits at the bottom of the screen.
 - **Entrance:** name, links and `?` arrive together with the screen power-on; swatches keep their stagger.
 - **Copy confirmation** appears once: on the device when copied from the device, on the page when copied from the page.
 - **Enlarged photo caption:** title only.
-- **No contextual hint line.** The only line under the device is "press the center to unlock" on the lock screen (round 8: the per-screen hint duplicated the guide).
-- Lock screen: one static photo with time and date. No screensaver, no note, no idle relock.
+- **No contextual hint line.** Nothing under the device but the color chips (round 8: the per-screen hint duplicated the guide; 2026-10-06: the unlock line moved onto the lock screen as a notification).
+- Lock screen: a wallpaper with time and date, and the one-time unlock notification. No screensaver, no idle relock.
 - Fonts: Geist (interface and reading), Geist Mono (labels). Literata was the reading font until 2026-10-02; Arvind felt a serif went against the device, and picked all-Geist over Mona Sans, Schibsted Grotesk, IBM Plex Sans and Atkinson Hyperlegible.
 - No end line on articles ("press MENU to go back" removed 2026-10-02): MENU is labeled, the guide explains it, and back/Esc work.
 - Figma prototypes are live embeds again, like the old portfolio (2026-10-02), loaded only when scrolled near; the link-out card felt like a placeholder.
