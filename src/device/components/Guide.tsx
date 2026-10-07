@@ -129,7 +129,7 @@ export function Callouts() {
       dev.style.transition = '';
       // then let it ease flat, in step with the callouts fading in
       for (const v of ['--tx', '--ty']) dev.style.setProperty(v, '0deg');
-      for (const v of ['--dx', '--dy']) dev.style.setProperty(v, '0px');
+      for (const v of ['--dx', '--dy', '--sx', '--sy']) dev.style.setProperty(v, '0px');
     };
     place();
     addEventListener('resize', place);

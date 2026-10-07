@@ -16,6 +16,8 @@ function screenClip(): string {
     dev.style.transition = 'none';
     dev.style.setProperty('--tx', '0deg');
     dev.style.setProperty('--ty', '0deg');
+    dev.style.setProperty('--sx', '0px');
+    dev.style.setProperty('--sy', '0px');
   }
   const r = lcd.getBoundingClientRect();
   if (dev) {

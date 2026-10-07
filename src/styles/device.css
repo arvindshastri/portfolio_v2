@@ -37,15 +37,26 @@ body.zoomed .floor {
   border-radius: 46px;
   pointer-events: auto;
   background: linear-gradient(160deg, var(--shell), var(--shell2));
+  /* machined edges: a 1px rim, a lit chamfer along the top and a shaded one along the bottom;
+     then a tight contact shadow where it meets the surface, under the soft one */
   box-shadow:
     inset 0 0 0 1px var(--edge),
     inset 0 2px 0 var(--edge),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.16),
     inset 0 -3px 8px rgba(0, 0, 0, 0.18),
+    /* its thickness: the side wall, a few pixels of darker metal along whichever edge has turned
+       toward you (input.ts sets --sx/--sy with the tilt), and a hair along the bottom at rest */
+    var(--sx, 0px) calc(var(--sy, 0px) + 2px) 0 0 var(--side),
     0 1px 2px rgba(0, 0, 0, 0.14),
+    0 10px 12px -8px rgba(10, 14, 20, 0.32),
     0 40px 60px -34px rgba(10, 14, 20, 0.45);
+  /* the side wall: the shell's dark tone, nudged toward the page's ink so it stands out from the
+     page (darker on light pages, lighter on dark ones) */
+  --side: color-mix(in oklch, var(--shell2) 80%, var(--ink));
   transform: rotateY(var(--ty, 0deg)) rotateX(var(--tx, 0deg));
   transition:
     transform 0.6s var(--ease),
+    box-shadow 0.6s var(--ease),
     background 0.9s var(--quart);
 }
 .dev::before {
@@ -55,7 +66,9 @@ body.zoomed .floor {
   border-radius: inherit;
   background: linear-gradient(115deg, rgba(255, 255, 255, 0.3), transparent 32%);
   pointer-events: none;
-  z-index: 3;
+  /* on the body only, under the screen (which has its own glare): drawn over the screen, its
+     edge left a pale seam around the display's rounded corners */
+  z-index: 1;
 }
 /* anodized grain */
 .dev::after {
@@ -108,7 +121,9 @@ body[data-finish='clear'] .dev {
     inset 0 0 0 1.5px rgba(200, 255, 240, 0.32),
     inset 0 2px 0 rgba(255, 255, 255, 0.35),
     inset 0 0 26px rgba(150, 255, 230, 0.1),
+    var(--sx, 0px) calc(var(--sy, 0px) + 2px) 0 0 rgba(120, 200, 190, 0.28),
     0 1px 2px rgba(0, 0, 0, 0.2),
+    0 10px 12px -8px rgba(0, 0, 0, 0.35),
     0 40px 60px -34px rgba(0, 0, 0, 0.6);
 }
 body[data-finish='clear'] .dev::before {
@@ -233,6 +248,23 @@ body[data-finish='clear'] .dev::before {
     inset 0 1px 2px rgba(0, 0, 0, 0.7),
     0 1px 0 var(--edge);
 }
+/* the cover glass's edge catches a thin glint of light at the top-left corner, where the light
+   comes from (a 1px ring, faded out past the corner) */
+.screenwrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.24), transparent 26%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
 .lcd {
   position: relative;
   width: 100%;
@@ -250,7 +282,10 @@ body[data-finish='clear'] .dev::before {
   pointer-events: none;
   z-index: 21;
   border-radius: inherit;
+  /* the display sits a hair under the glass and bezel: a shadow from the top edge, and the
+     backlight falling off toward the sides */
   box-shadow:
+    inset 0 3px 6px -2px rgba(0, 0, 0, 0.22),
     inset 0 0 18px rgba(0, 0, 0, 0.09),
     inset 0 0 2px rgba(0, 0, 0, 0.25);
 }
@@ -260,10 +295,15 @@ body[data-finish='clear'] .dev::before {
   inset: 0;
   pointer-events: none;
   z-index: 20;
+  /* glare on the glass: a bright corner and a faint broad band further across, both drifting
+     with the device's tilt */
   background: linear-gradient(
     calc(150deg + var(--ty, 0deg) * 3),
     rgba(255, 255, 255, 0.2),
-    transparent 38%
+    transparent 34%,
+    transparent 56%,
+    rgba(255, 255, 255, 0.06) 66%,
+    transparent 80%
   );
 }
 body.dark .lcd::after {
@@ -389,6 +429,15 @@ body.dark .lcd::after {
     transform 0.7s var(--ease),
     opacity 0.5s;
 }
+/* while locked, nothing under the wallpaper is drawn: the light menu screen underneath showed
+   through the wallpaper's anti-aliased rounded corners as a pale rim */
+body.locked .lcd {
+  background: var(--wall2);
+}
+body.locked .screens,
+body.locked .status {
+  visibility: hidden;
+}
 .lock .clk {
   font-size: 66px;
   font-weight: 300;
@@ -489,6 +538,23 @@ body.dark .lcd::after {
     background 0.9s,
     transform 0.18s var(--quart);
 }
+/* the dish: the surface falls away toward the middle, and a soft groove rings the button */
+.wheel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  /* (the button's edge is at 37% of the wheel's radius) */
+  background:
+    radial-gradient(
+      circle closest-side,
+      transparent 36%,
+      rgba(0, 0, 0, 0.13) 37.5%,
+      transparent 44%
+    ),
+    radial-gradient(circle closest-side, rgba(0, 0, 0, 0.07) 37%, transparent 100%);
+}
 .lbl {
   position: absolute;
   font: 650 11px var(--font-ui);
@@ -565,20 +631,36 @@ body.dark .lcd::after {
   border-radius: 50%;
   border: 0;
   cursor: pointer;
-  background: linear-gradient(160deg, var(--btn), var(--btn2));
+  /* gently domed: a soft highlight up top and shade toward the bottom, over the finish's
+     gradient (pressing flattens it) */
+  --dome: 0.13;
+  --press: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, var(--press)), rgba(0, 0, 0, var(--press))),
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, var(--dome)), transparent 55%),
+    linear-gradient(160deg, var(--btn), var(--btn2));
   box-shadow:
     inset 0 1.5px 0 var(--edge),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.07),
     0 1px 3px rgba(0, 0, 0, 0.25);
   transition:
     transform 0.1s,
     box-shadow 0.1s,
     background 0.9s;
 }
+/* pressed: it sinks flush into the wheel. The dome and the lit edge go flat, a crisp shadow line
+   falls along its top edge, its bottom lip catches a line of light, a sharp 1px seam outlines it
+   (so it stays distinct on a dark wheel) and the face darkens a touch. No filter: a filtered,
+   scaled layer is rasterized soft, which blurred the dark finishes. */
 .center:active {
-  transform: scale(0.96);
+  --dome: 0;
+  --press: 0.06;
+  transform: scale(0.97);
   box-shadow:
-    inset 0 1.5px 3px rgba(0, 0, 0, 0.18),
-    0 0 1px rgba(0, 0, 0, 0.25);
+    inset 0 1.5px 0 rgba(0, 0, 0, 0.2),
+    inset 0 3px 5px rgba(0, 0, 0, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
 }
 .center:focus-visible {
   outline-color: var(--wink);
@@ -606,13 +688,17 @@ body.locked .center::before {
     transform: none;
     box-shadow:
       inset 0 1.5px 0 var(--edge),
+      inset 0 -4px 8px rgba(0, 0, 0, 0.07),
       0 1px 3px rgba(0, 0, 0, 0.25);
   }
+  /* the same as pressing it (.center:active) */
   85% {
-    transform: scale(0.955);
+    transform: scale(0.97);
     box-shadow:
-      inset 0 1.5px 3px rgba(0, 0, 0, 0.18),
-      0 0 1px rgba(0, 0, 0, 0.25);
+      inset 0 1.5px 0 rgba(0, 0, 0, 0.2),
+      inset 0 3px 5px rgba(0, 0, 0, 0.12),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.3);
   }
 }
 @keyframes ping {

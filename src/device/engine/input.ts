@@ -75,6 +75,9 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
     }
   };
 
+  /** How many pixels of the device's side show at the far edges of the window. */
+  const SIDE_X = -6.5;
+  const SIDE_Y = -5;
   // the device leans toward a mouse, but holds still while you use it
   const onPointerMove = (e: PointerEvent) => {
     const s = getState();
@@ -83,6 +86,9 @@ export function attachGlobalInput(skipIntro: () => void): () => void {
     if ((e.target as Element).closest('.wheel')) return;
     dev.style.setProperty('--ty', `${(e.clientX / innerWidth - 0.5) * 12}deg`);
     dev.style.setProperty('--tx', `${-(e.clientY / innerHeight - 0.5) * 8}deg`);
+    // the side of the body that turns toward you shows its thickness (see .dev's box-shadow)
+    dev.style.setProperty('--sx', `${(e.clientX / innerWidth - 0.5) * SIDE_X}px`);
+    dev.style.setProperty('--sy', `${(e.clientY / innerHeight - 0.5) * SIDE_Y}px`);
     // the board under the Clear finish shifts against the tilt, for depth
     dev.style.setProperty('--dx', `${(e.clientX / innerWidth - 0.5) * -5}px`);
     dev.style.setProperty('--dy', `${(e.clientY / innerHeight - 0.5) * -4}px`);
