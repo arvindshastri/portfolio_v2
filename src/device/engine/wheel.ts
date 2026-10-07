@@ -34,6 +34,9 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
     el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
     el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
     if (!drag) return;
+    // a mouse whose button is no longer down isn't dragging, even if its release was never seen
+    // (it happened outside the window, or a menu or another app took it)
+    if (e.pointerType === 'mouse' && e.buttons === 0) return end();
 
     const a = angleOf(e);
     let d = a - drag.angle;
@@ -65,6 +68,8 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
   };
 
   const onDown = (e: PointerEvent) => {
+    // only the main button spins: a right-click opens a context menu, which swallows the release
+    if (e.button !== 0) return;
     if ((e.target as Element).closest('.center')) return;
     el.setPointerCapture(e.pointerId);
     drag = { angle: angleOf(e), acc: 0, moved: 0, ticks: 0 };
@@ -73,21 +78,27 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
     tilt(drag.angle);
   };
 
-  const onEnd = (e: PointerEvent) => {
+  const end = () => {
     el.classList.remove('drag');
     tilt(null);
-    if (drag && drag.moved < 8 && e.type === 'pointerup') actions.ringTap(angleOf(e));
     drag = null;
+  };
+  const onEnd = (e: PointerEvent) => {
+    if (drag && drag.moved < 8 && e.type === 'pointerup') actions.ringTap(angleOf(e));
+    end();
   };
 
   el.addEventListener('pointermove', onMove);
   el.addEventListener('pointerdown', onDown);
   el.addEventListener('pointerup', onEnd);
   el.addEventListener('pointercancel', onEnd);
+  // the browser took the pointer away (a context menu, a switch to another window)
+  el.addEventListener('lostpointercapture', end);
   return () => {
     el.removeEventListener('pointermove', onMove);
     el.removeEventListener('pointerdown', onDown);
     el.removeEventListener('pointerup', onEnd);
     el.removeEventListener('pointercancel', onEnd);
+    el.removeEventListener('lostpointercapture', end);
   };
 }
