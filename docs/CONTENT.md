@@ -90,7 +90,7 @@ Put the image in `src/assets/photos/`, import it in `src/data/photos.ts` and add
 
 1. Put the audio file in `public/music/`.
 2. Add to `TRACKS` in `src/data/tracks.ts`: `{ name: 'Title', artist: 'Artist', src: '/music/track.mp3', art: { photo: '<photo id>' }, ... }`.
-3. Use only music you have the right to publish (your own, royalty-free, or licensed). Entries with a `song` are lo-fi tracks generated in the browser; each is a recipe (tempo, swing, form, two chord progressions, keys, drums, texture, melody style, seed), so a new mood is a new entry.
+3. Use only music you have the right to publish (your own, royalty-free, or licensed).
 
 ### A device color
 
@@ -105,7 +105,7 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 - `src/assets/projects/`: every image from the old portfolio's case studies, one folder per project.
 - `src/assets/photos/`: `nyc.jpg`, `spiderverse.jpg` (a drawing), `doctor_strange.jpg`, `logic.jpg`, `mac_wrld.jpg`. Captions for the less obvious ones are guesses; confirm them.
 - `public/resume.pdf`, copied from the previous portfolio. Confirm it's the latest version.
-- `public/music/`, empty, ready for real tracks.
+- `public/music/`: three Pixabay tracks (Pixabay Content License, no attribution required).
 
 ## 7. Open placeholders (must be replaced before launch)
 
@@ -114,5 +114,5 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 - [ ] About and Experience: drafted from the old portfolio. Review.
 - [ ] A reflection section for Trac Commuter ("What I'd do next"), if wanted.
 - [ ] Photo captions (confirm "Logic", "McMaster", "Campus", "Doctor Strange").
-- [ ] Optional: real, rights-cleared tracks (the three generated lo-fi songs work as they are).
+- [ ] Artists are the real Pixabay creators; two titles are made up (Paper Lanterns by Leberch, Glasshouse by Monume), Once in Paris by Pumpupthemind is real; rename them in `src/data/tracks.ts` if you like.
 - [ ] Résumé PDF: confirm it's current.

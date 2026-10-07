@@ -244,9 +244,13 @@ export function playPause() {
   music.toggle();
 }
 
-/** ◀◀ / ▶▶ on Now Playing skip tracks. Returns false when it isn't Now Playing. */
+/**
+ * ◀◀ / ▶▶ skip tracks on Now Playing, and on any list while music is playing (like the real
+ * thing). Returns false when they don't.
+ */
 function skip(d: 1 | -1) {
-  if (top().node.type !== 'np') return false;
+  const type = top().node.type;
+  if (type !== 'np' && !(type === 'list' && getState().music.on)) return false;
   music.play((getState().music.track + d + TRACKS.length) % TRACKS.length);
   return true;
 }

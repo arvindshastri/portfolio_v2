@@ -6,7 +6,7 @@ From the current prototype (`prototype/index.html`) to a launched site. Order is
 
 - [ ] Give About and Experience the same editorial treatment as Trac Commuter.
 - [x] Case studies for all four projects drafted from the old portfolio. Arvind to review.
-- [ ] Optional: real, rights-cleared tracks alongside the generated lo-fi songs.
+- [x] Real, rights-cleared tracks (three from Pixabay) in place of the generated lo-fi songs.
 - [ ] Redesign each menu preview to Arvind's spec (he will provide it).
 - [ ] Music: decide on iPod-style extras (a "Now Playing" row on the main menu while music plays; center cycles scrubber).
 - [x] Reading is a full-window page grown out of the screen, with a back bar and no dial (2026-10-06).

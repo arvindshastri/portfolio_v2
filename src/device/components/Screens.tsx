@@ -126,7 +126,7 @@ function NowPlaying() {
       </div>
       <div className="meta">
         <span ref={elapsed}>0:00</span>
-        <span ref={remaining}>{t.song ? `${t.song.bpm} bpm` : ''}</span>
+        <span ref={remaining} />
       </div>
     </div>
   );

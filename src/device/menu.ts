@@ -89,7 +89,10 @@ function musicMenu(): ScreenNode {
       preview: { kind: 'album', track: i },
       now: () => getState().music.on && getState().music.track === i,
       act: () => {
-        music.play(i);
+        // the track that's already on just opens Now Playing (and resumes it if paused)
+        const m = getState().music;
+        if (m.track !== i || !m.started) music.play(i);
+        else if (!m.on) music.toggle();
         actions.push({ type: 'np', title: 'Now Playing' });
       },
     })),
