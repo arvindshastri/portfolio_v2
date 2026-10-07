@@ -629,6 +629,68 @@ body.locked .center::before {
     transform: scale(1.42);
   }
 }
+/* the controls guide's spin demo: a fingertip dot sweeps a quarter turn clockwise around the
+   ring, trailing a soft arc, then fades and starts again. Only while the guide is open. */
+.spindemo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+body.guide .spindemo {
+  opacity: 1;
+}
+.spindemo i {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* the trail: an arc behind the dot, kept to the ring between the center button and the edge */
+  background: conic-gradient(
+    from -70deg,
+    transparent 0deg,
+    color-mix(in oklch, var(--sel) 45%, transparent) 70deg,
+    transparent 70.5deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 62px, #000 63px 89px, transparent 90px);
+  mask: radial-gradient(circle, transparent 62px, #000 63px 89px, transparent 90px);
+}
+.spindemo::after {
+  /* the fingertip, at the top of the ring's middle */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 27px;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: var(--sel);
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, var(--sel) 30%, transparent),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+body.guide .spindemo {
+  animation: spindemo 1.8s var(--ease) infinite;
+}
+@keyframes spindemo {
+  0% {
+    transform: rotate(-45deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    transform: rotate(60deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(60deg);
+    opacity: 0;
+  }
+}
 body.zoomed #wheel {
   opacity: 0;
   pointer-events: none;

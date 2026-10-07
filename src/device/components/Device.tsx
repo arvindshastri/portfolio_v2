@@ -141,6 +141,10 @@ function Wheel() {
       }}
     >
       <span className="glow" />
+      {/* while the guide is open: a fingertip sweeps around the wheel to show spinning */}
+      <span className="spindemo" aria-hidden="true">
+        <i />
+      </span>
       <WheelLabels />
       <button
         className="center"

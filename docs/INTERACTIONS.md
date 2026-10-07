@@ -118,7 +118,18 @@ Clicking the name top-left returns to the main menu from anywhere (closing the r
 
 ### Guide
 
-Shown via `?` only. Leader lines draw in with a 70ms stagger. The next interaction of any kind fades it out.
+Shown via `?` only. Leaders are SVG lines from a dot on each control: straight out to just past the device's edge (angled when the label is shifted up or down to keep the right-hand labels apart), then level into the label. They draw in from the dot with a 70ms stagger. Labels have no trailing periods; a second line is a separate line, on the sheet too. The next interaction of any kind fades it out. Desktop and phones say the same words (phones as a sheet):
+
+| Control | Says                                               |
+| ------- | -------------------------------------------------- |
+| Screen  | It's a touch screen / Tap to open, swipe to scroll |
+| MENU    | Go back                                            |
+| Spin    | Drag around the wheel to scroll                     |
+| ◀◀ ▶▶   | Previous and next / Skips tracks while music plays |
+| Center  | Open what's selected                               |
+| Play    | Play or pause music                                |
+
+While the guide is open, a spin demo runs on the wheel: a fingertip dot in the selection color sweeps clockwise from -45° to 60° around the middle of the ring, trailing a soft arc, then fades and repeats (1.8s loop). On phones the sheet is a raised panel in the page's own tone (light on light themes, dark on dark ones) over the top of the screen (72px from the top), so the wheel and its demo stay in view; it fades and drops in (opacity 250ms, 8px translate and 0.98 scale over 350ms) and out the same way.
 
 ### Theme change
 
