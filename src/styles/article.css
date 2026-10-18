@@ -68,6 +68,10 @@ body.dark .read .checks b {
   border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
 }
+/* an odd fact out (projects have five, with the year) takes the whole last row */
+.read .meta > div:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
 .read .meta dt {
   font: 500 10.5px var(--font-mono);
   opacity: 0.6;
@@ -334,6 +338,13 @@ body.dark .read .checks b {
     gap: 20px;
     margin-top: 36px;
     padding: 18px 0;
+  }
+  /* five facts: two rows of three, not five cramped columns */
+  .read .meta:has(> div:nth-child(5)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .read .meta > div:last-child:nth-child(odd) {
+    grid-column: auto;
   }
   .read .meta dt {
     font-size: 11.5px;

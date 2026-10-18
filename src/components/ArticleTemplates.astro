@@ -22,12 +22,7 @@ const { Content: AboutContent } = await render(about);
 
 {projects.map(({ entry, Content }) => (
   <template data-article={`project:${entry.id}`}>
-    <ArticleHero
-      kicker={entry.data.kicker}
-      title={entry.data.title}
-      lead={entry.data.lead}
-      facts={entry.data.facts}
-    />
+    <ArticleHero title={entry.data.title} lead={entry.data.lead} facts={entry.data.facts} />
     <figure class="bleed">
       <Image
         src={entry.data.cover}
@@ -42,7 +37,14 @@ const { Content: AboutContent } = await render(about);
 ))}
 {jobs.map(({ entry, Content }) => (
   <template data-article={`job:${entry.id}`}>
-    <ArticleHero kicker={entry.data.period} title={entry.data.company} lead={entry.data.role} />
+    <ArticleHero
+      title={entry.data.company}
+      lead={entry.data.summary}
+      facts={[
+        { label: 'Role', value: entry.data.role },
+        { label: 'Dates', value: entry.data.period },
+      ]}
+    />
     <section class="duties">
       <Content />
     </section>
@@ -55,7 +57,7 @@ const { Content: AboutContent } = await render(about);
   </template>
 ))}
 <template data-article="page:about">
-  <ArticleHero kicker={about.data.kicker} title={about.data.title} lead={about.data.lead} />
+  <ArticleHero title={about.data.title} lead={about.data.lead} />
   {about.data.image && (
     <figure class="bleed portrait">
       <Image

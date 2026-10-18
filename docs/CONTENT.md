@@ -33,17 +33,17 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 
 Every project article uses the same building blocks, in roughly this order. Not every block is required; Trac Commuter uses all of them and is the reference.
 
-| Block      | Markup                                                         | Purpose                                                                                          |
-| ---------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| Header     | `<header class="hero">` with `.kick`, `h1`, `.lead`, `dl.meta` | Kicker ("Case study · 2025"), title, a 1–2 sentence lead, then Role / Platform / Tools / Partner |
-| Cover      | `<figure class="bleed">`                                       | Cover image, at the text column's width                                                          |
-| Stats      | `<div class="stats">` with 3 × `b` + `span`                    | Three real numbers. Never invent numbers                                                         |
-| Section    | `h2` + `p`                                                     | The story: problem, research, design, testing, build, reflection                                 |
-| Pull quote | `<blockquote class="pull">…<cite>`                             | One striking finding with its source                                                             |
-| Split      | `<div class="split">` with text left, `ul.checks` right        | A finding plus a percentage checklist                                                            |
-| Gallery    | `<div class="gallery">` of `figure` + `figcaption`             | Design iterations, stacked full width                                                            |
-| Cards      | `<div class="duo">` with `.card.good` and `.card`              | "What worked" vs "What we changed"                                                               |
-| Panel      | `<figure class="panel">`                                       | Final screens on a tinted panel                                                                  |
+| Block      | Markup                                                  | Purpose                                                                               |
+| ---------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Header     | `<header class="hero">` with `h1`, `.lead`, `dl.meta`   | Title, a 1–2 sentence lead, then Role / Platform / Tools / Partner / Year. No eyebrow |
+| Cover      | `<figure class="bleed">`                                | Cover image, at the text column's width                                               |
+| Stats      | `<div class="stats">` with 3 × `b` + `span`             | Three real numbers. Never invent numbers                                              |
+| Section    | `h2` + `p`                                              | The story: problem, research, design, testing, build, reflection                      |
+| Pull quote | `<blockquote class="pull">…<cite>`                      | One striking finding with its source                                                  |
+| Split      | `<div class="split">` with text left, `ul.checks` right | A finding plus a percentage checklist                                                 |
+| Gallery    | `<div class="gallery">` of `figure` + `figcaption`      | Design iterations, stacked full width                                                 |
+| Cards      | `<div class="duo">` with `.card.good` and `.card`       | "What worked" vs "What we changed"                                                    |
+| Panel      | `<figure class="panel">`                                | Final screens on a tinted panel                                                       |
 
 Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()` helper: header, optional cover, body, end line.
 
@@ -71,10 +71,10 @@ Shorter pages (Trac Driver, Orderly, StudyFinder, About, roles) use the `short()
 
 Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects/<name>/`). Frontmatter:
 
-- `title`, `order` (position in the Projects list), `kicker` ("Case study · 2025"), `lead` (the intro paragraph)
+- `title`, `order` (position in the Projects list), `lead` (the intro paragraph)
 - `tagline` ("2025 · iOS and Android") and `pitch` (one line): the menu preview
 - `cover` (relative path to an image) and `coverAlt`
-- `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools...)
+- `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools, ..., Year). Put the year here: there's no eyebrow above the title
 
 The body is Markdown. Headings (`##`) become sections; with 3 or more, the article gets a Contents list. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.
 

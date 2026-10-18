@@ -9,8 +9,6 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       order: z.number(),
-      /** Small mono line above the title, e.g. "Case study · 2025". */
-      kicker: z.string(),
       /** Shown on the menu preview, e.g. "2025 · iOS and Android". */
       tagline: z.string(),
       /** One line for the menu preview. */
@@ -18,7 +16,7 @@ const projects = defineCollection({
       lead: z.string(),
       cover: image(),
       coverAlt: z.string(),
-      /** The facts row under the intro (Role, Platform, Tools, ...). */
+      /** The facts under the intro (Role, Platform, Tools, Year, ...): the year lives here. */
       facts: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
     }),
 });
@@ -45,7 +43,6 @@ const pages = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      kicker: z.string(),
       lead: z.string(),
       image: image().optional(),
       imageAlt: z.string().optional(),

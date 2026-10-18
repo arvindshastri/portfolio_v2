@@ -141,8 +141,9 @@
   gap: 3px;
   min-width: 0;
 }
+/* when, or what it ran on: under the title in the accent (no eyebrow above it) */
 .pv-tx small {
-  font: 500 9.5px var(--font-mono);
+  font: 500 10px/1.3 var(--font-ui);
   color: var(--kick);
 }
 .pv-icon {

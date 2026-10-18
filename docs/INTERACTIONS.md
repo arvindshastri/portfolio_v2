@@ -80,7 +80,7 @@ Push: the new screen slides in from the right while the previous one shifts 35% 
 
 1. Pressing center on a project, role or About pushes the article without a slide and opens the **reading page**: a full-window page in the screen's colors.
 2. The page grows out of the device's screen: it starts clipped to the screen's exact outline (position, size, rounded corners; the device's tilt is dropped for the measurement) and the clip opens to the whole window (620ms ease-out-expo). The page chrome (name, links, swatches, hint, `?`) fades out underneath.
-3. While the page is still opening, its content cascades in, already laid out at its final size: the bar fades in (from 200ms), then the article's header parts (kicker, title, lead, facts) and the blocks below each fade and rise 18px, 50ms apart (560ms each, from 220ms; the first nine). Text never visibly reflows.
+3. While the page is still opening, its content cascades in, already laid out at its final size: the bar fades in (from 200ms), then the article's header parts (title, lead, facts) and the blocks below each fade and rise 18px, 50ms apart (560ms each, from 220ms; the first nine). Text never visibly reflows.
 
 ### Reading
 

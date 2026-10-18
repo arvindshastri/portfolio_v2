@@ -41,7 +41,7 @@ export function grow(el: HTMLElement) {
     easing: EASE,
     fill: 'backwards',
   });
-  // the header's parts (kicker, title, lead, facts) arrive one by one, then the blocks below
+  // the header's parts (title, lead, facts) arrive one by one, then the blocks below
   [...el.querySelectorAll('.read > .hero > *, .read > :not(.hero)')]
     .slice(0, 9)
     .forEach((block, i) =>

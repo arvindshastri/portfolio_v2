@@ -27,16 +27,16 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
         <div className="pv pv-proj">
           <img src={spec.project.cover} alt="" />
           <PreviewText
-            kicker={spec.project.tagline}
             title={spec.project.title}
             sub={spec.project.pitch}
+            meta={spec.project.tagline}
           />
         </div>
       );
     case 'job':
       return (
         <div className="pv pv-job">
-          <PreviewText kicker={spec.job.years} title={spec.job.role} sub={spec.job.summary} />
+          <PreviewText title={spec.job.role} sub={spec.job.summary} meta={spec.job.years} />
         </div>
       );
     case 'album': {
@@ -88,11 +88,12 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
   }
 }
 
-function PreviewText({ kicker, title, sub }: { kicker?: string; title: string; sub?: string }) {
+/** The name first, then when (or what it ran on), then a line about it. */
+function PreviewText({ title, sub, meta }: { title: string; sub?: string; meta?: string }) {
   return (
     <div className="pv-tx">
-      {kicker && <small>{kicker}</small>}
       <b>{title}</b>
+      {meta && <small>{meta}</small>}
       {sub && <span>{sub}</span>}
     </div>
   );

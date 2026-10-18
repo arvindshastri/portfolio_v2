@@ -1,15 +1,14 @@
 ---
+/** A long-form page's header: the title, a lead, then the facts. No eyebrow above the title. */
 interface Props {
-  kicker: string;
   title: string;
   lead: string;
   facts?: { label: string; value: string }[];
 }
-const { kicker, title, lead, facts } = Astro.props;
+const { title, lead, facts } = Astro.props;
 ---
 
 <header class="hero">
-  <div class="kick">{kicker}</div>
   <h1>{title}</h1>
   <p class="lead">{lead}</p>
   {facts && (
