@@ -128,14 +128,13 @@ function hitEnd(f: Frame, d: 1 | -1) {
       ],
       { duration: 420 },
     );
-  // the highlight moves down a list. The list is nudged by `top`, not `transform`: a transform
-  // gives it a compositor layer for the bounce, and a layer inside the screen's rounded clip, in
-  // the tilting 3D device, could stop being drawn (the menu vanished at the top of the list, on
-  // a Pixel and then on desktop Edge). `top` is painted, so there's no layer to lose.
+  // the highlight moves down a list. The list is nudged by `top`, not `transform`: nothing in a
+  // list may get a compositor layer, or it can stop being drawn on phones (see .list .hl).
   if (list) return void band(list, { top: '0px' }, { top: `${d * 6}px` });
-  // the covers move left as you go forward (`translate`, so it adds to each cover's own transform)
+  // the covers move left as you go forward, by `left` for the same reason (a `translate` bounce
+  // here made the main menu vanish later, on a Pixel)
   for (const el of screen?.querySelectorAll<HTMLElement>('.cf .it') ?? [])
-    band(el, { translate: '0 0' }, { translate: `${-d * 10}px 0` });
+    band(el, { left: '50%' }, { left: `calc(50% + ${-d * 10}px)` });
 }
 
 /* ===================== input ===================== */
