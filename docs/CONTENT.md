@@ -116,6 +116,7 @@ Main-menu previews are Lucide icons, set in `src/device/menu.ts`. Project and ro
 - [ ] Photo captions (confirm "Logic", "McMaster", "Campus", "Doctor Strange").
 - [ ] Artists are the real Pixabay creators; two titles are made up (Paper Lanterns by Leberch, Glasshouse by Monume), Once in Paris by Pumpupthemind is real; rename them in `src/data/tracks.ts` if you like.
 - [ ] Résumé PDF: confirm it's current.
+- [ ] Where things stand (`SITE.lines` under the name, `SITE.intro` on the lock screen, in `src/data/site.ts`): Arvind's wording. Keep the lock screen message to two lines (about 80 characters) and each line short. Update whenever it changes.
 
 ## Search and link previews
 

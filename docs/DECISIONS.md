@@ -68,6 +68,7 @@ Goals that came out of that:
 ### Status bar and notifications
 
 - Status bar: **screen title** center, time right. On the main menu the play/pause icon sits left; below it, the left side is a **back button** (`‹ Menu`, named after the screen it returns to) and the play state moves beside the time (2026-10-06: a friend didn't know MENU meant back). No name, padlock or unread dot.
+- **A message from Arvind on the lock screen (2026-10-18):** a short hello and where he stands ("Hey! I love designing and building products people enjoy. Seeking full-time roles!", his words) arrives as a notification once the device is on; tapping it opens About. The unlock hint became a second notification from "Tips" under it, a second after his (it used to wait 8 seconds). The lock screen is gone the moment someone unlocks, so the cycling line under the name carries it too. A status on every main-menu preview (not just About) is to be explored separately.
 - **No recurring notifications.** The only messages are toasts: the email-copied confirmation and the one-off "Clear finish unlocked" (the status-bar pill was replaced by a toast on 2026-10-02). Device events never notify outside the device.
 - **Clear finish, richer:** a tinted see-through shell showing the board (flex cable, chips, battery, sensor rings, an accent LED), with the board drifting against the tilt for depth.
 
@@ -90,7 +91,7 @@ Goals that came out of that:
 - **Mouse wheel:** one notch = one item.
 - **The enlarged photo** always shows the whole photo, and never shows the previously enlarged one (it opens on the thumbnail, then fades in the full photo). **Cover flow** animates between photos.
 - **Room:** a soft studio light falloff only. The placard was tried and removed (round 10); still no glows, no giant name.
-- **Name block:** name = home button, plus the role line. The "now building" status line was tried and removed (round 10).
+- **Name block:** name = home button, plus the role line. The "now building" status line was tried and removed (round 10). A status came back on 2026-10-18: the role line now cycles once through five lines (role, open to full-time roles, school, Trac, "nice to meet you") and rests on the role; tapping it moves on. People should see what Arvind is looking for without opening anything, the way the old site's Currently section did. No pulsing "available" dot, no location, no scramble or typewriter effects.
 - **Menu order:** Projects (renamed from Work), Experience, About, Photos, Music, Extras, Settings, Contact.
 - **Previews:** main menu = a big Lucide icon alone, no title or eyebrow, on a soft color pool with a reflection. No icon animation (round 14). Use library icons, don't hand-draw.
 - **Icons, not text symbols** (2026-10-06): the wheel's transport marks, the status-bar play state, row chevrons and link markers are Lucide icons. Text glyphs like ▶ ❚❚ ↗ aren't in Geist, so phones drew them from mismatched fallback fonts. LinkedIn, GitHub and Résumé share one open-link icon; Copy email gets the chevron. Also icons: the playing track (AudioLines, was ♪), the guide's skip label (the wheel's own marks), article list bullets (Lucide arrow-right as a CSS mask in the accent color, was →) and "Open in Figma" (the same open-link icon).

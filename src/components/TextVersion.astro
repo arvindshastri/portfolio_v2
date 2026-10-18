@@ -24,6 +24,7 @@ const Full = project ? (await render(project)).Content : null;
   </form>
   <h2>{SITE.name}</h2>
   <p>Product designer and software engineer. McMaster Software Engineering, co-founder of Trac.</p>
+  <p>{SITE.intro}</p>
   {project && Full && (
     <article>
       <h3>{project.data.title}</h3>

@@ -30,6 +30,42 @@
   color: var(--mute);
   margin-top: 3px;
 }
+/* the line under the name rolls between its lines like a row on the device: the old one up and
+   out, the new one up from below */
+.name .lines {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.name .roll {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.name .roll > span {
+  display: block;
+  white-space: nowrap;
+}
+.name .roll .in {
+  animation: line-in 0.34s var(--ease) backwards;
+}
+.name .roll .out {
+  position: absolute;
+  inset: 0 auto auto 0;
+  animation: line-out 0.34s var(--ease) forwards;
+}
+@keyframes line-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+@keyframes line-out {
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
 body.zoomed .name {
   opacity: 0;
   pointer-events: none;

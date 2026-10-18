@@ -1,4 +1,4 @@
-import { ChevronLeft, CircleDot, Pause, Play } from 'lucide-react';
+import { ChevronLeft, CircleDot, MessageCircle, Pause, Play } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { SITE } from '@/data/site';
 import * as actions from '../actions';
@@ -82,8 +82,10 @@ function StatusBar() {
 function LockScreen() {
   const locked = useDevice((s) => s.locked);
   const now = useDevice((s) => s.now);
-  // the visitor hasn't unlocked for a few seconds: one notification says how
-  const note = useDevice((s) => s.hintLate);
+  // a message from Arvind arrives first; if the visitor hasn't unlocked a few seconds later,
+  // a second notification says how
+  const intro = useDevice((s) => s.introNote);
+  const hint = useDevice((s) => s.hintLate);
   return (
     // tapping the lock screen unlocks it, like pressing the center
     <div className={`lock${locked ? '' : ' open'}`} ref={bind('lock')} onClick={actions.unlock}>
@@ -91,20 +93,45 @@ function LockScreen() {
       <div className="dt">
         {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
       </div>
-      {note && (
-        <div className="lnote" role="status">
-          <span className="ic" aria-hidden>
-            <CircleDot />
-          </span>
-          <div>
-            <div className="lhead">
-              <b>{SITE.name}</b>
-              <span>now</span>
-            </div>
-            <p>Press the center or tap here to unlock. Spin the wheel to scroll.</p>
+      <div className="lnotes" role="status">
+        {intro && (
+          <button
+            className="lnote"
+            onClick={(e) => {
+              e.stopPropagation();
+              actions.openIntro();
+            }}
+            aria-label={`Message from ${SITE.name}: ${SITE.intro} Open About.`}
+          >
+            <span className="ic" aria-hidden>
+              <MessageCircle />
+            </span>
+            <span className="lbody">
+              <span className="lhead">
+                <b>{SITE.name}</b>
+                <span>now</span>
+              </span>
+              <span className="lmsg">{SITE.intro}</span>
+            </span>
+          </button>
+        )}
+        {hint && (
+          <div className="lnote">
+            <span className="ic" aria-hidden>
+              <CircleDot />
+            </span>
+            <span className="lbody">
+              <span className="lhead">
+                <b>Tips</b>
+                <span>now</span>
+              </span>
+              <span className="lmsg">
+                Press the center or tap here to unlock. Spin the wheel to scroll.
+              </span>
+            </span>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

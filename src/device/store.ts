@@ -64,7 +64,9 @@ export interface DeviceState {
   music: MusicState;
   volumeShown: boolean;
 
-  /** The unlock hint is allowed to show (the visitor hasn't found the button for a while). */
+  /** Arvind's message has arrived on the lock screen (once the entrance has settled). */
+  introNote: boolean;
+  /** The unlock hint has arrived (a second after Arvind's message). */
   hintLate: boolean;
   now: Date;
 }
@@ -96,6 +98,7 @@ export const useDevice = create<DeviceState>()(() => ({
   pageToast: null,
   music: { on: false, started: false, track: 0, vol: 0.55 },
   volumeShown: false,
+  introNote: false,
   hintLate: false,
   now: new Date(),
 }));

@@ -1,19 +1,86 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SITE } from '@/data/site';
 import * as actions from '../actions';
-import { bind } from '../refs';
+import { click, ensureAudio } from '../engine/audio';
+import { bind, reducedMotion } from '../refs';
 import { useDevice } from '../store';
 import { Toast } from './Toast';
 
-/** The name (which also takes you home), top left. */
+/** The name (which also takes you home), top left, over a line that cycles. */
 export function Name() {
   return (
     <div className="name" ref={bind('name')}>
       <button onClick={actions.home} title="Back to the menu">
         {SITE.name}
       </button>
-      <span className="role">{SITE.role}</span>
+      <Lines />
     </div>
+  );
+}
+
+/** First change once the entrance has settled, then one every few seconds. */
+const LINES_START = 3600;
+const LINES_EVERY = 4000;
+/** The roll between lines (matches .role's animations). */
+const ROLL = 340;
+
+/**
+ * The line under the name: once the device has arrived it rolls through SITE.lines once, the way
+ * a row moves on the device, and rests on the first; tapping it rolls on to the next one.
+ * Screen readers get every line at once.
+ */
+function Lines() {
+  const lines = SITE.lines;
+  const [state, setState] = useState({ i: 0, prev: -1, n: 0 });
+  const auto = useRef(true);
+
+  const next = () =>
+    setState((s) => ({
+      i: (s.i + 1) % lines.length,
+      prev: reducedMotion() ? -1 : s.i,
+      n: s.n + 1,
+    }));
+
+  // one pass on its own, ending back on the first line; a tap takes over
+  useEffect(() => {
+    let step = 0;
+    let timer = window.setTimeout(function tick() {
+      if (!auto.current) return;
+      next();
+      if (++step < lines.length) timer = window.setTimeout(tick, LINES_EVERY);
+    }, LINES_START);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // the outgoing line leaves once it has rolled away
+  useEffect(() => {
+    if (state.prev < 0) return;
+    const t = window.setTimeout(() => setState((s) => ({ ...s, prev: -1 })), ROLL);
+    return () => clearTimeout(t);
+  }, [state.n]);
+
+  return (
+    <span
+      className="role lines"
+      onClick={() => {
+        auto.current = false;
+        ensureAudio();
+        click(0.6);
+        next();
+      }}
+    >
+      <span className="sr">{lines.join(', ')}</span>
+      <span className="roll" aria-hidden>
+        {state.prev >= 0 && (
+          <span className="out" key={`o${state.n}`}>
+            {lines[state.prev]}
+          </span>
+        )}
+        <span className={state.n ? 'in' : undefined} key={`i${state.n}`}>
+          {lines[state.i]}
+        </span>
+      </span>
+    </span>
   );
 }
 

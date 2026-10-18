@@ -70,7 +70,7 @@ Every entrance animation uses `fill: backwards` on already-visible content, so i
 
 Press center (or click the name). The lock screen slides up (700ms).
 
-While locked, the center button presses itself every 3s and a ring pings out of it. Tapping the lock screen also unlocks. If the visitor hasn't unlocked after 8 seconds (3 under reduced motion), a phone-style notification drops in under the date, "Press the center or tap here to unlock. Spin the wheel to scroll.". It stays until unlock. It replaced the "press the center to unlock" line under the device, which visitors didn't look at.
+While locked, the center button presses itself every 3s and a ring pings out of it. Tapping the lock screen also unlocks. 2.4s in (0.6s under reduced motion), a message from Arvind drops in under the date; tapping it unlocks and opens About. A second later a "Tips" notification drops in under it, "Press the center or tap here to unlock. Spin the wheel to scroll." Both stay until unlock. It replaced the "press the center to unlock" line under the device, which visitors didn't look at.
 
 ### Menu screens
 

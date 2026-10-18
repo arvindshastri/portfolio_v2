@@ -468,11 +468,27 @@ export function unlock() {
 }
 
 /**
- * If the visitor is still on the lock screen after a few seconds, a notification says how to
- * unlock.
+ * The lock screen's notifications: a message from Arvind once the device has arrived and its
+ * screen is on, then a second later how to unlock and move around.
  */
 export function scheduleHint() {
-  setTimeout(() => setState({ hintLate: true }), reducedMotion() ? 3000 : 8000);
+  const intro = reducedMotion() ? 600 : 2400;
+  setTimeout(() => setState({ introNote: true }), intro);
+  setTimeout(() => setState({ hintLate: true }), intro + 1000);
+}
+
+/** Tapping Arvind's message: unlock, then open About, the way a notification opens its app. */
+export function openIntro() {
+  if (!getState().locked) return;
+  unlock();
+  const root = getState().stack[0];
+  if (root?.node.type !== 'list') return;
+  const i = root.node.items.findIndex((it) => it.doc?.key === 'page:about');
+  const about = root.node.items[i]?.doc;
+  if (!about) return;
+  // back from About lands on its row; the lock screen clears before the page grows
+  patchFrame(root.id, { sel: i, edge: false });
+  later('intro', reducedMotion() ? 0 : 320, () => openDoc(about));
 }
 
 /** A toast at the bottom of the device screen. */
