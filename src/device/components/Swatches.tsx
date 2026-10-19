@@ -7,7 +7,10 @@ import { bind } from '../refs';
 import { useDevice } from '../store';
 
 /** How to earn each secret finish, shown by its locked chip. */
-const HOW = { brick: 'Clear every brick in Brick', stack: 'Stack 30 high in Stack' };
+const HOW = {
+  brick: 'Clear every brick in Extras › Brick',
+  stack: 'Stack 30 high in Extras › Stack',
+};
 
 /**
  * The device colors: small chips in each finish's own shell material, in a row at the bottom of

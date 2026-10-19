@@ -137,7 +137,7 @@ Picking a swatch (or Settings → Color) re-themes the page in about 900ms: back
 
 ### Locked finishes
 
-The secret finishes sit at the end of the color chips from the start, as empty dashed chips with a small lock (Lucide `lock`), so visitors can see there's more to earn. Hovering one shows how to earn it as a tooltip; tapping or clicking one shows the same line in a dark pill (like the "Copied" toast) 10px above the chips for 2.6s ("Clear every brick in Brick to unlock", "Stack 30 high in Stack to unlock"). Once earned, the chip becomes the finish's real swatch.
+The secret finishes sit at the end of the color chips from the start, as empty dashed chips with a small lock (Lucide `lock`), so visitors can see there's more to earn. Hovering one shows how to earn it as a tooltip; tapping or clicking one shows the same line in a dark pill (like the "Copied" toast) 10px above the chips for 2.6s ("Clear every brick in Extras › Brick to unlock", "Stack 30 high in Extras › Stack to unlock"; they name Extras because visitors didn't know where the games were). Once earned, the chip becomes the finish's real swatch.
 
 ### Stack
 
