@@ -135,6 +135,8 @@ Goals that came out of that:
 
 - **Bigger tap areas (2026-10-18):** small controls were hard to hit on phones. Their tap areas grew toward 44px (the name, the cycling line, Résumé and Contact, the color chips, `?`, the reading bar's buttons, "Open in Figma") without changing how anything looks or where it sits. Menu rows and the status bar's back button are held by the screen's size.
 
+- **Experience previews show a timeline (2026-10-18):** their top half was empty, unlike every other preview. Of an icon per role, a timeline, the company name set large and top tools as pills, the timeline won: it adds information (the path from first internship to now) instead of decoration. No company logos (none on hand, and they're trademarks).
+
 ## 4. Things to never re-pitch
 
 - Regenerate-the-site-in-any-style (Restyle).

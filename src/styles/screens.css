@@ -231,7 +231,65 @@
 }
 /* roles have no image, so their summary can use the whole panel */
 .pv-job .pv-tx span {
-  -webkit-line-clamp: 12;
+  -webkit-line-clamp: 5;
+}
+/* roles: every role on one time axis over the text, the highlighted one in the accent */
+.pv-tl {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* pinned to the top, so it sits still while the summary under it changes length */
+  justify-content: flex-start;
+  gap: 9px;
+  padding: 6px 2px 4px;
+  font: 500 9.5px/1 var(--font-ui);
+}
+.pv-tl .row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pv-tl .row > span {
+  flex: none;
+  width: 46px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.45;
+}
+.pv-tl .row.on > span {
+  opacity: 0.9;
+}
+.pv-tl .track {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--scrInk) 8%, transparent);
+}
+.pv-tl .track i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--scrInk) 25%, transparent);
+}
+.pv-tl .row.on .track i {
+  background: var(--sel);
+}
+/* an ongoing role runs on past today: its bar fades out at the right */
+.pv-tl .track i.now {
+  -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent);
+  mask-image: linear-gradient(90deg, #000 70%, transparent);
+}
+/* just the ends of the axis: the first year and now */
+.pv-tl .axis {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 52px;
+  font-size: 8.5px;
+  opacity: 0.45;
 }
 .pv-proj img {
   flex: 1;

@@ -80,7 +80,7 @@ The body is Markdown. Headings (`##`) become sections; with 3 or more, the artic
 
 ### A role
 
-Add `src/content/experience/<company>.md` with `company`, `role`, `period`, `years` (short, for the preview), `order`, `summary` (the preview text, up to about 12 lines), and optional `tools` and `skills` lists (shown as tags at the bottom). The body is a Markdown bullet list: the résumé bullets, in order.
+Add `src/content/experience/<company>.md` with `company`, `role`, `period` ("May 2023 to August 2024" or "June 2025 to present": the preview's timeline reads its dates from it, and the build stops if it can't), `years` (short, for the preview), `order`, `summary` (the preview text, up to 5 lines under the timeline), and optional `tools` and `skills` lists (shown as tags at the bottom). The body is a Markdown bullet list: the résumé bullets, in order.
 
 ### A photo
 

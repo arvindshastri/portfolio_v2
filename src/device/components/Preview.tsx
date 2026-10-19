@@ -36,6 +36,7 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
     case 'job':
       return (
         <div className="pv pv-job">
+          <Timeline current={spec.job.slug} />
           <PreviewText title={spec.job.role} sub={spec.job.summary} meta={spec.job.years} />
         </div>
       );
@@ -86,6 +87,42 @@ export function Preview({ spec }: { spec: PreviewSpec }) {
         </div>
       );
   }
+}
+
+/**
+ * Every role on one time axis, the highlighted one in the accent: what an Experience screen
+ * would show, and the path from first internship to now at a glance. Decorative (the dates are
+ * in the text under it).
+ */
+function Timeline({ current }: { current: string }) {
+  const jobs = getContent().jobs;
+  const d = new Date();
+  const now = d.getFullYear() + d.getMonth() / 12 + d.getDate() / 365;
+  const first = Math.floor(Math.min(...jobs.map((j) => j.from)));
+  const last = Math.max(now, ...jobs.map((j) => j.to ?? now));
+  const x = (year: number) => ((year - first) / (last - first)) * 100;
+  return (
+    <div className="pv-tl" aria-hidden="true">
+      {jobs.map((j) => (
+        <div className={`row${j.slug === current ? ' on' : ''}`} key={j.slug}>
+          <span>{j.company}</span>
+          <div className="track">
+            <i
+              className={j.to === null ? 'now' : undefined}
+              style={{
+                left: `${x(j.from)}%`,
+                width: `${Math.max(3, x(j.to ?? now) - x(j.from))}%`,
+              }}
+            />
+          </div>
+        </div>
+      ))}
+      <div className="axis">
+        <span>{first}</span>
+        <span>now</span>
+      </div>
+    </div>
+  );
 }
 
 /** The name first, then when (or what it ran on), then a line about it. */

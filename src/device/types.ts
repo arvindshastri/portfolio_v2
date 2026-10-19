@@ -12,6 +12,10 @@ export interface JobInfo {
   years: string;
   role: string;
   summary: string;
+  /** When it started and ended, as fractional years (2023.33 is May 2023); `to` is null while
+   *  it's ongoing. Read from the role's `period`. */
+  from: number;
+  to: number | null;
 }
 export interface PhotoInfo {
   thumb: string;
