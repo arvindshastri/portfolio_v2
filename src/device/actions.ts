@@ -1,6 +1,6 @@
 import { SITE } from '@/data/site';
 import { TRACKS } from '@/data/tracks';
-import { applyThemeTokens, THEMES, themeById, type Game } from '@/data/themes';
+import { applyThemeTokens, THEMES, themeById, type Game, type ThemeTokens } from '@/data/themes';
 import { click, vibe } from './engine/audio';
 import * as brick from './engine/brick';
 import * as stack from './engine/stack';
@@ -534,6 +534,13 @@ export function setColor(id: string) {
 export function setDark(on: boolean) {
   setState({ dark: on });
   bodyClass('dark', on);
+  // a theme whose screen colors only work on a dark screen brings others for a light one
+  const theme = themeById(getState().color);
+  for (const [key, value] of Object.entries(theme.lightScreen ?? {}))
+    document.body.style.setProperty(
+      `--${key}`,
+      on ? theme.tokens[key as keyof ThemeTokens] : value,
+    );
 }
 
 export const availableThemes = () =>

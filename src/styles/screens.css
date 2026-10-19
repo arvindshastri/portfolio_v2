@@ -20,7 +20,7 @@
   top: calc(4px + var(--i, 0) * 32px);
   height: 32px;
   border-radius: 9px;
-  background: var(--sel);
+  background: var(--hl);
   transition: top 0.15s var(--quart);
 }
 .list .it {
@@ -46,7 +46,7 @@
   text-overflow: ellipsis;
 }
 .list .it.on {
-  color: #fff;
+  color: var(--hlInk);
 }
 .list .it .mk {
   flex: none;

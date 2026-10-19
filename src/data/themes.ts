@@ -9,7 +9,12 @@ export type ThemeTokens = Record<
   | 'ink'
   | 'mute'
   | 'accent'
+  /** the accent on the screen: icons, links, dates, Brick, the visualizer */
   | 'sel'
+  /** the menu's highlight bar, and the text on it (the accent and white, unless the theme
+   *  lightens the bar, as Graphite and Sky do, with dark text) */
+  | 'hl'
+  | 'hlInk'
   | 'shell'
   | 'shell2'
   | 'wheel'
@@ -40,6 +45,9 @@ export interface Theme {
   swatch: string;
   secret?: Game;
   finish?: 'clear';
+  /** Tokens that change when the screen is switched to light, for a theme whose own only work
+   *  on a dark screen (Graphite's light grey). */
+  lightScreen?: Partial<Pick<ThemeTokens, 'sel' | 'hl' | 'hlInk'>>;
   tokens: ThemeTokens;
 }
 
@@ -50,13 +58,15 @@ export const THEMES: Theme[] = [
     screen: 'light',
     swatch: '#cfd2d7',
     tokens: {
-      page: 'oklch(0.955 0.004 250)',
+      page: 'oklch(0.955 0.007 250)',
       ink: 'oklch(0.21 0.01 250)',
-      mute: 'oklch(0.47 0.012 250)',
+      mute: 'oklch(0.47 0.018 250)',
       accent: 'oklch(0.56 0.18 255)',
       sel: 'oklch(0.56 0.18 255)',
-      wall: 'oklch(0.84 0.02 250)',
-      wall2: 'oklch(0.4 0.012 250)',
+      hl: 'oklch(0.56 0.18 255)',
+      hlInk: 'oklch(1 0 0)',
+      wall: 'oklch(0.7 0.008 250)',
+      wall2: 'oklch(0.3 0.025 255)',
       shell: 'oklch(0.9 0.006 250)',
       shell2: 'oklch(0.76 0.01 250)',
       wheel: 'oklch(0.26 0.005 260)',
@@ -65,7 +75,7 @@ export const THEMES: Theme[] = [
       btn: 'oklch(0.88 0.005 250)',
       btn2: 'oklch(0.74 0.008 250)',
       edge: 'rgba(255,255,255,.85)',
-      floor: 'rgba(20,24,32,.28)',
+      floor: 'rgba(20,40,80,.28)',
       wglow: 'rgba(255,255,255,.07)',
       scrL: 'oklch(0.985 0.002 250)',
       inkL: 'oklch(0.2 0.01 250)',
@@ -77,13 +87,22 @@ export const THEMES: Theme[] = [
     id: 'graphite',
     name: 'Graphite',
     screen: 'dark',
+    // a light grey accent and bar, so Black has a look of its own; on a light screen they turn
+    // graphite, with white text
+    lightScreen: {
+      sel: 'oklch(0.4 0.006 260)',
+      hl: 'oklch(0.3 0.006 260)',
+      hlInk: 'oklch(1 0 0)',
+    },
     swatch: '#4a4d53',
     tokens: {
       page: 'oklch(0.18 0.006 260)',
       ink: 'oklch(0.95 0.003 260)',
       mute: 'oklch(0.72 0.01 260)',
-      accent: 'oklch(0.76 0.12 235)',
-      sel: 'oklch(0.55 0.16 250)',
+      accent: 'oklch(0.86 0.004 260)',
+      sel: 'oklch(0.86 0.004 260)',
+      hl: 'oklch(0.86 0.004 260)',
+      hlInk: 'oklch(0.18 0.006 260)',
       wall: 'oklch(0.5 0.015 260)',
       wall2: '#08090e',
       shell: 'oklch(0.44 0.006 260)',
@@ -108,13 +127,15 @@ export const THEMES: Theme[] = [
     screen: 'light',
     swatch: '#a9c8e4',
     tokens: {
-      page: 'oklch(0.95 0.016 235)',
+      page: 'oklch(0.94 0.026 230)',
       ink: 'oklch(0.24 0.03 245)',
       mute: 'oklch(0.46 0.04 245)',
-      accent: 'oklch(0.52 0.14 245)',
-      sel: 'oklch(0.55 0.14 245)',
-      wall: 'oklch(0.55 0.14 245)',
-      wall2: '#08090e',
+      accent: 'oklch(0.5 0.11 238)',
+      sel: 'oklch(0.56 0.12 236)',
+      hl: 'oklch(0.8 0.08 235)',
+      hlInk: 'oklch(0.24 0.05 245)',
+      wall: 'oklch(0.6 0.11 222)',
+      wall2: 'oklch(0.37 0.09 238)',
       shell: 'oklch(0.86 0.045 235)',
       shell2: 'oklch(0.74 0.065 238)',
       wheel: 'oklch(0.985 0.006 235)',
@@ -142,6 +163,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.47 0.04 30)',
       accent: 'oklch(0.55 0.12 30)',
       sel: 'oklch(0.56 0.12 32)',
+      hl: 'oklch(0.56 0.12 32)',
+      hlInk: 'oklch(1 0 0)',
       wall: 'oklch(0.56 0.12 32)',
       wall2: '#08090e',
       shell: 'oklch(0.87 0.042 42)',
@@ -173,6 +196,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.76 0.03 190)',
       accent: 'oklch(0.8 0.12 175)',
       sel: 'oklch(0.52 0.11 185)',
+      hl: 'oklch(0.52 0.11 185)',
+      hlInk: 'oklch(1 0 0)',
       wall: 'oklch(0.52 0.11 185)',
       wall2: '#08090e',
       shell: 'rgba(120,200,190,.16)',
@@ -205,6 +230,8 @@ export const THEMES: Theme[] = [
       mute: 'oklch(0.75 0.04 20)',
       accent: 'oklch(0.72 0.17 25)',
       sel: 'oklch(0.55 0.2 25)',
+      hl: 'oklch(0.55 0.2 25)',
+      hlInk: 'oklch(1 0 0)',
       wall: 'oklch(0.55 0.2 25)',
       wall2: '#08090e',
       shell: 'oklch(0.57 0.2 25)',

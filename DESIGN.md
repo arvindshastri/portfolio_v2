@@ -2,9 +2,9 @@
 name: Arvind Shastri · Pocket
 description: A one-page portfolio that lives inside an original click-wheel device.
 colors:
-  page: 'oklch(0.955 0.004 250)'
+  page: 'oklch(0.955 0.007 250)'
   ink: 'oklch(0.21 0.01 250)'
-  mute: 'oklch(0.47 0.012 250)'
+  mute: 'oklch(0.47 0.018 250)'
   accent: 'oklch(0.56 0.18 255)'
   selection: 'oklch(0.56 0.18 255)'
   screen: 'oklch(0.985 0.002 250)'
@@ -142,14 +142,16 @@ A tinted-neutral room per device color, each with a single accent; the device it
 
 Every device color is a complete theme, and every public color is the same modern, anodized device. The one exception is the secret Clear finish. Red, the other secret color, is the standard anodized body in red with a white wheel, set on a dark red-black stage so it never reads as Rose Gold's pale room. Until earned, each secret color shows as a dashed locked chip. Each theme also decides whether the device ships with a light or a dark screen. The frontmatter lists the default Silver theme; the full set lives in `src/data/themes.ts`. All theme values are authored in OKLCH.
 
-| Theme                                      | Screen | Page                   | Ink                   | Accent               | Screen selection     |
-| ------------------------------------------ | ------ | ---------------------- | --------------------- | -------------------- | -------------------- |
-| Silver (default)                           | Light  | oklch(0.955 0.004 250) | oklch(0.21 0.01 250)  | oklch(0.56 0.18 255) | oklch(0.56 0.18 255) |
-| Graphite                                   | Dark   | oklch(0.18 0.006 260)  | oklch(0.95 0.003 260) | oklch(0.76 0.12 235) | oklch(0.55 0.16 250) |
-| Sky                                        | Light  | oklch(0.95 0.016 235)  | oklch(0.24 0.03 245)  | oklch(0.52 0.14 245) | oklch(0.55 0.14 245) |
-| Rose Gold (always last)                    | Light  | oklch(0.95 0.014 25)   | oklch(0.26 0.03 30)   | oklch(0.55 0.12 30)  | oklch(0.56 0.12 32)  |
-| Clear (secret, unlocked by clearing Brick) | Dark   | oklch(0.2 0.02 190)    | oklch(0.95 0.01 190)  | oklch(0.8 0.12 175)  | oklch(0.52 0.11 185) |
-| Red (secret, stack 30 high in Stack)       | Light  | oklch(0.19 0.035 18)   | oklch(0.95 0.012 20)  | oklch(0.72 0.17 25)  | oklch(0.55 0.2 25)   |
+| Theme                                      | Screen | Page                   | Ink                   | Accent                | Screen selection      |
+| ------------------------------------------ | ------ | ---------------------- | --------------------- | --------------------- | --------------------- |
+| Silver (default)                           | Light  | oklch(0.955 0.007 250) | oklch(0.21 0.01 250)  | oklch(0.56 0.18 255)  | oklch(0.56 0.18 255)  |
+| Graphite                                   | Dark   | oklch(0.18 0.006 260)  | oklch(0.95 0.003 260) | oklch(0.86 0.004 260) | oklch(0.86 0.004 260) |
+| Sky                                        | Light  | oklch(0.94 0.026 230)  | oklch(0.24 0.03 245)  | oklch(0.5 0.11 238)   | oklch(0.56 0.12 236)  |
+| Rose Gold (always last)                    | Light  | oklch(0.95 0.014 25)   | oklch(0.26 0.03 30)   | oklch(0.55 0.12 30)   | oklch(0.56 0.12 32)   |
+| Clear (secret, unlocked by clearing Brick) | Dark   | oklch(0.2 0.02 190)    | oklch(0.95 0.01 190)  | oklch(0.8 0.12 175)   | oklch(0.52 0.11 185)  |
+| Red (secret, stack 30 high in Stack)       | Light  | oklch(0.19 0.035 18)   | oklch(0.95 0.012 20)  | oklch(0.72 0.17 25)   | oklch(0.55 0.2 25)    |
+
+The screen selection colors the icons, links, dates and games on the screen. The menu's highlight bar has its own pair, `hl` and `hlInk`: the selection with white text, except Graphite (a light grey bar with near-black text; its selection is the same light grey; switched to a light screen, it becomes a graphite bar with white text over a darker grey selection) and Sky (a pale sky bar with navy text over a sky-blue selection), so neither looks like Silver's system blue. The lock screen notification icons use the same pair.
 
 Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, Rose Gold) pair a dark or white wheel with their shell; Graphite, the one dark body, uses a dark wheel and the dark screen. Rose Gold is a copper-pink metal (shell hue 36 to 42) on a pink-white room (hue 25), which keeps it out of the cream band.
 
@@ -159,9 +161,9 @@ Four colors are public; five is the ceiling. Light-bodied devices (Silver, Sky, 
 
 ### Neutral
 
-- **Cool Silver Room** (oklch(0.955 0.004 250)): default page background. A near-white with a whisper of blue, never warm.
+- **Cool Silver Room** (oklch(0.955 0.007 250)): default page background. A near-white with a steel cast, never warm. (A stronger blue cast was tried on 2026-10-18 and read too close to Sky.)
 - **Graphite Ink** (oklch(0.21 0.01 250)): page text and the name.
-- **Slate Mute** (oklch(0.47 0.012 250)): secondary page text (role line, hints, callout descriptions). Passes 4.5:1 on the page.
+- **Slate Mute** (oklch(0.47 0.018 250)): secondary page text (role line, hints, callout descriptions). Passes 4.5:1 on the page.
 - **Screen** (`scrL`/`inkL` light, `scrD`/`inkD` dark): the LCD, tinted very slightly toward each theme's hue. The theme picks light or dark; Settings → Screen can flip it until the next color change.
 - **Wheel Ink** (`wink`): the wheel labels, and also the center button's focus ring, so they match the device's material instead of a fixed blue.
 - **Wheel Sheen** (`wglow`): a 5 to 7% white (dark wheels) or tinted (light wheels) highlight under the pointer. Never the accent.
@@ -252,7 +254,7 @@ Tactile, precise and quiet: an object first, a UI second.
 
 ### Lock Screen
 
-- A stock-style gradient wallpaper tinted by each theme's `wall` and `wall2` tokens (a light glow top-left, a deep pool bottom-right, over the dark `wall2` end: near-black for most themes, mid steel gray for Silver), so it follows the device color; no photo. Silver and Graphite use neutral steel and charcoal tints; the other themes use their accent. The time in Lock Clock style, the date below, then the notifications (see Page Chrome). Unlocking slides the lock screen up.
+- A stock-style gradient wallpaper tinted by each theme's `wall` and `wall2` tokens (a light glow top-left, a deep pool bottom-right, over the dark `wall2` end: near-black for most themes, steel for Silver), so it follows the device color; no photo. Silver is steel, a grey glow into a dark blue-grey; Sky is a cyan-sky glow into a deeper blue, lighter than its old near-black one (which looked heavy on the light blue device; paler ones failed contrast for the white text); Graphite uses neutral charcoal; the other themes use their accent. The time in Lock Clock style, the date below, then the notifications (see Page Chrome). Unlocking slides the lock screen up.
 
 ### Reading Page (case studies, roles, About)
 
@@ -286,7 +288,7 @@ Editorial and calm; the content is the hero.
 - **Links:** top-right, "Résumé" and "Contact" in Geist 15px with an underline that draws in from the left on hover.
 - **Swatches:** 22px chips (in 32px touch targets) in a row at the bottom of the page, centered on the `?` (24px from the bottom, like the name and the links from the top), never closer to the device than its usual gap (placed in `fit.ts`). No label; hovering shows the name as a tooltip. Each is a flat disc in its finish's own material: the shell gradient (`shell` to `shell2`), the body's diagonal sheen (115deg, white 30% to transparent) and its lit top edge (`edge`), over the flat swatch color (so see-through Clear still reads). No drop shadow (the Flat Room Rule). The active one gets a soft ring: a 2.5px page-colored gap and a 1px ring of ink at 35% (a full ink ring stood out too much).
 - **`?`:** a 28px outlined circle in the bottom-right corner, 24px from the bottom and as far from the side as the links (26px, 18px on phones), with the color chips' row centered on it, so the bottom of the page reads as one band.
-- **Lock screen notifications:** 16px radius, frosted (white 20% with a 14px backdrop blur), stacked under the date 6px apart: a 24px app icon (on the selection color, 7px radius), a sender and "now" in 11px, the message in 12px/1.35, two lines at most (two notifications only just fit). Each drops in (10px, 600ms ease-out-expo). First, 2.4s in (once the entrance has settled; 0.6s under reduced motion), a message from Arvind (Lucide `MessageCircle`) with `SITE.intro`, where he stands; tapping it unlocks and opens About, like a notification opening its app, and back lands on the About row. A second later, "Tips" (Lucide `CircleDot`): "Press the center or tap here to unlock. Spin the wheel to scroll." Both stay until unlock. The lock screen's time sits 26px from the top so both fit.
+- **Lock screen notifications:** 16px radius, frosted (white 13% with a 14px backdrop blur; any lighter and white text over the paler wallpapers fell below AA), stacked under the date 6px apart: a 24px app icon (on the selection color, 7px radius), a sender and "now" in 11px, the message in 12px/1.35, two lines at most (two notifications only just fit). Each drops in (10px, 600ms ease-out-expo). First, 2.4s in (once the entrance has settled; 0.6s under reduced motion), a message from Arvind (Lucide `MessageCircle`) with `SITE.intro`, where he stands; tapping it unlocks and opens About, like a notification opening its app, and back lands on the About row. A second later, "Tips" (Lucide `CircleDot`): "Press the center or tap here to unlock. Spin the wheel to scroll." Both stay until unlock. The lock screen's time sits 26px from the top so both fit.
 - **Affordances:** locked, the center button presses itself (scale .955, inset shadow) every 3s and a wheel-ink ring pings out of it. Nothing teaches spinning.
 - **Guide:** labeled callouts with hairline leaders (angled where labels need spreading, then level) and dot terminals on each control. Positions are measured from the live device, so leaders always land on their control. Shown only via `?`; the leader lines draw in with a 70ms stagger and fade on the next interaction. On phones (under 820px) `?` shows the same labels as a sheet over the top of the screen instead, fading and dropping in. While open, a fingertip dot sweeps around the wheel's ring with a soft trailing arc to show spinning.
 - **Toasts:** small rounded messages led by a 14px Lucide icon: a check for "Copied …", an open lock for "Clear finish unlocked". Dark on the screen (bottom of the display), ink-colored by the page links. Copying from the device confirms on the device; from the page, on the page. These are the only notifications in the product.
