@@ -23,6 +23,9 @@
   font: 700 18px var(--font-ui);
   letter-spacing: -0.02em;
   color: var(--ink);
+  /* a bigger tap area than the word, cancelled by margins so nothing moves */
+  padding: 10px 12px 2px;
+  margin: -10px -12px -2px;
 }
 .name .role {
   display: block;
@@ -33,6 +36,9 @@
 /* the line under the name rolls between its lines like a row on the device: the old one up and
    out, the new one up from below */
 .name .lines {
+  /* the tap area runs past the words, most of it below (the name sits above) */
+  margin: 0 -12px -12px;
+  padding: 3px 12px 12px;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -84,13 +90,16 @@ body.zoomed .name {
   color: var(--ink);
   text-decoration: none;
   position: relative;
+  /* a 44px-tall tap area around the word, cancelled by margins so nothing moves */
+  padding: 12px 8px;
+  margin: -12px -8px;
 }
 .links a::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -3px;
+  left: 8px;
+  right: 8px;
+  bottom: 9px;
   height: 1.5px;
   background: currentColor;
   transform: scaleX(0);
@@ -125,6 +134,7 @@ body.zoomed .name {
   color: var(--ink);
 }
 .corner .q {
+  position: relative;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -133,6 +143,12 @@ body.zoomed .name {
   place-items: center;
   padding: 0;
   font: 600 13px var(--font-ui);
+}
+/* a 44px tap area around the 28px circle */
+.corner .q::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
 }
 body.zoomed .links,
 body.zoomed .corner,
@@ -155,10 +171,12 @@ body.zoomed .swatches {
   display: flex;
   gap: 2px;
 }
-/* a 32px touch target around a 22px chip */
+/* a 32 by 44px touch target around a 22px chip (the chips sit too close to grow sideways);
+   the margins keep the row 32px tall */
 .swatches button {
   width: 32px;
-  height: 32px;
+  height: 44px;
+  margin: -6px 0;
   padding: 0;
   border: 0;
   background: none;
@@ -203,7 +221,7 @@ body.zoomed .swatches {
 .swatches button.fresh::after {
   content: '';
   position: absolute;
-  inset: 5px;
+  inset: 11px 5px;
   border-radius: 50%;
   border: 2px solid color-mix(in oklch, var(--ink) 55%, transparent);
   pointer-events: none;
@@ -236,7 +254,7 @@ body.zoomed .swatches {
 }
 .swatches button.locked::before {
   position: absolute;
-  inset: 5px;
+  inset: 11px 5px;
   width: auto;
   height: auto;
   background: none;

@@ -225,6 +225,8 @@ body.dark .read .checks b {
   font: 500 11px var(--font-mono);
   color: var(--kick);
   text-decoration: none;
+  /* a real tap area around the small label */
+  padding: 14px 16px;
 }
 .read .proto iframe {
   position: absolute;
@@ -242,6 +244,9 @@ body.dark .read .checks b {
   color: var(--kick);
   text-decoration: none;
   white-space: nowrap;
+  /* a 44px-tall tap area, cancelled by margins so the caption keeps its height */
+  padding: 14px 8px;
+  margin: -14px -8px;
 }
 /* roles: résumé bullets (the arrow list above), then tools and skills */
 .read .duties ul {

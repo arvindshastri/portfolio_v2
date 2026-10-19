@@ -133,6 +133,8 @@ Goals that came out of that:
 
 - **Accents per finish (2026-10-18):** Silver keeps the system blue. Black (Graphite) got a light grey accent and highlight bar with near-black text, so it stands out instead of borrowing Silver's blue (burnt orange, violet, electric blue and a mid grey were tried). On a light screen that light grey looked washed out, so Black switches to a graphite bar with white text there (`lightScreen` in themes.ts). Sky got a sky-blue accent and a pale sky highlight with navy text, to match the device. A light bar needs dark text, so the bar and its text became their own tokens (`hl`, `hlInk`), and the lock screen notification icons use them too, which also stopped Sky's icons blending into its blue wallpaper. Tried and dropped: a white icon tile with an accent glyph (Arvind preferred the theme-colored tile).
 
+- **Bigger tap areas (2026-10-18):** small controls were hard to hit on phones. Their tap areas grew toward 44px (the name, the cycling line, Résumé and Contact, the color chips, `?`, the reading bar's buttons, "Open in Figma") without changing how anything looks or where it sits. Menu rows and the status bar's back button are held by the screen's size.
+
 ## 4. Things to never re-pitch
 
 - Regenerate-the-site-in-any-style (Restyle).

@@ -36,6 +36,7 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  min-height: 44px;
   padding: 8px 10px 8px 4px;
   border-radius: 10px;
   color: var(--kick);
@@ -101,6 +102,7 @@
   align-items: center;
   gap: 6px;
   max-width: 34vw;
+  min-height: 44px;
   padding: 8px 6px 8px 10px;
   border: 0;
   border-radius: 10px;
