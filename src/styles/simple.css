@@ -1,0 +1,976 @@
+/* Simple view (/simple): the portfolio as one ordinary scrolling page, in the Silver theme. */
+body.simple {
+  --sheet-gut: var(--gut);
+  height: auto;
+  overflow: visible;
+  user-select: text;
+  touch-action: auto;
+  --gut: clamp(26px, 4vw, 48px);
+  /* the reading page's color (the device's light screen), so case studies open on the same
+     background as the page they open from */
+  --page: var(--scrL);
+  --line: color-mix(in oklch, var(--ink) 11%, transparent);
+  --body: color-mix(in oklch, var(--ink) 84%, var(--page));
+  /* the selection color, deepened, for the band at the end (white on it is well past AA) */
+  --band: color-mix(in oklch, var(--sel), oklch(0.2 0.05 262) 32%);
+}
+html:has(body.simple) {
+  height: auto;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(body.simple) {
+    scroll-behavior: auto;
+  }
+}
+.s-main,
+.s-foot-in {
+  width: 100%;
+  max-width: calc(1120px + 2 * var(--gut));
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: var(--z-dialog);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--page);
+  font-size: 14px;
+  text-decoration: none;
+}
+.skip:focus {
+  top: 12px;
+}
+.s-meta {
+  font: 500 12.5px var(--font-mono);
+  color: var(--mute);
+}
+
+/* ===== the bar: the device page's name and links, kept on screen =====
+   The name, its line and the links sit where the device page puts them (22px down, 26px in; on
+   phones 18px), in the same type, so switching views only changes what's under them. */
+.s-top {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-chrome);
+  display: flex;
+  /* the links sit level with the middle of the name and its line */
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  /* its edges line up with the page's column at every width */
+  padding: 22px max(var(--gut), (100% - 1120px) / 2) 14px;
+  background: var(--page);
+  box-shadow: 0 1px 0 var(--line);
+}
+.s-name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+.s-name b {
+  /* on the narrowest screens the name gives way (with an ellipsis) rather than run under the
+     links */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 700 18px var(--font-ui);
+  letter-spacing: -0.02em;
+  view-transition-name: site-name;
+}
+.s-name span {
+  margin-top: 3px;
+  font: 500 12.5px var(--font-mono);
+  color: var(--mute);
+  white-space: nowrap;
+  view-transition-name: site-line;
+}
+.s-nav {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 15px;
+}
+.s-nav a,
+.s-foot nav a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  /* a 44px-tall tap area, cancelled by margins so nothing moves */
+  padding: 12px 8px;
+  margin: -12px -8px;
+}
+.s-nav a::after,
+.s-foot nav a::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 9px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s var(--ease);
+}
+.s-nav a:hover::after,
+.s-foot nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+/* the sections are a quieter group than the switch */
+.s-nav a.wide {
+  color: var(--mute);
+}
+.s-nav a.wide:hover {
+  color: var(--ink);
+}
+/* the switch between views: an outlined pill with the other view's icon, the same on both pages
+   (see .links .switch in page.css) */
+.s-nav a.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 0 8px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  font-weight: 500;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+.s-nav a.switch::after {
+  display: none;
+}
+.s-nav a.switch:hover {
+  background: var(--ink);
+  color: var(--page);
+}
+.s-nav a svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Device view is in the menu only on phones, where the bar has no room for its pill */
+.sheet a.phone {
+  display: none;
+}
+/* reading a case study over the page: the page under it holds still */
+html:has(body.simple.zoomed) {
+  overflow: hidden;
+}
+
+/* ===== intro: what he does, the résumé, where he stands ===== */
+.s-hero {
+  padding-top: clamp(56px, 9vw, 120px);
+}
+.s-hero h1 {
+  max-width: 15ch;
+  font: 600 clamp(38px, 6vw, 74px) / 1.03 var(--font-ui);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.s-lead {
+  max-width: 58ch;
+  margin-top: clamp(22px, 3vw, 32px);
+  font: 400 clamp(17.5px, 1.5vw, 20px) / 1.55 var(--font-read);
+  color: var(--body);
+  text-wrap: pretty;
+}
+.s-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 26px;
+  margin-top: 30px;
+  font-size: 15px;
+}
+.s-links a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--ink) 25%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.25s;
+  /* a 44px-tall tap area, cancelled by margins so nothing moves */
+  padding: 12px 0;
+  margin: -12px 0;
+}
+.s-links a:hover {
+  text-decoration-color: currentColor;
+}
+/* the résumé is what most visitors here came for: the selection color, like the device's
+   highlighted row */
+.s-links a.primary {
+  margin: 0 4px 0 0;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: var(--hl);
+  color: var(--hlInk);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.25s;
+}
+.s-links a.primary:hover {
+  background: var(--band);
+}
+.s-facts {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  /* as wide as the intro's text, so the rule above ends with it */
+  max-width: 780px;
+  gap: 18px 56px;
+  margin-top: clamp(36px, 5vw, 52px);
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.s-facts dt,
+.s-toolkit dt {
+  font: 500 12.5px var(--font-mono);
+  color: var(--mute);
+}
+.s-facts dd {
+  max-width: 30ch;
+  margin-top: 5px;
+  font-size: 15.5px;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* ===== sections ===== */
+.s-sec {
+  padding-top: clamp(84px, 11vw, 148px);
+}
+.s-sec > h2 {
+  margin-bottom: clamp(24px, 3vw, 36px);
+  font: 600 clamp(28px, 3.3vw, 42px) / 1.1 var(--font-ui);
+  letter-spacing: -0.03em;
+}
+
+/* projects: a row each, what it is on the left and its cover (a 7:3 banner) on the right; each
+   row takes on its project's own color */
+.s-projects {
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+.s-projects li {
+  --tone: var(--tint, var(--sel));
+  border-top: 1px solid var(--line);
+}
+.s-projects a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  margin-inline: -18px;
+  padding: clamp(18px, 2.4vw, 28px) 18px;
+  border-radius: 18px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.4s var(--quart);
+}
+.s-projects a:hover {
+  background: color-mix(in oklch, var(--tone) 8%, transparent);
+}
+.s-projects figure {
+  aspect-ratio: 1876 / 804;
+  overflow: hidden;
+  border-radius: 14px;
+  background: color-mix(in oklch, var(--tone) 20%, var(--page));
+}
+.s-projects img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.8s var(--ease);
+}
+.s-projects a:hover img {
+  scale: 1.025;
+}
+.s-ptext h3 {
+  margin-bottom: 6px;
+  font: 600 clamp(23px, 2.3vw, 28px) / 1.15 var(--font-ui);
+  letter-spacing: -0.025em;
+}
+.s-ptext p {
+  max-width: 34ch;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--mute);
+  text-wrap: pretty;
+}
+.s-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--tone);
+}
+.s-more svg,
+.s-chev,
+.s-photo svg,
+.s-mail svg,
+.s-toast svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s-more svg {
+  width: 16px;
+  height: 16px;
+  transition: translate 0.45s var(--ease);
+}
+.s-projects a:hover .s-more svg,
+.s-projects a:focus-visible .s-more svg {
+  translate: 4px 0;
+}
+/* the covers drift a little against the scroll, for depth (where the browser can tie motion to
+   scrolling; elsewhere they sit still) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .s-projects img {
+      scale: 1.08;
+      animation: s-drift linear both;
+      animation-timeline: view();
+    }
+    .s-projects a:hover img {
+      scale: 1.11;
+    }
+  }
+}
+@keyframes s-drift {
+  from {
+    translate: 0 -3.5%;
+  }
+  to {
+    translate: 0 3.5%;
+  }
+}
+
+/* experience: one row per role, each on a shared timeline; a row opens to what was done there */
+.s-jobs {
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+  --cols: minmax(0, 260px) minmax(0, 1fr) 132px 18px;
+}
+.s-jobs > li {
+  border-top: 1px solid var(--line);
+}
+.s-jobs summary {
+  display: grid;
+  grid-template-columns: var(--cols);
+  align-items: center;
+  gap: 6px 28px;
+  padding-block: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+/* the role in a sentence, visible without opening it: beside the role, over its bar */
+.s-co {
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+.s-sum {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--body);
+  text-wrap: pretty;
+}
+.s-track {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 8px;
+}
+.s-when,
+.s-chev {
+  grid-row: 1 / span 2;
+  /* on the role name's line */
+  align-self: start;
+  margin-top: 3px;
+}
+.s-jobs summary::-webkit-details-marker {
+  display: none;
+}
+.s-co b {
+  display: block;
+  font: 600 19px / 1.25 var(--font-ui);
+  letter-spacing: -0.015em;
+}
+.s-co span {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--mute);
+}
+.s-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ink) 7%, transparent);
+}
+.s-track i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--sel) 45%, var(--page));
+  transform-origin: left;
+  transition: background-color 0.3s;
+}
+.s-jobs summary:hover .s-track i,
+.s-jobs details[open] .s-track i {
+  background: var(--sel);
+}
+/* an ongoing role runs on past today: its bar fades out at the right */
+.s-track i.now {
+  -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent);
+  mask-image: linear-gradient(90deg, #000 70%, transparent);
+}
+/* each bar draws in from its start as it scrolls into view */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .s-track i {
+      animation: s-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 35%;
+    }
+  }
+}
+@keyframes s-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+.s-when {
+  text-align: right;
+  white-space: nowrap;
+}
+.s-chev {
+  color: var(--mute);
+  transition: rotate 0.35s var(--ease);
+}
+.s-jobs details[open]:not(.closing) .s-chev {
+  rotate: 180deg;
+}
+.s-duties {
+  overflow: hidden;
+  max-width: 68ch;
+  margin-left: calc(260px + 28px);
+  padding-bottom: 30px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--body);
+}
+.s-duties ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.s-duties li {
+  position: relative;
+  padding-left: 18px;
+  text-wrap: pretty;
+}
+.s-duties li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.68em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sel);
+}
+.s-duties a {
+  color: var(--sel);
+}
+.s-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+.s-tools span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--sel) 10%, transparent);
+  font: 500 12.5px var(--font-mono);
+  color: color-mix(in oklch, var(--sel), var(--ink) 45%);
+}
+
+/* a line under a section's heading */
+.s-sub {
+  margin: calc(-1 * clamp(14px, 2vw, 22px)) 0 clamp(22px, 3vw, 32px);
+  font-size: 17px;
+  color: var(--mute);
+}
+
+/* photos: a row of drawings; one enlarges on tap */
+.s-photos {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+.s-photos button {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 0;
+  border-radius: 12px;
+  padding: 0;
+  cursor: zoom-in;
+  background: color-mix(in oklch, var(--ink) 6%, var(--page));
+}
+.s-photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.8s var(--ease);
+}
+.s-photos button:hover img {
+  scale: 1.04;
+}
+.s-photos span {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--mute);
+}
+/* the enlarged photo: the dialog fills the window (so the close button stays in its corner
+   whatever the photo's size) and the photo sits in the middle */
+.s-photo {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: zoom-out;
+}
+.s-photo[open] {
+  display: grid;
+  place-items: center;
+}
+.s-photo::backdrop {
+  background: color-mix(in oklch, var(--ink) 84%, transparent);
+}
+.s-photo img {
+  width: auto;
+  height: auto;
+  max-width: min(92vw, 1100px);
+  max-height: 86dvh;
+  border-radius: 12px;
+}
+.s-photo form {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.s-photo form button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--page) 16%, transparent);
+  color: var(--page);
+  cursor: pointer;
+}
+.s-photo[open] figure {
+  animation: s-photo-in 0.38s var(--ease);
+}
+.s-photo[open]::backdrop {
+  animation: s-fade 0.3s var(--quart);
+}
+@keyframes s-photo-in {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+}
+@keyframes s-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* about: the belief large beside the toolkit, then "Ask me about" centered under both */
+.s-about .s-prose {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.s-statement {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.s-prose > h2:first-of-type {
+  grid-column: 2;
+  grid-row: 1;
+}
+.s-toolkit {
+  grid-column: 2;
+  grid-row: 2;
+}
+.s-prose > h2:nth-of-type(2),
+.s-prose > h2:nth-of-type(2) ~ p {
+  grid-column: 1 / -1;
+}
+.s-prose > h2:nth-of-type(2) {
+  margin-top: clamp(48px, 6vw, 72px);
+  padding-top: clamp(28px, 3vw, 36px);
+  border-top: 1px solid var(--line);
+}
+.s-statement blockquote {
+  font: 600 clamp(24px, 2.5vw, 31px) / 1.25 var(--font-ui);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+/* an opening mark in the selection color */
+.s-statement blockquote::before {
+  content: '“';
+  display: block;
+  height: 0.62em;
+  margin-bottom: 8px;
+  font: 600 2.4em / 1 var(--font-ui);
+  color: var(--sel);
+}
+.s-statement figcaption {
+  max-width: 46ch;
+  margin-top: 18px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--body);
+}
+.s-prose h2 {
+  margin-bottom: 12px;
+  font: 600 19px / 1.3 var(--font-ui);
+  letter-spacing: -0.015em;
+}
+.s-prose p {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--body);
+  text-wrap: pretty;
+}
+.s-toolkit > div {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 12px;
+  border-top: 1px solid var(--line);
+}
+.s-toolkit > div:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.s-toolkit dt {
+  padding-top: 3px;
+}
+.s-toolkit dd {
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+/* ===== the end: a band in the selection color ===== */
+.s-foot {
+  margin-top: clamp(100px, 14vw, 180px);
+  padding-block: clamp(56px, 7vw, 96px) 48px;
+  background: var(--band);
+  color: oklch(1 0 0);
+}
+.s-foot-in > p {
+  font: 600 clamp(30px, 3.8vw, 48px) / 1.08 var(--font-ui);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.s-mail {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font: 400 clamp(19px, 2.2vw, 26px) / 1.3 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+  overflow-wrap: anywhere;
+  transition: text-decoration-color 0.25s;
+}
+.s-mail:hover {
+  text-decoration-color: currentColor;
+}
+.s-mail svg {
+  width: 0.8em;
+  height: 0.8em;
+  opacity: 0.75;
+}
+.s-foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 30px;
+  margin-top: clamp(40px, 5vw, 64px);
+  font-size: 15px;
+}
+.s-foot :focus-visible {
+  outline-color: oklch(1 0 0);
+}
+
+/* "Copied ...": the same dark pill as the device page's */
+.s-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: var(--z-dialog);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px 9px 13px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--page);
+  font: 500 14px var(--font-ui);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  translate: -50% 8px;
+  pointer-events: none;
+  transition:
+    opacity 0.25s var(--quart),
+    translate 0.35s var(--ease);
+}
+.s-toast.on {
+  opacity: 1;
+  translate: -50% 0;
+}
+.s-toast svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.5;
+}
+
+/* a project's cover growing to fill the window on its way to the case study */
+.s-grow {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  background: var(--scr);
+  pointer-events: none;
+}
+.s-grow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== arrival: the intro settles in, line by line (it's visible without this) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .s-intro > * {
+    animation: s-rise 0.9s var(--ease) backwards;
+  }
+  .s-intro > :nth-child(2) {
+    animation-delay: 80ms;
+  }
+  .s-intro > :nth-child(3) {
+    animation-delay: 160ms;
+  }
+  .s-intro > :nth-child(4) {
+    animation-delay: 240ms;
+  }
+}
+@keyframes s-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+/* ===== tablets and phones ===== */
+@media (max-width: 900px) {
+  .s-nav a.wide {
+    display: none;
+  }
+  .burger {
+    display: grid;
+  }
+  .s-jobs {
+    --cols: minmax(0, 1fr) auto 18px;
+  }
+  .s-jobs summary {
+    gap: 12px 16px;
+  }
+  /* a role: the name, dates and chevron, then its sentence, then its bar */
+  .s-co,
+  .s-when,
+  .s-chev {
+    grid-row: 1;
+  }
+  .s-sum {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .s-track {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  .s-duties {
+    margin-left: 0;
+  }
+  .s-photos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .s-about .s-prose {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .s-statement,
+  .s-prose > h2:first-of-type,
+  .s-toolkit {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .s-statement {
+    margin-bottom: 48px;
+  }
+}
+/* phones: the bar matches the device page's on a phone (18px in, 14px links, 14px apart) */
+@media (max-width: 820px) {
+  body.simple {
+    --gut: 18px;
+  }
+  .s-top {
+    padding: 18px var(--gut) 12px;
+  }
+  .s-nav {
+    gap: 14px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) {
+  /* the switch moves into the menu on phones */
+  .s-nav a.switch {
+    display: none;
+  }
+  .sheet a.phone {
+    display: flex;
+  }
+  /* the line under the name runs under the links on a phone, so they sit level with the name */
+  .s-top {
+    align-items: flex-start;
+  }
+  .s-nav {
+    height: 22px;
+  }
+  .s-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .s-facts > div {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .s-facts dd {
+    max-width: none;
+    margin-top: 0;
+  }
+  .s-links {
+    gap: 12px 16px;
+  }
+  .s-projects a {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .s-projects figure {
+    order: -1;
+  }
+  /* the drawings run sideways, a swipe at a time */
+  .s-photos {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gut));
+    padding-inline: var(--gut);
+    scroll-padding-inline: var(--gut);
+    scrollbar-width: none;
+  }
+  .s-photos::-webkit-scrollbar {
+    display: none;
+  }
+  .s-photos li {
+    flex: none;
+    width: 62%;
+    scroll-snap-align: start;
+  }
+  .s-toolkit > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  /* a role: the name and chevron, then its dates, its sentence and its bar */
+  .s-jobs {
+    --cols: minmax(0, 1fr) 18px;
+  }
+  .s-jobs summary {
+    gap: 6px 16px;
+  }
+  .s-when {
+    grid-row: 2;
+    text-align: left;
+  }
+  .s-sum {
+    grid-row: 3;
+    margin-top: 4px;
+  }
+  .s-track {
+    grid-row: 4;
+  }
+  .s-chev {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-photo[open] figure,
+  .s-photo[open]::backdrop {
+    animation: none;
+  }
+  .s-projects img,
+  .s-photos img,
+  .s-more svg {
+    transition: none;
+  }
+}

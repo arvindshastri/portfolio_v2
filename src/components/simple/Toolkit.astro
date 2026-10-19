@@ -1,0 +1,16 @@
+---
+/** Simple view's take on labeled tag groups (the About toolkit): a label beside a plain list. */
+interface Props {
+  groups: [string, string[]][];
+}
+const groups = Astro.props.groups.filter(([, items]) => items.length > 0);
+---
+
+<dl class="s-toolkit">
+  {groups.map(([label, items]) => (
+    <div>
+      <dt>{label}</dt>
+      <dd>{items.join(', ')}</dd>
+    </div>
+  ))}
+</dl>

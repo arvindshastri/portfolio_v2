@@ -42,8 +42,9 @@ export interface DeviceState {
   locked: boolean;
   /** Reading: an article is open as a full-window page. */
   zoomed: boolean;
-  /** The article on the reading page, and the list it came from (kept while the page closes). */
-  reading: { doc: DocRef; back: string } | null;
+  /** The article on the reading page, and the list it came from (kept while the page closes).
+   *  `direct` when it opened straight away, from Simple view, rather than out of the screen. */
+  reading: { doc: DocRef; back: string; direct?: boolean } | null;
   /** Input is ignored while a zoom is mid-flight. */
   busy: boolean;
   /** The screen is blanked for a moment so a reflow never shows. */

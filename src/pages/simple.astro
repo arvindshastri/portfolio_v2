@@ -1,0 +1,394 @@
+---
+/*
+ * Simple view: the whole portfolio as one ordinary page, for visitors who'd rather not use the
+ * device. Always in the Silver theme. Projects open their case studies in place, as the device
+ * does: the reading page grows out of the project's row (the device's Reader, without the device).
+ */
+import { Image } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+import ArticleTemplates from '@/components/ArticleTemplates.astro';
+import Statement from '@/components/simple/Statement.astro';
+import Toolkit from '@/components/simple/Toolkit.astro';
+import Base from '@/layouts/Base.astro';
+import { PHOTOS } from '@/data/photos';
+import { SITE } from '@/data/site';
+import Pocket from '@/device/Pocket';
+import { getDeviceContent, getJobs, getProjects, span } from '@/lib/content';
+import '@/styles/simple.css';
+
+const projects = await getProjects();
+const content = await getDeviceContent();
+const jobs = await Promise.all(
+  (await getJobs()).map(async (entry) => ({
+    entry,
+    ...span(entry.data.period),
+    Content: (await render(entry)).Content,
+  })),
+);
+const about = (await getEntry('pages', 'about'))!;
+const { Content: About } = await render(about);
+
+// every role on one shared axis, from the first year to now
+const d = new Date();
+const now = d.getFullYear() + d.getMonth() / 12;
+const first = Math.floor(Math.min(...jobs.map((j) => j.from)));
+const x = (year: number) => ((year - first) / (now - first)) * 100;
+
+/** The About page's statement and toolkit, laid out for this page. */
+const aboutComponents = { Philosophy: Statement, Tags: Toolkit };
+---
+
+<Base title="Simple view" fixedTheme>
+  <a class="skip" href="#projects">
+    Skip to projects
+  </a>
+  <header class="s-top">
+    <a class="s-name" href="#top" aria-label="Arvind Shastri, back to the top">
+      <b>{SITE.name}</b>
+      <span>{SITE.lines[0]}</span>
+    </a>
+    <nav class="s-nav" aria-label="Sections">
+      <a class="wide" href="#projects">
+        Projects
+      </a>
+      <a class="wide" href="#experience">
+        Experience
+      </a>
+      <a class="wide" href="#photos">
+        Photos
+      </a>
+      <a class="wide" href="#about">
+        About
+      </a>
+      <a class="switch" href="/">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="1" />
+        </svg>
+        Device view
+      </a>
+      <button class="burger" popovertarget="s-menu" aria-label="Menu">
+        <svg class="open" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="4" x2="20" y1="6" y2="6" />
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+        <svg class="shut" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </nav>
+    <nav id="s-menu" class="sheet" popover aria-label="Menu">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#photos">Photos</a>
+      <a href="#about">About</a>
+      <a href={SITE.resume} target="_blank" rel="noopener">
+        Résumé
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 7h10v10" />
+          <path d="M7 17 17 7" />
+        </svg>
+      </a>
+      <a href={`mailto:${SITE.email}`} data-copy={SITE.email}>
+        Contact
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
+      </a>
+      <a class="phone" href="/">
+        Device view
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="1" />
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top" class="s-main">
+    <section class="s-hero">
+      <div class="s-intro">
+        <h1>I love designing and building products people enjoy.</h1>
+        <p class="s-lead">{about.data.lead}</p>
+        <nav class="s-links" aria-label="Résumé and contact">
+          <a class="primary" href={SITE.resume} target="_blank" rel="noopener">
+            Résumé
+          </a>
+          <a href={`mailto:${SITE.email}`} data-copy={SITE.email}>
+            Copy email
+          </a>
+          <a href={SITE.linkedin} target="_blank" rel="noopener">
+            LinkedIn
+          </a>
+          <a href={SITE.github} target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </nav>
+        <dl class="s-facts">
+          <div>
+            <dt>Now</dt>
+            <dd>Open to full-time roles in software and product development</dd>
+          </div>
+          <div>
+            <dt>Studied</dt>
+            <dd>Software Engineering, McMaster '25</dd>
+          </div>
+          <div>
+            <dt>Building</dt>
+            <dd>Trac, as co-founder</dd>
+          </div>
+          <div>
+            <dt>Previously</dt>
+            <dd>Ericsson, CGI and Arbol</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="projects" class="s-sec" aria-labelledby="h-projects">
+      <h2 id="h-projects">Projects</h2>
+      <ul class="s-projects">
+        {projects.map((p, i) => (
+          <li style={p.data.tint ? `--tint:${p.data.tint}` : undefined}>
+            <a href={`/projects/${p.id}/?from=simple`} data-slug={p.id}>
+              <div class="s-ptext">
+                <h3>{p.data.title}</h3>
+                <span class="s-meta">{p.data.tagline}</span>
+                <p>{p.data.pitch}</p>
+                <span class="s-more">
+                  Read the case study
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+              <figure>
+                <Image
+                  src={p.data.cover}
+                  alt={p.data.coverAlt}
+                  widths={[700, 1100, 1600]}
+                  sizes="(min-width: 900px) 740px, 100vw"
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                />
+              </figure>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="experience" class="s-sec" aria-labelledby="h-experience">
+      <h2 id="h-experience">Experience</h2>
+      <ol class="s-jobs">
+        {jobs.map(({ entry, from, to, Content }) => (
+          <li>
+            <details>
+              <summary>
+                <span class="s-co">
+                  <b>{entry.data.company}</b>
+                  <span>{entry.data.role}</span>
+                </span>
+                <span class="s-track" aria-hidden="true">
+                  <i
+                    class={to === null ? 'now' : undefined}
+                    style={`left:${x(from)}%;width:${Math.max(2.5, x(to ?? now) - x(from))}%`}
+                  />
+                </span>
+                <span class="s-meta s-when">{entry.data.years}</span>
+                <svg class="s-chev" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+                <span class="s-sum">{entry.data.summary}</span>
+              </summary>
+              <div class="s-duties">
+                <Content />
+                {entry.data.tools.length > 0 && (
+                  <p class="s-tools">
+                    {entry.data.tools.map((t) => (
+                      <span>{t}</span>
+                    ))}
+                  </p>
+                )}
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="photos" class="s-sec" aria-labelledby="h-photos">
+      <h2 id="h-photos">Photos</h2>
+      <p class="s-sub">A few things I've drawn.</p>
+      <ul class="s-photos">
+        {PHOTOS.map((p) => (
+          <li>
+            <button type="button" data-full={p.id} aria-label={`Enlarge ${p.caption}`}>
+              <Image
+                src={p.image}
+                alt={p.caption}
+                widths={[400, 700]}
+                sizes="(min-width: 860px) 300px, 50vw"
+              />
+            </button>
+            <span>{p.caption}</span>
+          </li>
+        ))}
+      </ul>
+      {PHOTOS.map((p) => (
+        <template data-photo={p.id}>
+          <Image src={p.image} alt={p.caption} widths={[1200, 2000]} sizes="90vw" loading="eager" />
+        </template>
+      ))}
+    </section>
+
+    <section id="about" class="s-sec s-about" aria-labelledby="h-about">
+      <h2 id="h-about">About</h2>
+      <div class="s-prose">
+        <About components={aboutComponents} />
+      </div>
+    </section>
+  </main>
+
+  <footer class="s-foot">
+    <div class="s-foot-in">
+      <p>Thanks for stopping by. Let's talk.</p>
+      <a class="s-mail" href={`mailto:${SITE.email}`} data-copy={SITE.email}>
+        {SITE.email}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
+      </a>
+      <nav aria-label="Elsewhere">
+        <a href={SITE.linkedin} target="_blank" rel="noopener">
+          LinkedIn
+        </a>
+        <a href={SITE.github} target="_blank" rel="noopener">
+          GitHub
+        </a>
+        <a href={SITE.resume} target="_blank" rel="noopener">
+          Résumé
+        </a>
+        <a href="/">Device view</a>
+      </nav>
+    </div>
+  </footer>
+
+  <Pocket client:only="react" content={content} simple />
+  <ArticleTemplates />
+
+  <dialog class="s-photo" aria-label="Photo">
+    <form method="dialog">
+      <button aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </form>
+    <figure></figure>
+  </dialog>
+
+  <div class="s-toast" role="status">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+    <span></span>
+  </div>
+
+  <script>
+    const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // tapping a photo enlarges it; tapping anywhere (or Esc) closes it
+    const dialog = document.querySelector<HTMLDialogElement>('.s-photo')!;
+    const frame = dialog.querySelector('figure')!;
+    for (const button of document.querySelectorAll<HTMLButtonElement>('[data-full]')) {
+      button.addEventListener('click', () => {
+        const t = document.querySelector<HTMLTemplateElement>(
+          `template[data-photo="${button.dataset.full}"]`,
+        );
+        if (!t) return;
+        frame.replaceChildren(t.content.cloneNode(true));
+        dialog.showModal();
+      });
+    }
+    dialog.addEventListener('click', () => dialog.close());
+
+    // the email is copied, not opened in a mail app (as on the device)
+    const toast = document.querySelector<HTMLElement>('.s-toast')!;
+    let hide = 0;
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-copy]')) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        void navigator.clipboard?.writeText(link.dataset.copy!).catch(() => {});
+        toast.querySelector('span')!.textContent = `Copied ${link.dataset.copy}`;
+        toast.classList.add('on');
+        clearTimeout(hide);
+        hide = window.setTimeout(() => toast.classList.remove('on'), 1800);
+      });
+    }
+
+    // a project opens in place (see Pocket's Simple view mode); until that has loaded, or for a
+    // new tab, the link opens the case study's own page
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('.s-projects a')) {
+      link.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (document.documentElement.dataset.reader !== 'ready') return;
+        e.preventDefault();
+        dispatchEvent(
+          new CustomEvent('simple:open', { detail: { slug: link.dataset.slug, row: link } }),
+        );
+      });
+    }
+
+    // the sections menu (phones and tablets) opens under the bar and closes once one is picked
+    const menu = document.querySelector<HTMLElement>('#s-menu')!;
+    menu.addEventListener('beforetoggle', () => {
+      const bar = document.querySelector('.s-top')!.getBoundingClientRect();
+      menu.style.setProperty('--menu-top', `${bar.bottom}px`);
+    });
+    for (const a of menu.querySelectorAll('a'))
+      a.addEventListener('click', () => menu.hidePopover());
+
+    // a role opens and closes smoothly: its details grow from nothing and fold away again
+    const EASE = 'cubic-bezier(.16,1,.3,1)';
+    for (const details of document.querySelectorAll<HTMLDetailsElement>('.s-jobs details')) {
+      const summary = details.querySelector('summary')!;
+      const body = details.querySelector<HTMLElement>('.s-duties')!;
+      let running: Animation | null = null;
+      summary.addEventListener('click', (e) => {
+        if (reduced()) return;
+        e.preventDefault();
+        running?.cancel();
+        if (!details.open || details.classList.contains('closing')) {
+          details.classList.remove('closing');
+          details.open = true;
+          running = body.animate(
+            [
+              { height: '0px', opacity: 0 },
+              { height: `${body.scrollHeight}px`, opacity: 1 },
+            ],
+            { duration: 460, easing: EASE },
+          );
+        } else {
+          details.classList.add('closing');
+          running = body.animate(
+            [
+              { height: `${body.offsetHeight}px`, opacity: 1 },
+              { height: '0px', opacity: 0 },
+            ],
+            { duration: 340, easing: EASE },
+          );
+          running.onfinish = () => {
+            details.open = false;
+            details.classList.remove('closing');
+          };
+        }
+      });
+    }
+  </script>
+</Base>

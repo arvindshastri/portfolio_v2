@@ -1,0 +1,15 @@
+---
+/** Simple view's take on the About page's philosophy block: the belief as a pull quote. */
+interface Props {
+  label: string;
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<figure class="s-statement">
+  <blockquote>{title}</blockquote>
+  <figcaption>
+    <slot />
+  </figcaption>
+</figure>

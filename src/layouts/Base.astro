@@ -17,8 +17,10 @@ interface Props {
   image?: string;
   /** Project pages open unlocked, straight into the case study. */
   locked?: boolean;
+  /** Simple view: an ordinary scrolling page in the Silver theme, whatever the device's color. */
+  fixedTheme?: boolean;
 }
-const { title, description = SITE.description, locked = true } = Astro.props;
+const { title, description = SITE.description, locked = true, fixedTheme = false } = Astro.props;
 const image = Astro.props.image ?? new URL(SITE.image, Astro.site).href;
 const imageAlt = Astro.props.image ? (title ?? SITE.name) : SITE.imageAlt;
 // who this site is about, for search engines
@@ -71,26 +73,34 @@ const themes = THEMES.map(({ id, screen, secret, finish, tokens }) => ({
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
-  <body class={locked ? 'locked' : undefined}>
+  <body class={fixedTheme ? 'simple' : locked ? 'locked' : undefined}>
     <!-- apply the saved device color before the first paint, so returning visitors don't see a flash of Silver -->
-    <script is:inline define:vars={{ themes }}>
+    {!fixedTheme && <script is:inline define:vars={{ themes }}>
       try {
-        const read = (k, d) => {
-          const v = localStorage.getItem('pocket-' + k);
-          return v == null ? d : JSON.parse(v);
-        };
-        const unlocked = { brick: read('secret', read('clear', false)), stack: read('red', false) };
-        const t =
-          themes.find(
-            (x) => x.id === read('color', 'silver') && (!x.secret || unlocked[x.secret]),
-          ) || themes[0];
-        const b = document.body;
-        b.dataset.finish = t.finish || 'modern';
-        if (t.screen === 'dark') b.classList.add('dark');
-        for (const k in t.tokens) b.style.setProperty('--' + k, t.tokens[k]);
+        // a case study opened from Simple view stays in Simple view's Silver, without the device
+        if (new URLSearchParams(location.search).get('from') === 'simple')
+          document.body.classList.add('direct');
+        else {
+          const read = (k, d) => {
+            const v = localStorage.getItem('pocket-' + k);
+            return v == null ? d : JSON.parse(v);
+          };
+          const unlocked = {
+            brick: read('secret', read('clear', false)),
+            stack: read('red', false),
+          };
+          const t =
+            themes.find(
+              (x) => x.id === read('color', 'silver') && (!x.secret || unlocked[x.secret]),
+            ) || themes[0];
+          const b = document.body;
+          b.dataset.finish = t.finish || 'modern';
+          if (t.screen === 'dark') b.classList.add('dark');
+          for (const k in t.tokens) b.style.setProperty('--' + k, t.tokens[k]);
+        }
       } catch (e) {}
-    </script>
-    <div class="room" aria-hidden="true"></div>
+    </script>}
+    {!fixedTheme && <div class="room" aria-hidden="true"></div>}
     <slot />
   </body>
 </html>

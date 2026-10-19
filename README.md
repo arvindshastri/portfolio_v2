@@ -41,7 +41,7 @@ src/
     menu.ts              the menu tree
     engine/              wheel input, reading page, reading scroller, screen slides, audio, music, Brick
     components/          screens, previews, the guide, the page around the device
-  pages/               index and /projects/[slug]
+  pages/               index, /projects/[slug] and /simple (the device-free Simple view)
   styles/              tokens, page, device, screens, article
 public/                résumé, favicon, music files
 prototype/             the single-file prototype the site was designed in

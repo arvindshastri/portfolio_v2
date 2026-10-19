@@ -1,8 +1,9 @@
+import { ArrowUpRight, Copy, LayoutList, Menu, X } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SITE } from '@/data/site';
 import * as actions from '../actions';
 import { click, ensureAudio } from '../engine/audio';
-import { bind, reducedMotion } from '../refs';
+import { bind, reducedMotion, refs } from '../refs';
 import { useDevice } from '../store';
 import { Toast } from './Toast';
 
@@ -86,20 +87,60 @@ function Lines() {
 
 export function Links() {
   const toast = useDevice((s) => s.pageToast);
+  const sheet = useRef<HTMLElement>(null);
+  const copy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    actions.copyEmail(false);
+  };
+
+  // on phones the links are in a sheet under the name (see .sheet in page.css)
+  useEffect(() => {
+    const el = sheet.current;
+    if (!el) return;
+    const place = () => {
+      const name = refs.name?.getBoundingClientRect();
+      el.style.setProperty('--menu-top', `${(name?.bottom ?? 56) + 12}px`);
+    };
+    el.addEventListener('beforetoggle', place);
+    return () => el.removeEventListener('beforetoggle', place);
+  }, []);
+
   return (
     <>
       <nav className="links" ref={bind('links')}>
         <a href={SITE.resume} target="_blank" rel="noopener">
           Résumé
         </a>
+        <a className="contact" href={`mailto:${SITE.email}`} onClick={copy}>
+          Contact
+        </a>
+        <a className="switch" href="/simple/">
+          <LayoutList aria-hidden />
+          Simple view
+        </a>
+        <button className="burger" popoverTarget="page-menu" aria-label="Menu">
+          <Menu className="open" aria-hidden />
+          <X className="shut" aria-hidden />
+        </button>
+      </nav>
+      <nav id="page-menu" className="sheet" popover="auto" ref={sheet} aria-label="Menu">
+        <a href={SITE.resume} target="_blank" rel="noopener">
+          Résumé
+          <ArrowUpRight aria-hidden />
+        </a>
         <a
           href={`mailto:${SITE.email}`}
           onClick={(e) => {
-            e.preventDefault();
-            actions.copyEmail(false);
+            copy(e);
+            sheet.current?.hidePopover();
           }}
         >
           Contact
+          <Copy aria-hidden />
+        </a>
+        <a href="/simple/">
+          Simple view
+          <LayoutList aria-hidden />
         </a>
       </nav>
       <Toast toast={toast} className="copied" />

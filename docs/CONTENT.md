@@ -29,6 +29,8 @@ The previous portfolio (`../Portfolio/portfolio`) has the original case study co
 | Settings   | Color, Screen, Clicker, Show controls                                                      | In place              |
 | Contact    | Copy email, LinkedIn, GitHub, Résumé                                                       | Actions               |
 
+Simple view (`/simple/`) is built from the same content: the first cycling line, the About lead as the intro, projects, roles (with their bullets), photos and the About page's statement and toolkit. Its headline ("I love designing and building products people enjoy.") and the four intro facts (Now: "Open to full-time roles in software and product development", Studied, Building, Previously) are written in `src/pages/simple.astro`. Each project's optional `tint` (an OKLCH color taken from its cover) colors its row there.
+
 ## 3. Case study template
 
 Every project article uses the same building blocks, in roughly this order. Not every block is required; Trac Commuter uses all of them and is the reference.
@@ -74,6 +76,7 @@ Add `src/content/projects/<name>.mdx`. The file name becomes its URL (`/projects
 - `title`, `order` (position in the Projects list), `lead` (the intro paragraph)
 - `tagline` ("2025 · iOS and Android") and `pitch` (one line): the menu preview
 - `cover` (relative path to an image) and `coverAlt`
+- `tint`: optional, the cover's main color in OKLCH (`'oklch(0.5 0.12 152)'`), for its row on Simple view
 - `facts`: optional list of `{ label, value }` for the row under the intro (Role, Platform, Tools, ..., Year). Put the year here: there's no eyebrow above the title
 
 The body is Markdown. Headings (`##`) become sections; with 3 or more, the article gets a Contents list. These components are available without importing: `<Stats>`, `<Note>`, `<PullQuote>`, `<Split>`, `<Gallery>`, `<Figure>` (with `variant="bleed"` or `"panel"`), `<Duo>` + `<Card>`, `<Tags groups>` (labeled tag groups), `<Philosophy label title>` (an inverted statement block), `<PrototypeLink href label>` (a live Figma embed; paste the normal figma.com/proto share link). Images go in `src/assets/projects/<name>/` and are imported at the top of the file; Astro resizes and converts them at build time. Every project is automatically zoomable, peekable and linkable.

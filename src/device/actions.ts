@@ -7,7 +7,7 @@ import * as stack from './engine/stack';
 import * as music from './engine/music';
 import * as reader from './engine/reader';
 import { settle } from './engine/slide';
-import { shrink } from './engine/reading';
+import { setOrigin, shrink } from './engine/reading';
 import { frameEls, reducedMotion, refs } from './refs';
 import { save } from './storage';
 import { getState, newFrame, patchFrame, setState, top, type Enlarged, type Toast } from './store';
@@ -48,6 +48,7 @@ export function pop() {
   const s = getState();
   if (s.photo !== null) return closePhoto();
   if (s.busy) return;
+  if (s.zoomed && exitTo) return leave(level);
   if (s.zoomed) return back(() => closeReading());
   // already at the main menu: nowhere to go back to
   if (s.stack.length < 2) return;
@@ -278,6 +279,13 @@ export function arrowSide(d: 1 | -1) {
 
 /* ===================== reading: a full-window page ===================== */
 
+/** Where the reading page goes back to when a case study page was opened from Simple view. */
+let exitTo: string | null = null;
+/** Set on Simple view itself, which opens case studies in place (see `setSimplePage`). */
+let simplePage = false;
+/** The page under the reading page: its address and title, to restore when reading closes. */
+const base: { path: string; title: string } = { path: '/', title: SITE.name };
+
 /** Opens an article as a page grown out of the screen (see Reader and engine/reading.ts). */
 export function openDoc(doc: DocRef) {
   const s = getState();
@@ -289,14 +297,47 @@ export function openDoc(doc: DocRef) {
     slide: null,
     zoomed: true,
     busy: true,
-    reading: { doc, back: prev.node.title },
+    // from Simple view, the page's back button returns there
+    reading: exitTo
+      ? { doc, back: 'Simple view', direct: true }
+      : { doc, back: simplePage ? 'Simple view' : prev.node.title },
   }));
   bodyClass('zoomed', true);
   click(2);
   document.title = `${doc.title} · ${TITLE}`;
-  // only projects change the address
-  remember({ doc }, doc.slug ? `/projects/${doc.slug}/` : undefined);
+  // only projects change the address (on Simple view, to the address that opens there)
+  const url = doc.slug && `/projects/${doc.slug}/${simplePage ? '?from=simple' : ''}`;
+  remember({ doc }, url || undefined);
   later('read', reducedMotion() ? 0 : 620, () => setState({ busy: false }));
+}
+
+/**
+ * Simple view opens case studies in place, as the device does (no page load): the reading page
+ * grows out of the project's row and shrinks back into it.
+ */
+export function setSimplePage(title: string) {
+  simplePage = true;
+  base.path = location.pathname;
+  base.title = title;
+}
+
+export function openInSimple(doc: DocRef, row: HTMLElement) {
+  setOrigin(() => ({ rect: row.getBoundingClientRect(), radius: 18 }));
+  openDoc(doc);
+}
+
+/** A case study opened from Simple view: it opens at once, and going back returns there. */
+export function openFromSimple(doc: DocRef) {
+  exitTo = '/simple/';
+  openDoc(doc);
+}
+
+/** Back to Simple view: through history when it's the page before, so it keeps its scroll. */
+function leave(depth: number) {
+  const before = document.referrer && new URL(document.referrer);
+  if (before && before.origin === location.origin && before.pathname === exitTo)
+    history.go(-(depth + 1));
+  else location.assign(`${exitTo}#projects`);
 }
 
 /** Shrinks the page back into the screen, which already shows the list again underneath. */
@@ -312,8 +353,8 @@ function zoomOut(andPop: boolean) {
 /** Closes the reading page, back to the list it came from. */
 function closeReading() {
   zoomOut(true);
-  document.title = TITLE;
-  if (location.pathname !== '/' && level === 0) history.replaceState(null, '', '/');
+  document.title = base.title;
+  if (location.pathname !== base.path && level === 0) history.replaceState(null, '', base.path);
 }
 
 /* ===================== history: back undoes one step ===================== */
@@ -361,6 +402,11 @@ export function startAtProject() {
 /** Browser back/forward. */
 export function onHistory(state: (Step & { level?: number }) | null) {
   const target = state?.level ?? 0;
+  // the browser's back button on a case study opened from Simple view returns there
+  if (exitTo && target < level && getState().zoomed && getState().photo === null) {
+    level = target;
+    return leave(target);
+  }
   if (target > level) {
     // forward: redo the step this entry records (one at a time, as the button goes)
     if (target === level + 1 && state) redo(state);
@@ -377,7 +423,7 @@ export function onHistory(state: (Step & { level?: number }) | null) {
   }
   if (getState().zoomed && steps > 0) {
     zoomOut(true);
-    document.title = TITLE;
+    document.title = base.title;
     steps--;
   }
   if (steps === 1) popScreen();

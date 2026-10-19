@@ -35,6 +35,13 @@
 }
 /* the line under the name rolls between its lines like a row on the device: the old one up and
    out, the new one up from below */
+.name button {
+  /* the name and its line glide into place when switching to Simple view (see tokens.css) */
+  view-transition-name: site-name;
+}
+.name .lines {
+  view-transition-name: site-line;
+}
 .name .lines {
   /* the tap area runs past the words, most of it below (the name sits above) */
   margin: 0 -12px -12px;
@@ -78,7 +85,9 @@ body.zoomed .name {
 }
 .links {
   position: fixed;
-  top: 24px;
+  /* as tall as the name and its line, with the links level with their middle */
+  top: 22px;
+  height: 40px;
   right: 26px;
   z-index: var(--z-chrome);
   display: flex;
@@ -109,6 +118,63 @@ body.zoomed .name {
 .links a:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+/* the switch to Simple view: an outlined pill with its icon, so it reads as a way to change how
+   the site is shown (Simple view's "Device view" is the same) */
+.links {
+  align-items: center;
+}
+.links a.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: -8px 0 -8px 8px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  font-weight: 500;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+.links a.switch::after {
+  display: none;
+}
+.links a.switch:hover {
+  background: var(--ink);
+  color: var(--page);
+}
+.links a.switch svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+/* a phone has room for just a menu button beside the name, as on Simple view: Résumé, Contact and
+   Simple view are in its sheet (see the end of this file); the pill is smaller from 640px down */
+@media (max-width: 600px) {
+  .links a,
+  .links a.switch {
+    display: none;
+  }
+  .links .burger {
+    display: grid;
+  }
+}
+@media (max-width: 640px) {
+  /* level with the name: the line under it runs under the links on a phone */
+  .links {
+    height: 22px;
+  }
+  .links a.switch {
+    gap: 6px;
+    margin-left: 0;
+    padding: 5px 11px 5px 9px;
+    font-size: 13.5px;
+  }
+  .links a.switch svg {
+    width: 15px;
+    height: 15px;
+  }
 }
 .corner {
   position: fixed;
@@ -553,7 +619,7 @@ dialog.plain .close {
   .links {
     gap: 14px;
     font-size: 14px;
-    top: 20px;
+    top: 18px;
     right: 18px;
   }
   .name {
@@ -591,4 +657,112 @@ dialog.plain .close {
   opacity: 1;
   font-size: 0.95em;
   vertical-align: -0.1em;
+}
+
+/* ===== the menu on small screens (both pages) =====
+   A menu button, which becomes a close button while open, and a sheet under the name: full
+   width, rows between hairlines, over a light dim. The device page puts Résumé, Contact and
+   Simple view in it on phones; Simple view puts its sections, Résumé, Contact and (on phones)
+   Device view. */
+.burger {
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: -9px -9px -9px 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.burger svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.burger .shut,
+body:has(.sheet:popover-open) .burger .open {
+  display: none;
+}
+body:has(.sheet:popover-open) .burger .shut {
+  display: block;
+}
+.sheet {
+  position: fixed;
+  inset: var(--menu-top, 70px) 0 auto;
+  width: auto;
+  margin: 0;
+  padding: 0 var(--sheet-gut, 18px);
+  border: 0;
+  background: var(--page);
+  color: var(--ink);
+  box-shadow: 0 24px 40px -24px rgba(20, 30, 60, 0.3);
+}
+.sheet::backdrop {
+  /* under the name and the menu button only, which stay as they are */
+  inset: var(--menu-top, 70px) 0 0;
+  background: color-mix(in oklch, var(--ink) 18%, transparent);
+}
+/* the column holds while the sheet fades out after closing, not just while it's open */
+.sheet {
+  flex-direction: column;
+}
+.sheet:popover-open {
+  display: flex;
+}
+.sheet a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px solid color-mix(in oklch, var(--ink) 11%, transparent);
+  color: inherit;
+  font: 600 19px var(--font-ui);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.sheet a:last-child {
+  border-bottom: 0;
+}
+.sheet a svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--mute);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheet,
+  .sheet::backdrop {
+    transition:
+      opacity 0.22s var(--quart),
+      translate 0.36s var(--ease),
+      display 0.36s allow-discrete,
+      overlay 0.36s allow-discrete;
+    opacity: 0;
+  }
+  .sheet {
+    translate: 0 -8px;
+  }
+  .sheet:popover-open,
+  .sheet:popover-open::backdrop {
+    opacity: 1;
+    translate: 0 0;
+  }
+  @starting-style {
+    .sheet:popover-open,
+    .sheet:popover-open::backdrop {
+      opacity: 0;
+      translate: 0 -8px;
+    }
+  }
 }

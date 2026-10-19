@@ -21,7 +21,7 @@ function monthYear(text: string, end = false): number {
 }
 
 /** A role's `period` ("May 2023 to August 2024", "June 2025 to present") as fractional years. */
-function span(period: string): { from: number; to: number | null } {
+export function span(period: string): { from: number; to: number | null } {
   const [start, finish] = period.split(/\s+to\s+/i);
   if (!start || !finish) throw new Error(`Can't read the role period "${period}"`);
   return {

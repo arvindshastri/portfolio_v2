@@ -112,6 +112,12 @@ Spinning moves the existing covers to their new positions (500ms ease-out-expo):
 
 Every step deeper on the device (a screen, a reading page, an enlarged image) gets a history entry recording its depth, so **the browser's back button and Android's back gesture undo exactly one step**, the same as MENU, `Esc`, `‹ Menu` in the status bar and the reading bar's back button. Those also go back through history, so the two can never disagree; one handler does the undoing. From the main menu, back leaves the site. The name unwinds every step at once. A page opened straight into a project is set up as Menu, then Projects, then the project, so back walks out the same way. Each entry also records how to redo its step (the row it was opened from, the article, the image, or Now Playing), so the forward button redoes it, one step at a time.
 
+### Simple view
+
+"Simple view" in the page's links goes to `/simple/`, an ordinary scrolling page (see DESIGN.md); "Device view" there comes back. Nothing is remembered: everyone lands on the device. Switching crossfades the pages and glides the name and its line between their places (a cross-page view transition; browsers without it just navigate).
+
+Its projects open in place, as on the device: the reading page grows out of the clicked row and the address becomes `/projects/<name>/?from=simple` (no page load, so it's as quick as the device). "Simple view" is on the reading bar's back button; that button, `Esc` and the browser's back button shrink it back into the row, where the page was left. Opened in a new tab, or before the page's script has loaded, the link loads that address instead: the case study alone, in Silver, without the device, already open (its article cascades in), and back returns to Simple view (through history when it's the page before, or to `/simple/#projects`). Roles open in place on Simple view (their details grow open and fold shut); there are no role pages. Under 900px the sections are in a menu button's popover, which closes once one is picked. Email links copy the address, as on the device page.
+
 ### Name button
 
 Clicking the name top-left returns to the main menu from anywhere (closing the reading page first, closing an enlarged photo, unlocking if locked).

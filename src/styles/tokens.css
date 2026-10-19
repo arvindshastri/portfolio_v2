@@ -78,3 +78,47 @@ button {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+/* Switching between the device and Simple view: the page crossfades (the old one blurs and sinks
+   a little, the new one rises) and the name and its line glide from one place to the other.
+   Browsers without cross-page transitions just navigate. */
+@view-transition {
+  navigation: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+::view-transition-old(root) {
+  animation: vt-out 0.32s var(--quart) both;
+}
+::view-transition-new(root) {
+  animation: vt-in 0.6s var(--ease) both;
+}
+::view-transition-group(site-name),
+::view-transition-group(site-line) {
+  animation-duration: 0.6s;
+  animation-timing-function: var(--ease);
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    scale: 0.985;
+    filter: blur(6px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+
+/* a case study opened from Simple view: just the reading page, on its own color from the start */
+body.direct {
+  background: var(--scr);
+}
+body.direct .room {
+  display: none;
+}

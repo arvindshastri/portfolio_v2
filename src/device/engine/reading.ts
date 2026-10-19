@@ -8,7 +8,17 @@ const EASE = 'cubic-bezier(.16,1,.3,1)';
  * whole window, then the article fades in, already laid out at its final size. Closing is the
  * mirror: the article fades, and the page shrinks back into the screen.
  */
+/** Where reading grows from instead of the screen (Simple view: the project's row). */
+let origin: (() => { rect: DOMRect; radius: number }) | null = null;
+export function setOrigin(from: typeof origin) {
+  origin = from;
+}
+
 function screenClip(): string {
+  if (origin) {
+    const { rect: r, radius } = origin();
+    return `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round ${radius}px)`;
+  }
   const { lcd, dev } = refs;
   if (!lcd) return 'inset(0 round 0px)';
   // measure the screen square-on: the device's lean toward the pointer is dropped for this
@@ -30,9 +40,11 @@ function screenClip(): string {
 
 const FULL = 'inset(0px 0px 0px 0px round 0px)';
 
-export function grow(el: HTMLElement) {
+/** `fromScreen` false when the page opens straight away (from Simple view): no zoom, just the cascade. */
+export function grow(el: HTMLElement, fromScreen = true) {
   if (reducedMotion()) return;
-  el.animate([{ clipPath: screenClip() }, { clipPath: FULL }], { duration: 620, easing: EASE });
+  if (fromScreen)
+    el.animate([{ clipPath: screenClip() }, { clipPath: FULL }], { duration: 620, easing: EASE });
   // the content cascades in while the page is still opening: the bar, then the article's first
   // blocks one after another (individual `translate`, so blocks keep any transform of their own)
   el.querySelector('.rbar')?.animate([{ opacity: 0 }, { opacity: 1 }], {

@@ -30,7 +30,7 @@ export function Reader() {
   const [progress, setProgress] = useState<Progress>({ active: 0, past: false });
 
   useLayoutEffect(() => {
-    if (reading && refs.reader) grow(refs.reader);
+    if (reading && refs.reader) grow(refs.reader, !reading.direct);
   }, [reading?.doc.key]);
 
   if (!reading) return null;

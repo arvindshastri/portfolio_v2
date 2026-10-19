@@ -16,6 +16,8 @@ const projects = defineCollection({
       lead: z.string(),
       cover: image(),
       coverAlt: z.string(),
+      /** The project's own color (its cover's), for Simple view's hover tint. */
+      tint: z.string().optional(),
       /** The facts under the intro (Role, Platform, Tools, Year, ...): the year lives here. */
       facts: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
     }),
