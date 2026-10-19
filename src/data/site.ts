@@ -5,7 +5,7 @@ export const SITE = {
    * on. Keep each short (one line of mono on a phone).
    */
   lines: [
-    'designer + engineer',
+    'product designer + software engineer',
     'open to full-time roles',
     "swe @ mcmaster '25",
     'co-founder @ trac',
