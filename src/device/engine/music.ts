@@ -6,7 +6,7 @@ import { audioGraph, ensureAudio } from './audio';
 let el: HTMLAudioElement | null = null;
 
 const track = (): Track => TRACKS[getState().music.track]!;
-const level = () => getState().music.vol * 0.9;
+const level = () => getState().music.vol * 0.675;
 
 function patch(p: Partial<ReturnType<typeof getState>['music']>) {
   setState((s) => ({ music: { ...s.music, ...p } }));

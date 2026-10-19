@@ -145,7 +145,7 @@ Center-only, so it works the same on a phone and a laptop; tapping the screen al
 
 ### Brick
 
-Spinning moves the paddle continuously (4.2 canvas px per degree, eased toward the target each frame), not in fixed steps; arrow keys and mouse-wheel notches move it 46px. Center launches the ball. Three balls (dots top-left), score top-right out of 40. Bricks are drawn in the theme's selection color, fading by row; a hit brick pops and fades over 220ms. Modes: ready (ball on the paddle, "press the center to launch"; before the first launch of a game, "Spin the wheel to steer the paddle." above it), play, over, won. Losing a ball returns it to the paddle. Losing all three, or clearing the board, covers the board with the end card ("Game over" or "Cleared", the bricks cleared out of 40). The first press resets to a fresh ready board; the next press launches.
+Spinning moves the paddle continuously (4.2 canvas px per degree, eased toward the target each frame), not in fixed steps; arrow keys and mouse-wheel notches move it 46px. Steering makes no click, so it doesn't compete with the bricks breaking. Center launches the ball. Three balls (dots top-left), score top-right out of 40. Bricks are drawn in the theme's selection color, fading by row; a hit brick pops and fades over 220ms. Modes: ready (ball on the paddle, "press the center to launch"; before the first launch of a game, "Spin the wheel to steer the paddle." above it), play, over, won. Losing a ball returns it to the paddle. Losing all three, or clearing the board, covers the board with the end card ("Game over" or "Cleared", the bricks cleared out of 40). The first press resets to a fresh ready board; the next press launches.
 
 ### Secret finish unlock
 

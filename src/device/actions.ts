@@ -172,8 +172,8 @@ export function step(d: 1 | -1) {
     showVolume();
     click();
   } else if (n.type === 'brick') {
+    // silent, so the bricks can be heard
     brick.steer(d * 46);
-    click();
   }
 }
 

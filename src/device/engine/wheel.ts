@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 import { getState, top } from '../store';
-import { click, ensureAudio } from './audio';
+import { ensureAudio } from './audio';
 import * as brick from './brick';
 
 /** Degrees of rotation per menu step. */
@@ -12,7 +12,7 @@ const STEP = 18;
  * tilts a few degrees toward where it's pressed. Returns a cleanup function.
  */
 export function attachWheel(el: HTMLElement, rock: boolean): () => void {
-  let drag: { angle: number; acc: number; moved: number; ticks: number } | null = null;
+  let drag: { angle: number; acc: number; moved: number } | null = null;
 
   const angleOf = (e: PointerEvent) => {
     const r = el.getBoundingClientRect();
@@ -47,13 +47,9 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
     if (drag.moved > 8) tilt(null);
 
     const s = getState();
-    // Brick: the paddle follows the wheel continuously
+    // Brick: the paddle follows the wheel continuously, silently so the bricks can be heard
     if (!s.locked && top()?.node.type === 'brick') {
       brick.steer(d * 4.2);
-      if ((drag.ticks += Math.abs(d)) > 18) {
-        drag.ticks = 0;
-        click(0.6);
-      }
       return;
     }
     drag.acc += d;
@@ -72,7 +68,7 @@ export function attachWheel(el: HTMLElement, rock: boolean): () => void {
     if (e.button !== 0) return;
     if ((e.target as Element).closest('.center')) return;
     el.setPointerCapture(e.pointerId);
-    drag = { angle: angleOf(e), acc: 0, moved: 0, ticks: 0 };
+    drag = { angle: angleOf(e), acc: 0, moved: 0 };
     el.classList.add('drag');
     ensureAudio();
     tilt(drag.angle);

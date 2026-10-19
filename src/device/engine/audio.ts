@@ -44,7 +44,7 @@ export function click(v = 1) {
   const filter = ctx.createBiquadFilter();
   filter.type = 'highpass';
   filter.frequency.value = 2400;
-  gain.gain.setValueAtTime(0.22 * v, ctx.currentTime);
+  gain.gain.setValueAtTime(0.165 * v, ctx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.01);
   src.buffer = noise;
   src.connect(filter).connect(gain).connect(ctx.destination);
